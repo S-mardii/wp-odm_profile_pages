@@ -76,3 +76,53 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .page-template-page-profiles .single-post .row {
   margin-top: 0;
 }
+#profiles_map{
+  width: 101%;
+  height: 400px;
+}
+
+#profiles_map .cartodb-legend {
+  margin: 5px 10px;
+  padding: 10px 5px;
+}
+#profiles_map .cartodb-legend .legend-title{
+  margin-top: 0;
+  margin-bottom: 3px;
+}
+#profiles_map .cartodb-legend ul{
+  margin-left: 0;
+}
+#profiles_map .cartodb-legend ul li{
+  list-style-type: none;
+  line-height: 13px;
+  display: inline-table;
+  margin: 2px 0;
+}
+#profiles_map .cartodb-legend ul li div.bullet{
+  margin-top: 3px;
+}
+#profiles {
+  width: 92% !important;
+  float: left;
+}
+#profiles td{
+  line-height: 22px;
+}
+#tracking td:nth-child(2){
+  width: 25%
+}
+
+/*temporary hiding references*/
+#profiles td ul{
+  display: none;
+}
+#profiles tbody{
+  width:100%;
+}
+#profiles td .td-value ul{
+  display: inline-block;
+  margin-bottom: 0
+}
+#profiles td .td-value ul li{
+  min-width: 200px;
+}

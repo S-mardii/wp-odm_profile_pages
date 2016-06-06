@@ -11,6 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 == Description ==
 
 Wordpress plugin for exposing custom content type for profile pages
+
 == Installation ==
 
 1. Either download the files as zip or clone <code>git clone https://github.com/OpenDevelopmentMekong/wp-odm_profile_pages.git</code> into the Wordpress plugins folder.
@@ -22,7 +23,8 @@ Wordpress plugin for exposing custom content type for profile pages
 
 == Changelog ==
 
-= 1.0.0 =
+= 0.9.0 =
+
 * First version
 
 == Upgrade Notice ==
