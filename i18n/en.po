@@ -1,0 +1,359 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wpckan\n"
+"POT-Creation-Date: 2016-06-06 17:18+0200\n"
+"PO-Revision-Date: 2016-06-06 17:18+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.4\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _;_e;__;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: i18n\n"
+"X-Poedit-SearchPath-1: .\n"
+"X-Poedit-SearchPathExcluded-0: components\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+
+#: profile-pages.php:23
+msgctxt "post type general name"
+msgid "Profiles Page"
+msgstr ""
+
+#: profile-pages.php:24
+msgctxt "post type singular name"
+msgid "Profile Page"
+msgstr ""
+
+#: profile-pages.php:25
+msgctxt "admin menu"
+msgid "Profile Pages"
+msgstr ""
+
+#: profile-pages.php:26
+msgctxt "add new on admin bar"
+msgid "Profile Pages"
+msgstr ""
+
+#: profile-pages.php:27
+msgctxt "profile page"
+msgid "Add new"
+msgstr ""
+
+#: profile-pages.php:28
+msgid "Add new profile page"
+msgstr ""
+
+#: profile-pages.php:29
+msgid "New profile pages"
+msgstr ""
+
+#: profile-pages.php:30
+msgid "Edit profile pages"
+msgstr ""
+
+#: profile-pages.php:31
+msgid "View profile pages"
+msgstr ""
+
+#: profile-pages.php:32
+msgid "All profile pages"
+msgstr ""
+
+#: profile-pages.php:33
+msgid "Search profile pages"
+msgstr ""
+
+#: profile-pages.php:34
+msgid "Parent profile pages:"
+msgstr ""
+
+#: profile-pages.php:35
+msgid "No profile page found."
+msgstr ""
+
+#: profile-pages.php:36
+msgid "No profile page found in trash."
+msgstr ""
+
+#: profile-pages.php:63
+msgid "CKAN​ Dataset Resource"
+msgstr ""
+
+#: profile-pages.php:71
+msgid "Setting of Profiles Page"
+msgstr ""
+
+#: profile-pages.php:93 profile-pages.php:256
+msgid "ENGLISH"
+msgstr ""
+
+#: profile-pages.php:104
+msgid "CartoDB JSON URL (English)"
+msgstr ""
+
+#: profile-pages.php:109 profile-pages.php:149
+msgid ""
+"CartoDB visualization URL. E.g.: http://user.cartodb.com/api/v2/"
+"viz/621d23a0-5eaa-11e4-ab03-0e853d047bba/viz.json"
+msgstr ""
+
+#: profile-pages.php:114
+msgid "CSV Resource URL (English)"
+msgstr ""
+
+#: profile-pages.php:119 profile-pages.php:159
+msgid ""
+"CSV Resource of dataset on CKAN. Eg. https://data.opendevelopmentmekong.net/"
+"dataset/economic-land-concessions/resource/3b817bce-9823-493b-8429-"
+"e5233ba3bd87?type=dataset"
+msgstr ""
+
+#: profile-pages.php:124
+msgid "CSV Tracking URL (English)"
+msgstr ""
+
+#: profile-pages.php:129 profile-pages.php:169
+msgid ""
+"CSV Resource of tracking dataset on CKAN. Eg. https://data."
+"opendevelopmentmekong.net/dataset/economic-land-concessions/"
+"resource/8cc0c651-8131-404e-bbce-7fe6af728f89?type=dataset"
+msgstr ""
+
+#: profile-pages.php:144
+msgid "CartoDB JSON URL ("
+msgstr ""
+
+#: profile-pages.php:154
+msgid "CSV Resource URL ("
+msgstr ""
+
+#: profile-pages.php:164
+msgid "CSV Tracking URL ("
+msgstr ""
+
+#: profile-pages.php:214 profile-pages.php:227
+msgid ""
+"The attributes of Resource Dataset that would like to display, separated by "
+"line breaks ("
+msgstr ""
+
+#: profile-pages.php:219 profile-pages.php:232
+msgid ""
+"The attributes of Tracking Resource that would like to display, separated by "
+"line breaks ("
+msgstr ""
+
+#: profile-pages.php:267
+msgid "Show Total Numbers of Columns, separated by line breaks (English)"
+msgstr ""
+
+#: profile-pages.php:272
+msgid ""
+"List the attribute names to show their total number on page (separated by "
+"line breaks). Eg. For ELC: <br/>map_id<br/>developer<br/"
+">data_class[\"Government data complete\", \"Government data partial\"]"
+msgstr ""
+
+#: profile-pages.php:277
+msgid "Create Select Filter by Column Index (English)"
+msgstr ""
+
+#: profile-pages.php:282 profile-pages.php:331
+msgid ""
+"Filter selectors will create automatically by adding the column index and "
+"separated by comma. Maximum Filter selectors can create is three. Eg. Create "
+"filter selectors of Data Adjustment and Intended crop or project of ELC "
+"which have index 2 and 5"
+msgstr ""
+
+#: profile-pages.php:287
+msgid "Group Data in Column (English)"
+msgstr ""
+
+#: profile-pages.php:292 profile-pages.php:341
+msgid ""
+"Eg. To group data classification of ELC, based on the attributes sample "
+"provided, the index of data classification is: 5"
+msgstr ""
+
+#: profile-pages.php:297
+msgid "Related Profile Pages (English)"
+msgstr ""
+
+#: profile-pages.php:302 profile-pages.php:351
+msgid ""
+"Please add the links of profile pages that related (separated by new "
+"breaking line). Format: Title of Link|URL. <br/>eg.\n"
+"Economic Land Concessions|https://cambodia.opendevelopmentmekong.net/"
+"profiles/economic-land-concessions/"
+msgstr ""
+
+#: profile-pages.php:316
+msgid "Show Total Numbers of Columns, separated by line breaks ("
+msgstr ""
+
+#: profile-pages.php:321
+msgid ""
+"List the attribut4 names to show their total number on page (separated by "
+"line breaks). Eg. For ELC: map_id<br/>developer<br/>data_class[\"Government "
+"data complete\", \"Government data partial\"]"
+msgstr ""
+
+#: profile-pages.php:326
+msgid "Create Select Filter by Column Index ("
+msgstr ""
+
+#: profile-pages.php:336
+msgid "Group Data in Column ("
+msgstr ""
+
+#: profile-pages.php:346
+msgid "Related Profile Pages ("
+msgstr ""
+
+#: templates/page-profiles-metadata-page.php:4
+msgid "Metadata:"
+msgstr ""
+
+#: templates/page-profiles-single-page.php:42
+#: templates/single-profiles.php:340 templates/single-profiles.php:351
+#: templates/single-profiles.php:374 utils/utils.php:161
+msgid "Not found"
+msgstr ""
+
+#: templates/page-profiles-single-page.php:60
+msgid "Amendments"
+msgstr ""
+
+#: templates/page-profiles-single-page.php:114
+msgid "Reference documents"
+msgstr ""
+
+#: templates/single-profiles.php:124 templates/single-profiles.php:126
+#: templates/single-profiles.php:164 templates/single-profiles.php:166
+msgid "Total"
+msgstr ""
+
+#: templates/single-profiles.php:124 templates/single-profiles.php:126
+#: templates/single-profiles.php:164 templates/single-profiles.php:166
+msgid "Listed"
+msgstr ""
+
+#: templates/single-profiles.php:124 templates/single-profiles.php:126
+#: templates/single-profiles.php:154 templates/single-profiles.php:164
+#: templates/single-profiles.php:166
+msgid ":"
+msgstr ""
+
+#: templates/single-profiles.php:187
+msgid "Search"
+msgstr ""
+
+#: templates/single-profiles.php:190
+msgid "Search data in profile page"
+msgstr ""
+
+#: templates/single-profiles.php:197
+msgid "Download"
+msgstr ""
+
+#: templates/single-profiles.php:261
+msgid "View metadata of dataset"
+msgstr ""
+
+#: templates/single-profiles.php:273
+msgid "Related profile pages"
+msgstr ""
+
+#: templates/single-profiles.php:295
+msgid "Filter by"
+msgstr ""
+
+#: templates/single-profiles.php:300
+msgid "Map ID"
+msgstr ""
+
+#: templates/single-profiles.php:592
+msgid "all"
+msgstr ""
+
+#: templates/single-profiles.php:597
+msgid "All "
+msgstr ""
+
+#: utils/utils.php:94 utils/utils.php:111
+msgid "Download data"
+msgstr ""
+
+#: utils/utils.php:100 utils/utils.php:117
+msgid "View dataset table"
+msgstr ""
+
+#: utils/utils.php:166
+msgid ""
+"ODC is not aware of any adjustments to the concession since it was first "
+"granted."
+msgstr ""
+
+#: utils/utils.php:171
+msgid ""
+"The concession has been subjected to additional reductions in size and has "
+"not been cancelled previously. Publicly available information on land area "
+"cut from ELCs does not include maps or spatial data of excisions. Thus, ODC "
+"cannot present land area cut in shapes. As a result, ELC projects that are "
+"visualized on the interactive map represent the original contract size."
+msgstr ""
+
+#: utils/utils.php:176
+msgid ""
+"The concession has been cancelled with or without a history of reductions in "
+"size."
+msgstr ""
+
+#: utils/utils.php:181
+msgid ""
+"The concession has been subjected to reduction(s) in size although it had "
+"been cancelled previously. Publicly available information on land area cut "
+"from ELCs does not include maps or spatial data of excisions. Thus, ODC "
+"cannot present land area cut in shapes. As a result, ELC projects that are "
+"visualized on the interactive map represent the original contract size."
+msgstr ""
+
+#: utils/utils.php:186
+msgid ""
+"Information obtained from official Government sources, with official legal "
+"documentation, in the four identification fields: <br>a. Company name; "
+"<br>b. Location; <br>c. GPS coordinates and/or analog map; and <br>  d. "
+"Purpose (crop, ore, etc.)"
+msgstr ""
+
+#: utils/utils.php:190
+msgid ""
+"Information obtained from official Government sources, with legal "
+"documentation, but missing one or more of the following identification "
+"fields: <br>a. Company name; <br>b. Location; <br>c. GPS coordinates and/or "
+"analog map; and <br>d. Purpose (crop, ore, etc.)"
+msgstr ""
+
+#: utils/utils.php:194
+msgid ""
+"Information obtained from any other source in public domain (including "
+"documentation from photographs, etc.)"
+msgstr ""
+
+#: utils/utils.php:198
+msgid ""
+"Information obtained from the concessionaire (company/entity) or from "
+"government source(s) without legal documentation."
+msgstr ""
+
+#: utils/utils.php:202
+msgid ""
+"These concessions have been cancelled by the Royal Government of Cambodia."
+msgstr ""
