@@ -368,7 +368,7 @@ Economic Land Concessions|https://cambodia.opendevelopmentmekong.net/profiles/ec
     public function save_post_data($post_id)
     {
         global $post;
-        if (get_post_type($post->ID) == 'profiles') {
+        if (isset($post->ID) && get_post_type($post->ID) == 'profiles') {
             if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
                 return;
             }
@@ -461,3 +461,5 @@ Economic Land Concessions|https://cambodia.opendevelopmentmekong.net/profiles/ec
 }
 
 $GLOBALS['opendev_profile_pages'] = new OpenDev_Profile_Pages();
+
+?>
