@@ -3,7 +3,7 @@
  * Plugin Name: ODM Profile Pages
  * Plugin URI: http://github.com/OpenDevelopmentMekong/odm_profile_pages
  * Description: Wordpress plugin for exposing custom content type for profile pages
- * Version: 1.0.0
+ * Version: 0.9.0
  * Author: Alex Corbi (mail@lifeformapps.com)
  * Author URI: http://www.lifeformapps.com
  * License: GPLv3.
@@ -15,7 +15,11 @@ require_once plugin_dir_path(__FILE__).'vendor/autoload.php';
 // Require utils
 require_once plugin_dir_path(__FILE__).'utils/utils.php';
 
+// Require post types
+require_once plugin_dir_path(__FILE__).'post-types/profile-pages.php';
+
 if (!class_exists('OpenDev_Profile_Pages_Plugin')) {
+
     class OpenDev_Profile_Pages_Plugin
     {
         private static $instance;
@@ -28,6 +32,10 @@ if (!class_exists('OpenDev_Profile_Pages_Plugin')) {
                 self::$instance = new self();
             }
 
+            if (null == self::$post_type) {
+              self::$post_type = new OpenDev_Profile_Pages_Post_Type();
+            }
+
             return self::$instance;
         }
 
@@ -35,9 +43,6 @@ if (!class_exists('OpenDev_Profile_Pages_Plugin')) {
         {
             add_action('init', array($this, 'register_styles'));
             add_action('admin_notices', array($this, 'check_requirements'));
-
-            require_once plugin_dir_path(__FILE__).'post-types/profile-pages.php';
-            self::$post_type = new OpenDev_Profile_Pages_Post_Type();
         }
 
         public function register_styles()

@@ -5,10 +5,10 @@ if (!class_exists('OpenDev_Profile_Pages_Post_Type')) {
     {
         public function __construct()
         {
-            add_action('init', array($this, 'register_post_type'));
-            add_action('add_meta_boxes', array($this, 'add_meta_box'));
-            add_action('save_post', array($this, 'save_post_data'));
-            add_filter('single_template', array($this, 'get_profile_pages_template'));
+          add_action('init', array($this, 'register_post_type'));
+          add_action('add_meta_boxes', array($this, 'add_meta_box'));
+          add_action('save_post', array($this, 'save_post_data'));
+          add_filter('single_template', array($this, 'get_profile_pages_template'));
         }
 
         public function get_profile_pages_template($single_template)
