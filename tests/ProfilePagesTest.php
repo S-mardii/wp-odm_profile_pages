@@ -1,6 +1,6 @@
 <?php
 
-require_once plugin_dir_path(__FILE__) . 'inc/datastore-api.php';
+require_once dirname(dirname(__FILE__)) . '/utils/utils.php';
 
 class ProfilePagesTest extends PHPUnit_Framework_TestCase
 {
