@@ -3,12 +3,6 @@
 <?php if (have_posts()) : the_post(); ?>
 
   <?php
-  $lang = get_current_language();
-  // NOTE: This is a hack to harmonize language code between WP and CKAN.
-  // Current country code for CAmbodia is set to KH on WP, after that is moved to KM, this needs to be replaced.
-  if ($lang == 'kh') {
-      $lang = 'km';
-  }
 
   // End of hack
   $ammendements = null;
@@ -124,7 +118,7 @@ $ref_docs_tracking = array();
                   $count_project = array_count_values(array_map(function ($value) {return $value['map_id'];}, $profiles));
     ?>
                   <!-- List total of dataset by map_id as default-->
-                  <li><strong><?php if ($lang == 'kh' || $lang == 'km') {
+                  <li><strong><?php if (get_current_language() == 'km') {
     echo __('Total', 'opendev').get_the_title().__('Listed', 'opendev').__(':', 'opendev');
 } else {
     echo __('Total', 'opendev').' '.get_the_title().' '.__('Listed', 'opendev').' '.__(':', 'opendev');
@@ -173,7 +167,7 @@ $ref_docs_tracking = array();
                                  if ($total_attributename != 'map_id') {
                                      ?>
                                      <li>
-                                     <?php if ($lang == 'kh' || $lang == 'km') {
+                                     <?php if (get_current_language() == 'km') {
     echo __('Total', 'opendev').$DATASET_ATTRIBUTE[$total_attributename].__('Listed', 'opendev').__(':', 'opendev');
 } else {
     echo __('Total', 'opendev').' '.$DATASET_ATTRIBUTE[$total_attributename].' '.__('Listed', 'opendev').' '.__(':', 'opendev');
@@ -385,7 +379,7 @@ $ref_docs_tracking = array();
                         } elseif (in_array($key, array('data_class', 'adjustment_classification', 'adjustment'))) {
                             ?>
           										<td><div class="td-value"><?php
-                                if ($lang == 'en') {
+                                if (get_current_language() == 'en') {
                                     echo ucwords(trim($profile[$key]));
                                 } else {
                                     echo trim($profile[$key]);
@@ -582,7 +576,7 @@ jQuery(document).ready(function($) {
          }
        ]
        //"aaSorting": [[ 0, 'asc' ]],
-       <?php if ($lang == 'kh' || $lang == 'km') {
+       <?php if (get_current_language() == 'km') {
     ?>
        , "oLanguage": {
            "sLengthMenu": 'បង្ហាញទិន្នន័យចំនួន <select>'+

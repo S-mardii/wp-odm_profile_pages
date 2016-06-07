@@ -194,7 +194,6 @@ if (!class_exists('OpenDev_Profile_Pages_Post_Type')) {
   				  $forms.hide();
   					var selected = $('input[type="radio"][name=language_site]').filter(':checked').val();
   					$('.resource-' + selected).show();
-  					console.log(selected);
   			}
   			$languageSelection.on('change', function() {
   					$('.' + this.className).prop('checked', this.checked);
