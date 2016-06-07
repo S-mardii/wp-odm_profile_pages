@@ -3,18 +3,15 @@
 <?php if (have_posts()) : the_post(); ?>
 
   <?php
-  $lang = get_current_language();
-  // NOTE: This is a hack to harmonize language code between WP and CKAN.
-  // Current country code for CAmbodia is set to KH on WP, after that is moved to KM, this needs to be replaced.
-  if ($lang == 'kh') {
-      $lang = 'km';
-  }
 
   // End of hack
   $ammendements = null;
   $profile = null;
   $profiles = null;
   $filter_map_id = null;
+  $metadata_dataset = null;
+  $dataset = null;
+  $DATASET_ATTRIBUTE = null;
   if (isset($_GET['map_id'])) {
       $filter_map_id = htmlspecialchars($_GET['map_id']);
   }
@@ -22,9 +19,17 @@
       $metadata_dataset = htmlspecialchars($_GET['metadata']);
   }
 
-  //Get Dataset URL of each profile page in Profiles post type
+  $map_visualization_url = get_post_meta($post->ID, '_map_visualization_url', true);
+  $map_visualization_url_localization = get_post_meta($post->ID, '_map_visualization_url_localization', true);
+  $csv_resource_url = get_post_meta($post->ID, '_csv_resource_url', true);
+  $csv_resource_url_localization = get_post_meta($post->ID, '_csv_resource_url_localization', true);
+  $tracking_csv_resource_url = get_post_meta($post->ID, '_tracking_csv_resource_url', true);
+  $tracking_csv_resource_url_localization = get_post_meta($post->ID, '_tracking_csv_resource_url_localization', true);
 
-if ($map_visualization_url !== '') {
+  $filtered_by_column_index = get_post_meta($post->ID, '_filtered_by_column_index', true);
+  $filtered_by_column_index_localization = get_post_meta($post->ID, '_filtered_by_column_index_localization', true);
+
+if (isset($map_visualization_url) && $map_visualization_url !== '') {
     if ((get_current_language() != 'en')) {
         $map_visualization_url = str_replace('?type=dataset', '', get_post_meta($post->ID, '_map_visualization_url_localization', true));
         $ckan_dataset = str_replace('?type=dataset', '', get_post_meta($post->ID, '_csv_resource_url_localization', true));
@@ -43,14 +48,14 @@ if ($map_visualization_url !== '') {
         $related_profile_pages = str_replace('?type=dataset', '', get_post_meta($post->ID, '_related_profile_pages', true));
     }
 }
-if ($map_visualization_url) {
+if (isset($map_visualization_url)) {
     $cartodb_url = $map_visualization_url;
     $cartodb_json = file_get_contents($cartodb_url);
     $cartodb_json_data = json_decode($cartodb_json, true);
     $cartodb_layer_option = $cartodb_json_data['layers'][1]['options'];
     $cartodb_layer_name = $cartodb_layer_option['layer_definition']['layers'][0]['options']['layer_name'];
 }
-if ($ckan_dataset != '') {
+if (isset($ckan_dataset) && $ckan_dataset != '') {
     $ckan_dataset_exploded_by_dataset = explode('/dataset/', $ckan_dataset);
     $ckan_dataset_exploded_by_resource = explode('/resource/', $ckan_dataset_exploded_by_dataset[1]);
     $ckan_dataset_id = $ckan_dataset_exploded_by_resource[0];
@@ -63,8 +68,8 @@ if ($ckan_dataset != '') {
         $profiles = wpckan_get_datastore_resource(wpckan_get_ckan_domain(), $ckan_dataset_csv_id);
     }
 }
-  //for tracking
-if ($ckan_dataset_tracking != '') {
+
+if (isset($ckan_dataset_tracking) && $ckan_dataset_tracking != '') {
     $ckan_dataset_tracking_exploded_by_dataset = explode('/dataset/', $ckan_dataset_tracking);
     $ckan_dataset_tracking_exploded_by_resource = explode('/resource/', $ckan_dataset_tracking_exploded_by_dataset[1]);
     $ckan_dataset_tracking_id = $ckan_dataset_tracking_exploded_by_resource[0];
@@ -73,8 +78,8 @@ if ($ckan_dataset_tracking != '') {
         $ammendements = wpckan_get_datastore_resources_filter(wpckan_get_ckan_domain(), $ckan_dataset_tracking_csv_id, 'map_id', $filter_map_id);
     }
 }
-  //For Attributes
-if (($ckan_dataset != '') || ($ckan_dataset_tracking != '')) {
+
+if ((isset($ckan_dataset) && $ckan_dataset != '') || (isset($ckan_dataset_tracking) &&  $ckan_dataset_tracking != '')) {
     if ((get_current_language() != 'en')) {
         $ckan_attribute = get_post_meta($post->ID, '_attributes_csv_resource_localization', true);
         $ckan_attribute_tracking = get_post_meta($post->ID, '_attributes_csv_resource_tracking_localization', true);
@@ -83,8 +88,8 @@ if (($ckan_dataset != '') || ($ckan_dataset_tracking != '')) {
         $ckan_attribute_tracking = get_post_meta($post->ID, '_attributes_csv_resource_tracking', true);
     }
 }
-//echo $ckan_attribute;
-if ($ckan_attribute != '') {
+
+if (isset($ckan_attribute) && $ckan_attribute != '') {
     $temp_ckan_attribute = explode("\r\n", $ckan_attribute);
     $array_attribute = array();
     foreach ($temp_ckan_attribute as $value) {
@@ -92,9 +97,9 @@ if ($ckan_attribute != '') {
         $array_attribute[trim($array_value[0])] = trim($array_value[1]);
     }
     $DATASET_ATTRIBUTE = $array_attribute;
-}//END IF $ckan_attribute
+}
 
-if ($ckan_attribute_tracking != '') {
+if (isset($ckan_attribute_tracking) && $ckan_attribute_tracking != '') {
     $temp_ckan_attribute_tracking = explode("\r\n", $ckan_attribute_tracking);
     $array_attribute = array();
     foreach ($temp_ckan_attribute_tracking as $value) {
@@ -102,14 +107,14 @@ if ($ckan_attribute_tracking != '') {
         $array_attribute_tracking[trim($array_value_tracking[0])] = trim($array_value_tracking[1]);
     }
     $DATASET_ATTRIBUTE_TRACKING = $array_attribute_tracking;
-}//END IF $ckan_attribute_tracking
+}
 
 $ref_docs_profile = array();
 $ref_docs_tracking = array();
 ?>
 
   <section id="content" class="single-post">
-    <?php if (!IsNullOrEmptyString($filter_map_id)):  //view single conccesion
+    <?php if (!IsNullOrEmptyString($filter_map_id)):
               include 'page-profiles-single-page.php';
           elseif (!IsNullOrEmptyString($metadata_dataset)):
               include 'page-profiles-metadata-page.php';
@@ -120,11 +125,10 @@ $ref_docs_tracking = array();
     ?>
               <div class="total_listed">
                 <ul>
-                  <?php  // Display Total list
+                  <?php
                   $count_project = array_count_values(array_map(function ($value) {return $value['map_id'];}, $profiles));
     ?>
-                  <!-- List total of dataset by map_id as default-->
-                  <li><strong><?php if ($lang == 'kh' || $lang == 'km') {
+                  <li><strong><?php if (get_current_language() == 'km') {
     echo __('Total', 'opendev').get_the_title().__('Listed', 'opendev').__(':', 'opendev');
 } else {
     echo __('Total', 'opendev').' '.get_the_title().' '.__('Listed', 'opendev').' '.__(':', 'opendev');
@@ -137,11 +141,10 @@ $ref_docs_tracking = array();
 
                   <?php
                   $explode_total_number_by_attribute_name = explode("\r\n", $total_number_by_attribute_name);
-    if ($total_number_by_attribute_name != '') {
+    if (isset($total_number_by_attribute_name) && $total_number_by_attribute_name != '') {
         foreach ($explode_total_number_by_attribute_name as $key => $total_attribute_name) {
             if ($total_attribute_name != 'map_id') {
-                //check if total number require to list by Specific value
-                          $total_attributename = trim($total_attribute_name);
+                $total_attributename = trim($total_attribute_name);
                 if (strpos($total_attribute_name, '[') !== false) { //if march
                               $split_field_name_and_value = explode('[', $total_attributename);
                     $total_attributename = trim($split_field_name_and_value[0]); //eg. data_class
@@ -170,10 +173,10 @@ $ref_docs_tracking = array();
 
                                   }//end foreach
                               } else { //count number by field name/attribute name: eg. map_id/developer
-                                 if ($total_attributename != 'map_id') {
+                                 if (isset($total_attributename) && $total_attributename != 'map_id') {
                                      ?>
                                      <li>
-                                     <?php if ($lang == 'kh' || $lang == 'km') {
+                                     <?php if (get_current_language() == 'km') {
     echo __('Total', 'opendev').$DATASET_ATTRIBUTE[$total_attributename].__('Listed', 'opendev').__(':', 'opendev');
 } else {
     echo __('Total', 'opendev').' '.$DATASET_ATTRIBUTE[$total_attributename].' '.__('Listed', 'opendev').' '.__(':', 'opendev');
@@ -186,11 +189,11 @@ $ref_docs_tracking = array();
                                  <?php
 
                                  }
-                              }//end if $specifit_value
-            }//if not map_id
-        }//foreach $explode_total_number_by_attribute_name
-    }//if exist
-                  ?>
+                              }
+            }
+        }
+    }
+    ?>
                   </ul>
               </div>
               <?php
@@ -218,7 +221,7 @@ $ref_docs_tracking = array();
               </div>
               <div class="sidebar_box_content download_buttons">
                 <?php
-                if ($dataset['resources']) {
+                if (isset($dataset['resources']) && $dataset['resources']) {
                     $file_format = array_count_values(array_map(function ($value) {return $value['format'];}, $dataset['resources']));
                     foreach ($file_format as $format => $file_extention) {
                         if ($file_format[$format] > 1 &&  $format != 'CSV') {
@@ -238,10 +241,11 @@ $ref_docs_tracking = array();
                                 <?php
 
                                   }
-                            endforeach; //$dataset["resources"] ?>
+                            endforeach;
+                            ?>
                                 </ul>
                             </div>
-                        </div><!-- format_button -->
+                        </div>
                       <?php
 
                         } elseif (($file_format[$format] > 1) &&  ($format == 'CSV')) {
@@ -268,14 +272,14 @@ $ref_docs_tracking = array();
                                   <?php
 
                                     }
-                                endforeach; //$dataset["resources"] ?>
+                                endforeach;
+                                ?>
                                   </ul>
                               </div>
-                          </div><!-- format_button --> <?php
+                          </div> <?php
 
-                            }//if count file version
-                        else {
-                            foreach ($dataset['resources'] as $key => $resource) :
+                            } else {
+                                foreach ($dataset['resources'] as $key => $resource) :
                               if (($resource['format'] == $format) && ($resource['odm_language'][0] == get_current_language())) {
                                   ?>
                             <span><a target="_blank" href="<?php echo $resource['url'];
@@ -284,8 +288,8 @@ $ref_docs_tracking = array();
                           <?php
 
                               }
-                            endforeach;
-                        }
+                                endforeach;
+                            }
                         } else {
                             foreach ($dataset['resources'] as $key => $resource) :
                             if ($resource['format'] == $format) {
@@ -297,8 +301,8 @@ $ref_docs_tracking = array();
 
                             }
                             endforeach;
-                        }//end else
-                    }//foreach
+                        }
+                    }
                     ?>
                     <div>
                       <a target="_blank" href="?metadata=<?php echo $ckan_dataset_id;
@@ -306,10 +310,10 @@ $ref_docs_tracking = array();
                    </div>
                 <?php
 
-                } //dataset source available ?>
+                }?>
               </div>
             </div>
-            <?php if ($related_profile_pages != '') {
+            <?php if (isset($related_profile_pages) && $related_profile_pages != '') {
     $temp_related_profile_pages = explode("\r\n", $related_profile_pages);
     ?>
             <div class="sidebar_box">
@@ -333,7 +337,7 @@ $ref_docs_tracking = array();
             <?php
 
 } ?>
-          </div><!--three-->
+          </div>
 
         <header class="single-post-header">
     			<div class="twelve columns">
@@ -343,7 +347,7 @@ $ref_docs_tracking = array();
         <div class="row no-margin-buttom">
           <div class="fixed_top_bar"></div>
           <div class="twelve columns table-column-container">
-            <?php if ($filtered_by_column_index != '') {
+            <?php if (isset($filtered_by_column_index) && $filtered_by_column_index != '') {
     ?>
               <div id="filter_by_classification"> <?php _e('Filter by', 'opendev');
     ?></div>
@@ -385,7 +389,7 @@ $ref_docs_tracking = array();
                         } elseif (in_array($key, array('data_class', 'adjustment_classification', 'adjustment'))) {
                             ?>
           										<td><div class="td-value"><?php
-                                if ($lang == 'en') {
+                                if (get_current_language() == 'en') {
                                     echo ucwords(trim($profile[$key]));
                                 } else {
                                     echo trim($profile[$key]);
@@ -485,7 +489,7 @@ var mapViz;
 var oTable;
 var mapIdColNumber = 0;
 
-<?php if ($map_visualization_url != '') {
+<?php if (isset($map_visualization_url) && $map_visualization_url != '') {
     ?>
     var cartodb_user = "<?php echo $cartodb_layer_option['user_name'];
     ?>";
@@ -509,8 +513,7 @@ var mapIdColNumber = 0;
     	layers[1].getSubLayer(0).setSQL(sql);
     }
 
-<?php
-
+<?php 
 } ?>
 
 jQuery(document).ready(function($) {
@@ -526,14 +529,13 @@ jQuery(document).ready(function($) {
 
   });
 
-  //// Update the breadcrumbs list
   if ($('.profile-metadata h2').hasClass('h2_name')) {
     var addto_breadcrumbs = $('.profile-metadata h2.h2_name').text();
     var add_li = $('<li class="separator_by"> / </li><li class="item_map_id"><strong class="bread-current">'+addto_breadcrumbs+'</strong></li>');
     add_li.appendTo( $('#breadcrumbs'));
     $('.item-current a').text($('.item-current a strong').text());
   }
-  //console.log("profile pages init");
+
   $.fn.dataTableExt.oApi.fnFilterAll = function (oSettings, sInput, iColumn, bRegex, bSmart) {
    var settings = $.fn.dataTableSettings;
    for (var i = 0; i < settings.length; i++) {
@@ -543,13 +545,11 @@ jQuery(document).ready(function($) {
 
 <?php if ($filter_map_id == '' && $metadata_dataset == '') {
     ?>
-    /***** Fixed Header */
   	var get_datatable = $('#profiles').position().top;
   	    get_datatable = get_datatable +230;
 
   	$(".content_wrapper").scroll(function(){
   			if ($(".content_wrapper").scrollTop()   >= get_datatable) {
-          //console.log($(".content_wrapper").scrollTop()  + " > = " + get_datatable);
   				$('.dataTables_scrollHead').css('position','fixed').css('top','50px');
   				$('.dataTables_scrollHead').css('z-index',9999);
   				$('.dataTables_scrollHead').width($('.dataTables_scrollBody').width());
@@ -563,26 +563,20 @@ jQuery(document).ready(function($) {
   				$('.dataTables_scrollBody').css('top','0');
   		   }
        });
-     /***** end Fixed Header */
-    // var group_column = <?php //echo $group_data_by_column_index ; ?>;
      oTable = $("#profiles").dataTable({
        scrollX: true,
        responsive: false,
-       //dom: '<"top"<"info"i><"pagination"p><"length"l>>rt', //show pagination on top
-       "sDom": 'T<"H"lf>t<"F"ip>', //show pagination on bottom:
-       //'l' - Length changing, 'f' - Filtering input, 't' - The table!, 'i' - Information, 'p' - Pagination, 'r' - pRocessing
+       "sDom": 'T<"H"lf>t<"F"ip>',
        processing: true,
        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-       //order: [[ 0, 'asc' ]],
-       displayLength: -1 //0
-       , columnDefs: [ //Hide collumns
+       displayLength: -1
+       , columnDefs: [
          {
-           "targets": [ 0 ],//map_id
+           "targets": [ 0 ],
            "visible": false
          }
        ]
-       //"aaSorting": [[ 0, 'asc' ]],
-       <?php if ($lang == 'kh' || $lang == 'km') {
+       <?php if (get_current_language() == 'km') {
     ?>
        , "oLanguage": {
            "sLengthMenu": 'បង្ហាញទិន្នន័យចំនួន <select>'+
@@ -603,23 +597,21 @@ jQuery(document).ready(function($) {
              "sNext": "បន្ទាប់"
            }
        }
-       <?php
-
+       <?php 
 }
     ?>
-       <?php if ($group_data_by_column_index != '') {
+       <?php if (isset($group_data_by_column_index) && $group_data_by_column_index != '') {
     ?>
          , "aaSortingFixed": [[<?php echo $group_data_by_column_index;
     ?>, 'asc' ]] //sort data in Data Classifications first before grouping
-      <?php
-
+      <?php 
 }
     ?>
          , "drawCallback": function ( settings ) {  //Group colums
                  var api = this.api();
                  var rows = api.rows( {page:'current'} ).nodes();
                  var last=null;
-                <?php if ($group_data_by_column_index != '') {
+                <?php if (isset($group_data_by_column_index) && $group_data_by_column_index != '') {
     ?>
                    api.column(<?php echo $group_data_by_column_index;
     ?>, {page:'current'} ).data().each( function ( group, i ) {
@@ -630,16 +622,14 @@ jQuery(document).ready(function($) {
                            last = group;
                        }
                    } );
-                <?php
-
+                <?php 
 }
     ?>
                align_width_td_and_th();
            }
-    }); //end oTable
+    });
 
-     // Filter by Adjustmemt
-     <?php if ($filtered_by_column_index != '') {
+     <?php if (isset($filtered_by_column_index) &&  $filtered_by_column_index != '') {
     $num_filtered_column_index = explode(',', $filtered_by_column_index);
     $number_selector = 1;
     foreach ($num_filtered_column_index as $column_index) {
@@ -648,13 +638,12 @@ jQuery(document).ready(function($) {
             ?>
                   create_filter_by_column_index(<?php echo $column_index;
             ?>);
-    <?php
-
+    <?php 
         }
         ++$number_selector;
-    }//foreach
+    }
 }
-    ?> //If filter columnIndex exists
+    ?>
 
      //Set width of table header and body equally
      function align_width_td_and_th(){
@@ -668,7 +657,6 @@ jQuery(document).ready(function($) {
          });
          $tableBodyCell.each(
                function(i, val){
-                // console.log("TD: "+$(this).width() +" =? "+ $headerCell.eq(i).width());
                  if ( $(this).width() >= $headerCell.eq(i).width() ){
                       $max_width =   widths[i];
                         $headerCell.eq(i).children('.th-value').css('width', $max_width);
@@ -680,12 +668,12 @@ jQuery(document).ready(function($) {
                       $headerCell.eq(i).children('.th-value').css('width', $max_width);
                  }
              });
-     } //function align_width_td_and_th
+     }
 
      function create_filter_by_column_index(col_index){
-       var columnIndex = col_index; //15 is index of Adjustment Classifications
+       var columnIndex = col_index;
        var column_filter_oTable = oTable.api().columns( columnIndex );
-       var column_headercolumnIndex = columnIndex -1; //due to map_id column is hidden, column_headercolumnIndex must decrease
+       var column_headercolumnIndex = columnIndex -1;
        var column_header = $("#profiles").find("th:eq( "+column_headercolumnIndex+" )" ).text();
         <?php if (get_current_language() == 'km') {
     ?>
@@ -701,94 +689,83 @@ jQuery(document).ready(function($) {
                  div_filter.appendTo( $('#filter_by_classification'));
                  var select = $('<select><option value=""><?php _e('All ', 'opendev');
     ?>'+column_header+'</option></select>');
-        <?php
-
+        <?php 
 }
     ?>
            select.appendTo( $('.filter_by_column_index_'+columnIndex) )
            .on( 'change', function () {
-               // Escape the expression so we can perform a regex match
                var val = $.fn.dataTable.util.escapeRegex(
                    $(this).val()
                );
                column_filter_oTable
-                   .search( val ? '^'+val : '', true, false )  //beginning with the str
+                   .search( val ? '^'+val : '', true, false )
                    .draw();
-                    //.search( val ? '^'+val+'$' : '', true, false )   // match to the str only
 
                     var filtered = oTable._('tr', {"filter":"applied"});
-                    <?php if ($map_visualization_url != '') {
+                    <?php if (isset($map_visualization_url) &&  $map_visualization_url != '') {
     ?>
                     filterEntriesMap(_.pluck(filtered,mapIdColNumber));
-                    <?php
-
+                    <?php 
 }
     ?>
            } );
            var i = 1;
            column_filter_oTable.data().eq( 0 ).unique().sort().each( function ( d, j ) {
-               d = d.replace(/[<]br[^>]*[>]/gi,"");  // removes all <br>
+               d = d.replace(/[<]br[^>]*[>]/gi,"");
                var value = d.split('<');
                var first_value = value[1].split('>');
                var only_value = first_value[1].split('<');
                val = first_value[1].trim();
               select.append( '<option value="'+val+'">'+val+'</option>' )
            } );
-     } //create_filter_by_column_index
+     }
 
-       // Enable the filter_by_classification and Show entry bar on scroll up as fixed items
-        ////**** Can't place it above the oTable
-        var $filter_data = $("#filter_by_classification").clone(true); // Filter Data type
-        var $fg_search_filter_bar = $(".dataTables_filter").clone(true);  // search entry
-        var $fg_show_entry_bar = $(".dataTables_length").clone(true);  // show entry
+    var $filter_data = $("#filter_by_classification").clone(true);
+    var $fg_search_filter_bar = $(".dataTables_filter").clone(true);
+    var $fg_show_entry_bar = $(".dataTables_length").clone(true);
 
-        $(".fixed_top_bar").prepend($filter_data);
-        $(".fixed_top_bar").append($fg_show_entry_bar);
-        $(".fixed_top_bar").append($fg_search_filter_bar);
+    $(".fixed_top_bar").prepend($filter_data);
+    $(".fixed_top_bar").append($fg_show_entry_bar);
+    $(".fixed_top_bar").append($fg_search_filter_bar);
 
-        $('.fixed_top_bar .dataTables_length select').val($('.table-column-container .dataTables_length select').val());
-        $('.fixed_top_bar .dataTables_length select').on( 'change', function () {
-           $('.table-column-container .dataTables_length select').val($(this).val());
+    $('.fixed_top_bar .dataTables_length select').val($('.table-column-container .dataTables_length select').val());
+    $('.fixed_top_bar .dataTables_length select').on( 'change', function () {
+       $('.table-column-container .dataTables_length select').val($(this).val());
+    });
+    $('.table-column-container .dataTables_length select').on( 'change', function () {
+       $('.fixed_top_bar .dataTables_length select').val($(this).val());
+    });
+
+    $('.table-column-container #filter_by_classification select').each(function(index){
+        $(this).change(function() {
+            $('.fixed_top_bar #filter_by_classification select').eq(index).val($(this).val());
         });
-        $('.table-column-container .dataTables_length select').on( 'change', function () {
-           $('.fixed_top_bar .dataTables_length select').val($(this).val());
-        });
+    })
+    $('.fixed_top_bar #filter_by_classification select').each(function(index){
+          $(this).change(function() {
+            $('.table-column-container #filter_by_classification select').eq(index).val($(this).val());
+          });
+    })
 
-        $('.table-column-container #filter_by_classification select').each(function(index){
-            $(this).change(function() {
-                $('.fixed_top_bar #filter_by_classification select').eq(index).val($(this).val());
-            });
-        })
-        $('.fixed_top_bar #filter_by_classification select').each(function(index){
-              $(this).change(function() {
-                $('.table-column-container #filter_by_classification select').eq(index).val($(this).val());
-              });
-        })
-        // End Enable the filter_by_classification and Show entry bar
-
-        //Enable header scroll bar
-
-        $('.dataTables_scrollHead').scroll(function(e){
-               $('.dataTables_scrollBody').scrollLeft(e.target.scrollLeft);
-        });
+    $('.dataTables_scrollHead').scroll(function(e){
+           $('.dataTables_scrollBody').scrollLeft(e.target.scrollLeft);
+    });
 
    $("#search_all").keyup(function () {
      oTable.fnFilterAll(this.value);
      var filtered = oTable._('tr', {"filter":"applied"});
-     <?php if ($map_visualization_url != '') {
+     <?php if (isset($map_visualization_url) && $map_visualization_url != '') {
     ?>
      filterEntriesMap(_.pluck(filtered,mapIdColNumber));
-     <?php
-
+     <?php 
 }
     ?>
    });
-<?php
-
-} //if single page
+<?php 
+}
 ?>
- }); //jQuery
-<?php if ($map_visualization_url != '') {
+ });
+<?php if (isset($map_visualization_url) && $map_visualization_url != '') {
     ?>
      window.onload = function() {
        cartodb.createVis('profiles_map', '<?php echo $map_visualization_url;
@@ -801,7 +778,6 @@ jQuery(document).ready(function($) {
      		https: true
      	}).done(function(vis, layers) {
          singleProfile = $('#profiles').length <= 0;
-         //console.log("cartodb viz created. singleProfile: " + singleProfile);
      		mapViz = vis;
          if (singleProfile){
            singleProfileMapId  = $("#profile-map-id").text();
@@ -809,8 +785,7 @@ jQuery(document).ready(function($) {
          }
      	});
 
-    }//window
-<?php
-
+    }
+<?php 
 } ?>
  </script>

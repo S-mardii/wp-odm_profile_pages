@@ -17,7 +17,7 @@ class ProfilePagesTest extends PHPUnit_Framework_TestCase
 
     public function testIncorrectCkanDomain()
     {
-        $results = get_datastore_resource('incorrect_domain','some_resource_id');
+        $results = wpckan_get_datastore_resource('incorrect_domain','some_resource_id');
         $this->assertEmpty($results);
     }
 }

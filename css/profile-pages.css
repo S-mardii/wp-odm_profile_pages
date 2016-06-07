@@ -80,7 +80,6 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
   width: 101%;
   height: 400px;
 }
-
 #profiles_map .cartodb-legend {
   margin: 5px 10px;
   padding: 10px 5px;
@@ -111,8 +110,6 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 #tracking td:nth-child(2){
   width: 25%
 }
-
-/*temporary hiding references*/
 #profiles td ul{
   display: none;
 }
