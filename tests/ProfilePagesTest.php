@@ -1,10 +1,9 @@
 <?php
 
-require_once dirname(dirname(__FILE__)) . '/utils/utils.php';
+require_once dirname(dirname(__FILE__)).'/utils/utils.php';
 
 class ProfilePagesTest extends PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         // init vars here
@@ -15,11 +14,8 @@ class ProfilePagesTest extends PHPUnit_Framework_TestCase
         // undo stuff here
     }
 
-    public function testIncorrectCkanDomain()
+    public function testDummy()
     {
-        $results = wpckan_get_datastore_resource('incorrect_domain','some_resource_id');
-        $this->assertEmpty($results);
+        $this->assertTrue(true);
     }
 }
-
-?>
