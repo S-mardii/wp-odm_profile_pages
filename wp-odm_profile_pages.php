@@ -47,8 +47,7 @@ if (!class_exists('OpenDev_Profile_Pages_Plugin')) {
 
         public function register_styles()
         {
-            wp_register_style('style',  plugin_dir_url(__FILE__).'css/profile-pages.css');
-            wp_enqueue_style('style');
+            wp_enqueue_style('style-profiles',  plugin_dir_url(__FILE__).'css/profile-pages.css');
         }
 
         function check_requirements(){
