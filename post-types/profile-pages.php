@@ -27,7 +27,7 @@ if (!class_exists('OpenDev_Profile_Pages_Post_Type')) {
             $labels = array(
             'name' => __('Profiles Page', 'post type general name', 'opendev'),
             'singular_name' => __('Profile Page', 'post type singular name', 'opendev'),
-            'menu_name' => __('Profile Pages', 'admin menu', 'opendev'),
+            'menu_name' => __('Profile Pages', 'admin menu for profile pages', 'opendev'),
             'name_admin_bar' => __('Profile Pages', 'add new on admin bar', 'opendev'),
             'add_new' => __('Add new', 'profile page', 'opendev'),
             'add_new_item' => __('Add new profile page', 'opendev'),
@@ -53,7 +53,7 @@ if (!class_exists('OpenDev_Profile_Pages_Post_Type')) {
             'has_archive' => true,
             'hierarchical' => true,
             //'taxonomies'         => array('category', 'language', 'post_tag'),
-            'menu_position' => 4,
+            //'menu_position' => 4,
             'supports' => array('title', 'editor', 'page-attributes', 'revisions', 'author', 'thumbnail'),
         );
 
