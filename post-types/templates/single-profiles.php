@@ -30,7 +30,7 @@
   $filtered_by_column_index_localization = get_post_meta($post->ID, '_filtered_by_column_index_localization', true);
 
 if (isset($map_visualization_url) && $map_visualization_url !== '') {
-    if ((get_current_language() != 'en')) {
+    if ((opendev_language_manager()->get_current_language() != 'en')) {
         $map_visualization_url = str_replace('?type=dataset', '', get_post_meta($post->ID, '_map_visualization_url_localization', true));
         $ckan_dataset = str_replace('?type=dataset', '', get_post_meta($post->ID, '_csv_resource_url_localization', true));
         $ckan_dataset_tracking = str_replace('?type=dataset', '', get_post_meta($post->ID, '_tracking_csv_resource_url_localization', true));
@@ -80,7 +80,7 @@ if (isset($ckan_dataset_tracking) && $ckan_dataset_tracking != '') {
 }
 
 if ((isset($ckan_dataset) && $ckan_dataset != '') || (isset($ckan_dataset_tracking) &&  $ckan_dataset_tracking != '')) {
-    if ((get_current_language() != 'en')) {
+    if ((opendev_language_manager()->get_current_language() != 'en')) {
         $ckan_attribute = get_post_meta($post->ID, '_attributes_csv_resource_localization', true);
         $ckan_attribute_tracking = get_post_meta($post->ID, '_attributes_csv_resource_tracking_localization', true);
     } else {
@@ -120,6 +120,16 @@ $ref_docs_tracking = array();
               include 'page-profiles-metadata-page.php';
           else: ?>
       <div class="container">
+        <div class="row">
+  			    <div class="twelve columns">
+              <header class="single-post-header">
+                  <h1 class="align-left"><a href="<?php get_page_link(); ?>"><?php the_title(); ?></a></h1>
+          		</header>
+            </div>
+        </div>
+
+        <!--  Statistics-->
+        <div class="row">
           <div class="twelve columns">
               <?php if ($profiles) {
     ?>
@@ -128,7 +138,7 @@ $ref_docs_tracking = array();
                   <?php
                   $count_project = array_count_values(array_map(function ($value) {return $value['map_id'];}, $profiles));
     ?>
-                  <li><strong><?php if (get_current_language() == 'km') {
+                  <li><strong><?php if (opendev_language_manager()->get_current_language() == 'km') {
     echo __('Total', 'opendev').get_the_title().__('Listed', 'opendev').__(':', 'opendev');
 } else {
     echo __('Total', 'opendev').' '.get_the_title().' '.__('Listed', 'opendev').' '.__(':', 'opendev');
@@ -176,7 +186,7 @@ $ref_docs_tracking = array();
                                  if (isset($total_attributename) && $total_attributename != 'map_id') {
                                      ?>
                                      <li>
-                                     <?php if (get_current_language() == 'km') {
+                                     <?php if (opendev_language_manager()->get_current_language() == 'km') {
     echo __('Total', 'opendev').$DATASET_ATTRIBUTE[$total_attributename].__('Listed', 'opendev').__(':', 'opendev');
 } else {
     echo __('Total', 'opendev').' '.$DATASET_ATTRIBUTE[$total_attributename].' '.__('Listed', 'opendev').' '.__(':', 'opendev');
@@ -200,7 +210,11 @@ $ref_docs_tracking = array();
 
 } ?>
           </div>
-    			<div class="nine columns">
+        </div>
+
+        <!--  Filter-->
+        <div class="row">
+          <div class="nine columns">
             <div id="profiles_map" class="profiles_map"></div>
           </div>
           <div class="three columns">
@@ -255,7 +269,7 @@ $ref_docs_tracking = array();
                           }
                             endforeach; //$dataset["resources"]
                         $count_file_version = array_count_values($file_version);
-                            if ($count_file_version[get_current_language()] > 1) {
+                            if ($count_file_version[opendev_language_manager()->get_current_language()] > 1) {
                                 ?>
                           <div class="format_button" id="format_<?php echo $format;
                                 ?>"><a class="format" href="#"><?php echo $format;
@@ -264,7 +278,7 @@ $ref_docs_tracking = array();
                                   <ul class="list_format">
                                   <?php
                                   foreach ($dataset['resources'] as $key => $resource) :
-                                    if (($resource['format'] == $format) && ($resource['odm_language'][0] == get_current_language())) {
+                                    if (($resource['format'] == $format) && ($resource['odm_language'][0] == opendev_language_manager()->get_current_language())) {
                                         ?>
                                           <li><a href="<?php echo $resource['url'];
                                         ?>"><?php echo $resource['name'];
@@ -280,7 +294,7 @@ $ref_docs_tracking = array();
 
                             } else {
                                 foreach ($dataset['resources'] as $key => $resource) :
-                              if (($resource['format'] == $format) && ($resource['odm_language'][0] == get_current_language())) {
+                              if (($resource['format'] == $format) && ($resource['odm_language'][0] == opendev_language_manager()->get_current_language())) {
                                   ?>
                             <span><a target="_blank" href="<?php echo $resource['url'];
                                   ?>"><?php echo $resource['format'];
@@ -338,12 +352,9 @@ $ref_docs_tracking = array();
 
 } ?>
           </div>
+        </div>
 
-        <header class="single-post-header">
-    			<div class="twelve columns">
-            <h1 class="align-left"><a href="<?php get_page_link(); ?>"><?php the_title(); ?></a></h1>
-    			</div>
-    		</header>
+        <!-- Table -->
         <div class="row no-margin-buttom">
           <div class="fixed_top_bar"></div>
           <div class="twelve columns table-column-container">
@@ -389,7 +400,7 @@ $ref_docs_tracking = array();
                         } elseif (in_array($key, array('data_class', 'adjustment_classification', 'adjustment'))) {
                             ?>
           										<td><div class="td-value"><?php
-                                if (get_current_language() == 'en') {
+                                if (opendev_language_manager()->get_current_language() == 'en') {
                                     echo ucwords(trim($profile[$key]));
                                 } else {
                                     echo trim($profile[$key]);
@@ -419,7 +430,7 @@ $ref_docs_tracking = array();
                           <?php
 
                         } elseif (in_array($key, array('cdc_num', 'sub-decree', 'year'))) {
-                            if (get_current_language() == 'km') {
+                            if (opendev_language_manager()->get_current_language() == 'km') {
                                 $profile_value = convert_to_kh_number($profile[$key]);
                             } else {
                                 $profile_value = $profile[$key];
@@ -433,7 +444,7 @@ $ref_docs_tracking = array();
 
                         } else {
                             $profile_val = str_replace('T00:00:00', '', $profile[$key]);
-                            if (get_current_language() == 'km') {
+                            if (opendev_language_manager()->get_current_language() == 'km') {
                                 if (is_numeric($profile_val)) {
                                     $profile_value = convert_to_kh_number(str_replace('.00', '', number_format($profile_val, 2, '.', ',')));
                                 } else {
@@ -513,7 +524,7 @@ var mapIdColNumber = 0;
     	layers[1].getSubLayer(0).setSQL(sql);
     }
 
-<?php 
+<?php
 } ?>
 
 jQuery(document).ready(function($) {
@@ -576,7 +587,7 @@ jQuery(document).ready(function($) {
            "visible": false
          }
        ]
-       <?php if (get_current_language() == 'km') {
+       <?php if (opendev_language_manager()->get_current_language() == 'km') {
     ?>
        , "oLanguage": {
            "sLengthMenu": 'បង្ហាញទិន្នន័យចំនួន <select>'+
@@ -597,14 +608,14 @@ jQuery(document).ready(function($) {
              "sNext": "បន្ទាប់"
            }
        }
-       <?php 
+       <?php
 }
     ?>
        <?php if (isset($group_data_by_column_index) && $group_data_by_column_index != '') {
     ?>
          , "aaSortingFixed": [[<?php echo $group_data_by_column_index;
     ?>, 'asc' ]] //sort data in Data Classifications first before grouping
-      <?php 
+      <?php
 }
     ?>
          , "drawCallback": function ( settings ) {  //Group colums
@@ -622,7 +633,7 @@ jQuery(document).ready(function($) {
                            last = group;
                        }
                    } );
-                <?php 
+                <?php
 }
     ?>
                align_width_td_and_th();
@@ -638,7 +649,7 @@ jQuery(document).ready(function($) {
             ?>
                   create_filter_by_column_index(<?php echo $column_index;
             ?>);
-    <?php 
+    <?php
         }
         ++$number_selector;
     }
@@ -675,7 +686,7 @@ jQuery(document).ready(function($) {
        var column_filter_oTable = oTable.api().columns( columnIndex );
        var column_headercolumnIndex = columnIndex -1;
        var column_header = $("#profiles").find("th:eq( "+column_headercolumnIndex+" )" ).text();
-        <?php if (get_current_language() == 'km') {
+        <?php if (opendev_language_manager()->get_current_language() == 'km') {
     ?>
                  var div_filter = $('<div class="filter_by filter_by_column_index_'+columnIndex+'"></div>');
                  div_filter.appendTo( $('#filter_by_classification'));
@@ -689,7 +700,7 @@ jQuery(document).ready(function($) {
                  div_filter.appendTo( $('#filter_by_classification'));
                  var select = $('<select><option value=""><?php _e('All ', 'opendev');
     ?>'+column_header+'</option></select>');
-        <?php 
+        <?php
 }
     ?>
            select.appendTo( $('.filter_by_column_index_'+columnIndex) )
@@ -705,7 +716,7 @@ jQuery(document).ready(function($) {
                     <?php if (isset($map_visualization_url) &&  $map_visualization_url != '') {
     ?>
                     filterEntriesMap(_.pluck(filtered,mapIdColNumber));
-                    <?php 
+                    <?php
 }
     ?>
            } );
@@ -757,11 +768,11 @@ jQuery(document).ready(function($) {
      <?php if (isset($map_visualization_url) && $map_visualization_url != '') {
     ?>
      filterEntriesMap(_.pluck(filtered,mapIdColNumber));
-     <?php 
+     <?php
 }
     ?>
    });
-<?php 
+<?php
 }
 ?>
  });
@@ -786,6 +797,6 @@ jQuery(document).ready(function($) {
      	});
 
     }
-<?php 
+<?php
 } ?>
  </script>
