@@ -62,7 +62,7 @@ if (isset($ckan_dataset) && $ckan_dataset != '') {
     $ckan_dataset_csv_id = $ckan_dataset_exploded_by_resource[1];
 
     $dataset = wpckan_get_dataset_by_id(wpckan_get_ckan_domain(), $ckan_dataset_id);
-    if (!IsNullOrEmptyString($filter_map_id)) {
+    if (!empty($filter_map_id)) {
         $profile = wpckan_get_datastore_resources_filter(wpckan_get_ckan_domain(), $ckan_dataset_csv_id, 'map_id', $filter_map_id)[0];
     } else {
         $profiles = wpckan_get_datastore_resource(wpckan_get_ckan_domain(), $ckan_dataset_csv_id);
@@ -74,7 +74,7 @@ if (isset($ckan_dataset_tracking) && $ckan_dataset_tracking != '') {
     $ckan_dataset_tracking_exploded_by_resource = explode('/resource/', $ckan_dataset_tracking_exploded_by_dataset[1]);
     $ckan_dataset_tracking_id = $ckan_dataset_tracking_exploded_by_resource[0];
     $ckan_dataset_tracking_csv_id = $ckan_dataset_tracking_exploded_by_resource[1];
-    if (!IsNullOrEmptyString($filter_map_id)) {
+    if (!empty($filter_map_id)) {
         $ammendements = wpckan_get_datastore_resources_filter(wpckan_get_ckan_domain(), $ckan_dataset_tracking_csv_id, 'map_id', $filter_map_id);
     }
 }
@@ -114,9 +114,9 @@ $ref_docs_tracking = array();
 ?>
 
   <section id="content" class="single-post">
-    <?php if (!IsNullOrEmptyString($filter_map_id)):
+    <?php if (!empty($filter_map_id)):
               include 'page-profiles-single-page.php';
-          elseif (!IsNullOrEmptyString($metadata_dataset)):
+          elseif (!empty($metadata_dataset)):
               include 'page-profiles-metadata-page.php';
           else: ?>
       <div class="container">

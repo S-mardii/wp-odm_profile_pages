@@ -70,7 +70,7 @@
                 <?php
                 $concession_or_developer = '';
                 foreach ($ammendements as $key => $ammendement):
-                  if (!IsNullOrEmptyString($ammendement["reference"])){
+                  if (!empty($ammendement["reference"])){
                     array_push($ref_docs_tracking,$ammendement["reference"]);
                   }
                   ?>
