@@ -25,37 +25,38 @@ if (!class_exists('OpenDev_Profile_Pages_Post_Type')) {
         public function register_post_type()
         {
             $labels = array(
-            'name' => __('Profiles Page', 'post type general name', 'opendev'),
-            'singular_name' => __('Profile Page', 'post type singular name', 'opendev'),
-            'menu_name' => __('Profile Pages', 'admin menu for profile pages', 'opendev'),
-            'name_admin_bar' => __('Profile Pages', 'add new on admin bar', 'opendev'),
-            'add_new' => __('Add new', 'profile page', 'opendev'),
-            'add_new_item' => __('Add new profile page', 'opendev'),
-            'new_item' => __('New profile pages', 'opendev'),
-            'edit_item' => __('Edit profile pages', 'opendev'),
-            'view_item' => __('View profile pages', 'opendev'),
-            'all_items' => __('All profile pages', 'opendev'),
-            'search_items' => __('Search profile pages', 'opendev'),
-            'parent_item_colon' => __('Parent profile pages:', 'opendev'),
-            'not_found' => __('No profile page found.', 'opendev'),
-            'not_found_in_trash' => __('No profile page found in trash.', 'opendev'),
-        );
+              'name' => __('Profiles Page', 'post type general name', 'opendev'),
+              'singular_name' => __('Profile Page', 'post type singular name', 'opendev'),
+              'menu_name' => __('Profile Pages', 'admin menu for profile pages', 'opendev'),
+              'name_admin_bar' => __('Profile Pages', 'add new on admin bar', 'opendev'),
+              'add_new' => __('Add new', 'profile page', 'opendev'),
+              'add_new_item' => __('Add new profile page', 'opendev'),
+              'new_item' => __('New profile pages', 'opendev'),
+              'edit_item' => __('Edit profile pages', 'opendev'),
+              'view_item' => __('View profile pages', 'opendev'),
+              'all_items' => __('All profile pages', 'opendev'),
+              'search_items' => __('Search profile pages', 'opendev'),
+              'parent_item_colon' => __('Parent profile pages:', 'opendev'),
+              'not_found' => __('No profile page found.', 'opendev'),
+              'not_found_in_trash' => __('No profile page found in trash.', 'opendev'),
+            );
 
             $args = array(
-            'labels' => $labels,
-            'public' => true,
-            'publicly_queryable' => true,
-            'show_ui' => true,
-            'show_in_menu' => true,
-            //'query_var'          => true,
-            //'rewrite'            => array( 'slug' => 'profiles' ),
-            'capability_type' => 'page',
-            'has_archive' => true,
-            'hierarchical' => true,
-            //'taxonomies'         => array('category', 'language', 'post_tag'),
-            //'menu_position' => 4,
-            'supports' => array('title', 'editor', 'page-attributes', 'revisions', 'author', 'thumbnail'),
-        );
+              'labels'             => $labels,
+              'public'             => true,
+              'publicly_queryable' => true,
+              'show_ui'            => true,
+              'show_in_menu'       => true,
+  			      'menu_icon'          => '',
+              'query_var'          => true,
+              'rewrite'            => array( 'slug' => 'profiles' ),
+              'capability_type'    => 'page',
+              'has_archive'        => true,
+              'hierarchical'       => true,
+              'menu_position'      => 5,
+              //'taxonomies'         => array('category', 'language', 'post_tag'),
+              'supports' => array('title', 'editor', 'page-attributes', 'revisions', 'author', 'thumbnail')
+            );
 
             register_post_type('profiles', $args);
         }
