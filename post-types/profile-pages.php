@@ -25,20 +25,20 @@ if (!class_exists('OpenDev_Profile_Pages_Post_Type')) {
         public function register_post_type()
         {
             $labels = array(
-              'name' => __('Profiles Page', 'post type general name', 'opendev'),
-              'singular_name' => __('Profile Page', 'post type singular name', 'opendev'),
-              'menu_name' => __('Profile Pages', 'admin menu for profile pages', 'opendev'),
-              'name_admin_bar' => __('Profile Pages', 'add new on admin bar', 'opendev'),
-              'add_new' => __('Add new', 'profile page', 'opendev'),
-              'add_new_item' => __('Add new profile page', 'opendev'),
-              'new_item' => __('New profile pages', 'opendev'),
-              'edit_item' => __('Edit profile pages', 'opendev'),
-              'view_item' => __('View profile pages', 'opendev'),
-              'all_items' => __('All profile pages', 'opendev'),
-              'search_items' => __('Search profile pages', 'opendev'),
-              'parent_item_colon' => __('Parent profile pages:', 'opendev'),
-              'not_found' => __('No profile page found.', 'opendev'),
-              'not_found_in_trash' => __('No profile page found in trash.', 'opendev'),
+              'name' => __('Profiles', 'post type general name', 'opendev'),
+              'singular_name' => __('Profile', 'post type singular name', 'opendev'),
+              'menu_name' => __('Profiles', 'admin menu for profile pages', 'opendev'),
+              'name_admin_bar' => __('Profiles', 'add new on admin bar', 'opendev'),
+              'add_new' => __('Add new', 'profile', 'opendev'),
+              'add_new_item' => __('Add new profile', 'opendev'),
+              'new_item' => __('New profile', 'opendev'),
+              'edit_item' => __('Edit profile', 'opendev'),
+              'view_item' => __('View profile', 'opendev'),
+              'all_items' => __('All profile', 'opendev'),
+              'search_items' => __('Search profiles', 'opendev'),
+              'parent_item_colon' => __('Parent profiles:', 'opendev'),
+              'not_found' => __('No profile found.', 'opendev'),
+              'not_found_in_trash' => __('No profile found in trash.', 'opendev'),
             );
 
             $args = array(
