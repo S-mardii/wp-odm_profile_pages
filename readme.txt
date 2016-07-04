@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 == Description ==
 
-Wordpress plugin for exposing custom content type for profile pages
+Internal wordpress plugin for exposing custom content type for profile pages
 
 == Installation ==
 
