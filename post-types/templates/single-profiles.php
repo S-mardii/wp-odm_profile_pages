@@ -128,96 +128,86 @@ $ref_docs_tracking = array();
             </div>
         </div>
 
-        <!--  Statistics-->
-        <div class="row">
-          <div class="twelve columns">
-              <?php if ($profiles) {
-    ?>
-              <div class="total_listed">
-                <ul>
-                  <?php
-                  $count_project = array_count_values(array_map(function ($value) {return $value['map_id'];}, $profiles));
-    ?>
-                  <li><strong><?php if (opendev_language_manager()->get_current_language() == 'km') {
-    echo __('Total', 'opendev').get_the_title().__('Listed', 'opendev').__(':', 'opendev');
-} else {
-    echo __('Total', 'opendev').' '.get_the_title().' '.__('Listed', 'opendev').' '.__(':', 'opendev');
-}
-    ?>
-                      </strong>
-                      <strong><?php echo $count_project == '' ? convert_to_kh_number('0') : convert_to_kh_number(count($count_project));
-    ?></strong>
-                  </li>
-
-                  <?php
-                  $explode_total_number_by_attribute_name = explode("\r\n", $total_number_by_attribute_name);
-    if (isset($total_number_by_attribute_name) && $total_number_by_attribute_name != '') {
-        foreach ($explode_total_number_by_attribute_name as $key => $total_attribute_name) {
-            if ($total_attribute_name != 'map_id') {
-                $total_attributename = trim($total_attribute_name);
-                if (strpos($total_attribute_name, '[') !== false) { //if march
-                              $split_field_name_and_value = explode('[', $total_attributename);
-                    $total_attributename = trim($split_field_name_and_value[0]); //eg. data_class
-                              $total_by_specifit_value = str_replace(']', '', $split_field_name_and_value[1]);
-                    $specifit_value = explode(',', $total_by_specifit_value);// explode to get: Government data complete
-                } //end strpos
-                          $GLOBALS['total_attribute_name'] = $total_attributename;
-                $map_value = array_map(function ($value) { return $value[$GLOBALS['total_attribute_name']];}, $profiles);
-                $count_number_by_attr = array_count_values($map_value);
-                ?>
-
-                          <?php //count number by value: eg. Government data complete
-                              if (isset($specifit_value) && count($specifit_value) > 0) {
-                                  foreach ($specifit_value as $field_value) {
-                                      $field_value = trim(str_replace('"', '', $field_value));
-                                      ?>
-                                          <li><?php _e($field_value, 'opendev');
-                                      ?>
-                                                      <?php _e(':', 'opendev');
-                                      ?>
-                                              <strong><?php echo $count_number_by_attr[$field_value] == '' ? convert_to_kh_number('0') : convert_to_kh_number($count_number_by_attr[$field_value]);
-                                      ?></strong>
-
-                                          </li>
-                                      <?php
-
-                                  }//end foreach
-                              } else { //count number by field name/attribute name: eg. map_id/developer
-                                 if (isset($total_attributename) && $total_attributename != 'map_id') {
-                                     ?>
-                                     <li>
-                                     <?php if (opendev_language_manager()->get_current_language() == 'km') {
-    echo __('Total', 'opendev').$DATASET_ATTRIBUTE[$total_attributename].__('Listed', 'opendev').__(':', 'opendev');
-} else {
-    echo __('Total', 'opendev').' '.$DATASET_ATTRIBUTE[$total_attributename].' '.__('Listed', 'opendev').' '.__(':', 'opendev');
-}
-                                     ?>
-
-                                          <strong><?php echo $total_attributename == '' ? convert_to_kh_number('0') : convert_to_kh_number(count($count_number_by_attr));
-                                     ?></strong>
-                                     </li>
-                                 <?php
-
-                                 }
-                              }
-            }
-        }
-    }
-    ?>
-                  </ul>
-              </div>
-              <?php
-
-} ?>
-          </div>
-        </div>
-
         <!--  Filter-->
         <div class="row">
-          <div class="nine columns">
+          <div class="twelve columns">
             <div id="profiles_map" class="profiles_map"></div>
           </div>
-          <div class="three columns">
+        </div>
+          <!--  Statistics-->
+        <div class="row">
+          <div class="twelve columns">
+            <?php if ($profiles) { ?>
+            <div class="total_listed">
+              <ul>
+                <?php
+                $count_project = array_count_values(array_map(function ($value) {return $value['map_id'];}, $profiles));?>
+                <li>
+                  <strong>
+                    <?php if (opendev_language_manager()->get_current_language() == 'km') {
+                            echo __('Total', 'opendev').get_the_title().__('Listed', 'opendev').__(':', 'opendev');
+                          } else {
+                            echo __('Total', 'opendev').' '.get_the_title().' '.__('Listed', 'opendev').' '.__(':', 'opendev');
+                          } ?>
+                  </strong>
+                  <strong>
+                    <?php echo $count_project == '' ? convert_to_kh_number('0') : convert_to_kh_number(count($count_project));?>
+                  </strong>
+                </li>
+                <?php
+                $explode_total_number_by_attribute_name = explode("\r\n", $total_number_by_attribute_name);
+                if (isset($total_number_by_attribute_name) && $total_number_by_attribute_name != '') {
+                  foreach ($explode_total_number_by_attribute_name as $key => $total_attribute_name) {
+                    if ($total_attribute_name != 'map_id') {
+                      $total_attributename = trim($total_attribute_name);
+                      if (strpos($total_attribute_name, '[') !== false) { //if march
+                        $split_field_name_and_value = explode('[', $total_attributename);
+                        $total_attributename = trim($split_field_name_and_value[0]); //eg. data_class
+                        $total_by_specifit_value = str_replace(']', '', $split_field_name_and_value[1]);
+                        $specifit_value = explode(',', $total_by_specifit_value);// explode to get: Government data complete
+                      }
+                      $GLOBALS['total_attribute_name'] = $total_attributename;
+                      $map_value = array_map(function ($value) { return $value[$GLOBALS['total_attribute_name']];}, $profiles);
+                      $count_number_by_attr = array_count_values($map_value); ?>
+
+                      <?php //count number by value: eg. Government data complete
+                      if (isset($specifit_value) && count($specifit_value) > 0) {
+                        foreach ($specifit_value as $field_value) {
+                          $field_value = trim(str_replace('"', '', $field_value)); ?>
+                          <li>
+                            <?php _e($field_value, 'opendev'); ?>
+                            <?php _e(':', 'opendev');?>
+                            <strong>
+                              <?php echo $count_number_by_attr[$field_value] == '' ? convert_to_kh_number('0') : convert_to_kh_number($count_number_by_attr[$field_value]);?></strong>
+                          </li>
+                      <?php
+                        }
+                      } else {
+                        if (isset($total_attributename) && $total_attributename != 'map_id') {?>
+                         <li>
+                            <?php
+                            if (opendev_language_manager()->get_current_language() == 'km') {
+                              echo __('Total', 'opendev').$DATASET_ATTRIBUTE[$total_attributename].__('Listed', 'opendev').__(':', 'opendev');
+                            } else {
+                              echo __('Total', 'opendev').' '.$DATASET_ATTRIBUTE[$total_attributename].' '.__('Listed', 'opendev').' '.__(':', 'opendev');
+                            } ?>
+
+                            <strong><?php echo $total_attributename == '' ? convert_to_kh_number('0') : convert_to_kh_number(count($count_number_by_attr));?></strong>
+                          </li>
+                     <?php
+                        }
+                      }
+                    }
+                  }
+                } ?>
+              </ul>
+            </div>
+            <?php
+          } ?>
+          </div>
+        </div>
+        <div class="row">
+          <div class="four columns">
             <div class="sidebar_box">
               <div class="sidebar_header">
                 <span class="big">
@@ -227,7 +217,8 @@ $ref_docs_tracking = array();
                 <input type="text" id="search_all" placeholder="<?php _e('Search data in profile page', 'opendev'); ?>">
               </div>
             </div>
-
+          </div>
+          <div class="four columns">
             <div class="sidebar_box">
               <div class="sidebar_header">
                 <span class="big">
@@ -327,32 +318,27 @@ $ref_docs_tracking = array();
                 }?>
               </div>
             </div>
-            <?php if (isset($related_profile_pages) && $related_profile_pages != '') {
-    $temp_related_profile_pages = explode("\r\n", $related_profile_pages);
-    ?>
+          </div>
+          <?php if (isset($related_profile_pages) && $related_profile_pages != '') {
+            $temp_related_profile_pages = explode("\r\n", $related_profile_pages);  ?>
+          <div class="four columns">
             <div class="sidebar_box">
                 <div class="sidebar_header">
                   <span class="big">
-                    <?php _e('Related profile pages', 'opendev');
-    ?></span>
+                    <?php _e('Related profile pages', 'opendev'); ?></span>
                 </div>
                 <div class="sidebar_box_content download_buttons"><ul>
                   <?php foreach ($temp_related_profile_pages as $profile_pages_url) :
-                        $split_title_and_url = explode('|', $profile_pages_url);
-    ?>
-                        <li><a href="<?php echo $split_title_and_url[1];
-    ?>"><?php echo $split_title_and_url[0];
-    ?></a></li>
-                  <?php endforeach;
-    ?>
+                        $split_title_and_url = explode('|', $profile_pages_url);?>
+                        <li><a href="<?php echo $split_title_and_url[1]; ?>"><?php echo $split_title_and_url[0]; ?></a></li>
+                  <?php endforeach; ?>
                   </ul>
                 </div>
               </div>
+            </div>
             <?php
-
-} ?>
+          } ?>
           </div>
-        </div>
 
         <!-- Table -->
         <div class="row no-margin-buttom">
