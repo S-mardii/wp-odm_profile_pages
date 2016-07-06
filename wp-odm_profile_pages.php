@@ -15,9 +15,9 @@ require_once plugin_dir_path(__FILE__).'utils/utils.php';
 // Require post types
 require_once plugin_dir_path(__FILE__).'post-types/profile-pages.php';
 
-if (!class_exists('OpenDev_Profile_Pages_Plugin')) {
+if (!class_exists('Odm_Profile_Pages_Plugin')) {
 
-    class OpenDev_Profile_Pages_Plugin
+    class Odm_Profile_Pages_Plugin
     {
         private static $instance;
 
@@ -30,7 +30,7 @@ if (!class_exists('OpenDev_Profile_Pages_Plugin')) {
             }
 
             if (null == self::$post_type) {
-              self::$post_type = new OpenDev_Profile_Pages_Post_Type();
+              self::$post_type = new Odm_Profile_Pages_Post_Type();
             }
 
             return self::$instance;
@@ -65,9 +65,9 @@ if (!class_exists('OpenDev_Profile_Pages_Plugin')) {
     }
 }
 
-if (class_exists('OpenDev_Profile_Pages_Plugin')) {
-  register_activation_hook(__FILE__, array('OpenDev_Profile_Pages_Plugin', 'activate'));
-  register_deactivation_hook(__FILE__, array('OpenDev_Profile_Pages_Plugin', 'deactivate'));
+if (class_exists('Odm_Profile_Pages_Plugin')) {
+  register_activation_hook(__FILE__, array('Odm_Profile_Pages_Plugin', 'activate'));
+  register_deactivation_hook(__FILE__, array('Odm_Profile_Pages_Plugin', 'deactivate'));
 }
 
-add_action('plugins_loaded', array('OpenDev_Profile_Pages_Plugin', 'get_instance'));
+add_action('plugins_loaded', array('Odm_Profile_Pages_Plugin', 'get_instance'));

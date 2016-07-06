@@ -1,7 +1,7 @@
 <?php
 
-if (!class_exists('OpenDev_Profile_Pages_Post_Type')) {
-    class OpenDev_Profile_Pages_Post_Type
+if (!class_exists('Odm_Profile_Pages_Post_Type')) {
+    class Odm_Profile_Pages_Post_Type
     {
         public function __construct()
         {

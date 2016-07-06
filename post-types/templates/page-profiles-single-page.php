@@ -25,7 +25,7 @@
               <td class="row-key"><?php _e( $DATASET_ATTRIBUTE[$key], "opendev" ); ?></td>
                 <td><?php
                     $profile_val = str_replace("T00:00:00", "", $profile[$key]);
-                    if(opendev_language_manager()->get_current_language() =="km"){
+                    if(odm_language_manager()->get_current_language() =="km"){
                       if (is_numeric($profile_val)) {
                         $profile_value = convert_to_kh_number(str_replace(".00", "", number_format($profile_val, 2, '.', ',')));
                       }else {
@@ -87,7 +87,7 @@
                               <td>
                                 <?php
                                 if ($key == 'amendment_date'){
-                                    if(opendev_language_manager()->get_current_language() == "kh" || opendev_language_manager()->get_current_language() == "km")
+                                    if(odm_language_manager()->get_current_language() == "kh" || odm_language_manager()->get_current_language() == "km")
                                       echo convert_date_to_kh_date(date("d/m/Y", strtotime($ammendement[$key])), "/");
                                     else echo $ammendement[$key];
                                 }else {
