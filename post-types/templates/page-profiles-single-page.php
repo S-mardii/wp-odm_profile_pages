@@ -87,7 +87,7 @@
                               <td>
                                 <?php
                                 if ($key == 'amendment_date'){
-                                    if(odm_language_manager()->get_current_language() == "kh" || odm_language_manager()->get_current_language() == "km")
+                                    if(odm_language_manager()->get_current_language() == "km")
                                       echo convert_date_to_kh_date(date("d/m/Y", strtotime($ammendement[$key])), "/");
                                     else echo $ammendement[$key];
                                 }else {
