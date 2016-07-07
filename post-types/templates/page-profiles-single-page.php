@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row">
-      <div class="twelve columns">
+      <div class="sixteen columns">
         <div id="profiles_map" class="profiles_map"></div>
       </div>
     </div>
     <div class="row">
-      <div class="twelve columns">
+      <div class="sixteen columns">
         <div id="profile-map-id" class="hidden"><?php echo $filter_map_id; ?></div>
         <div class="profile-metadata">
           <?php  if ($profile["developer"]!="")

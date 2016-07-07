@@ -121,7 +121,7 @@ $ref_docs_tracking = array();
           else: ?>
       <div class="container">
         <div class="row">
-  			    <div class="twelve columns">
+  			    <div class="sixteen columns">
               <header class="single-post-header">
                   <h1 class="align-left"><a href="<?php get_page_link(); ?>"><?php the_title(); ?></a></h1>
           		</header>
@@ -130,13 +130,13 @@ $ref_docs_tracking = array();
 
         <!--  Filter-->
         <div class="row">
-          <div class="twelve columns">
+          <div class="sixteen columns">
             <div id="profiles_map" class="profiles_map"></div>
           </div>
         </div>
           <!--  Statistics-->
         <div class="row">
-          <div class="twelve columns">
+          <div class="sixteen columns">
             <?php if ($profiles) { ?>
             <div class="total_listed">
               <ul>
@@ -218,7 +218,7 @@ $ref_docs_tracking = array();
               </div>
             </div>
           </div>
-          <div class="four columns">
+          <div class="six columns">
             <div class="sidebar_box">
               <div class="sidebar_header">
                 <span class="big">
@@ -321,7 +321,7 @@ $ref_docs_tracking = array();
           </div>
           <?php if (isset($related_profile_pages) && $related_profile_pages != '') {
             $temp_related_profile_pages = explode("\r\n", $related_profile_pages);  ?>
-          <div class="four columns">
+          <div class="six columns">
             <div class="sidebar_box">
                 <div class="sidebar_header">
                   <span class="big">
@@ -343,7 +343,7 @@ $ref_docs_tracking = array();
         <!-- Table -->
         <div class="row no-margin-buttom">
           <div class="fixed_top_bar"></div>
-          <div class="twelve columns table-column-container">
+          <div class="sixteen columns table-column-container">
             <?php if (isset($filtered_by_column_index) && $filtered_by_column_index != '') {
     ?>
               <div id="filter_by_classification"> <?php _e('Filter by', 'opendev');
@@ -466,7 +466,7 @@ $ref_docs_tracking = array();
         </div>
 
         <div class="row">
-          <div class="twelve columns">
+          <div class="sixteen columns">
             <div class="disclaimer">
               <?php the_content(); ?>
             </div>
