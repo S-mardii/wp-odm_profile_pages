@@ -1,6 +1,6 @@
 <?php
 
-function data_classification_definition($info)
+function odm_data_classification_definition($info)
 {
     $info = trim($info);
     if ($info == 'កាត់បន្ថយ') {
@@ -74,7 +74,7 @@ function check_requirements_profile_pages(){
   return function_exists('wpckan_get_ckan_domain') && function_exists('wpckan_validate_settings_read') && wpckan_validate_settings_read();
 }
 
-function list_reference_documents($ref_docs, $only_title_url = 0)
+function odm_list_reference_documents($ref_docs, $only_title_url = 0)
 {
     if ($only_title_url == 1) {
         ?>

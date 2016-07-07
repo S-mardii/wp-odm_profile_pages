@@ -391,7 +391,7 @@ $ref_docs_tracking = array();
                                 } else {
                                     echo trim($profile[$key]);
                                 }
-                            ?> <?php data_classification_definition($profile[$key]);
+                            ?> <?php odm_data_classification_definition($profile[$key]);
                             ?></div>
                               </td>
                             <?php
@@ -401,7 +401,7 @@ $ref_docs_tracking = array();
                               <td><div class="td-value"><?php
                                   $ref_docs_profile = explode(';', $profile['reference']);
                             $ref_docs = array_merge($ref_docs_profile, $ref_docs_tracking);
-                            list_reference_documents($ref_docs, 1);
+                            odm_list_reference_documents($ref_docs, 1);
                             ?></div>
                               </td>
                             <?php
