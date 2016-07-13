@@ -1,26 +1,28 @@
 <div class="container">
-    <div class="row">
       <div class="sixteen columns">
-        <div id="profiles_map" class="profiles_map"></div>
+        <header class="single-post-header">
+          <?php  if ($profile["developer"]!="")
+              echo '<h1 class="profile-name">'.$profile["developer"].'</h1>';
+           else if ($profile["name"]!="")
+              echo '<h1 class="profile-name">'.$profile["name"].'</h1>';
+           else if ($profile["block"]!="")
+              echo '<h1 class="profile-name">'.$profile["block"].'</h1>';
+         ?>
+        </header>
       </div>
+    <div class="sixteen columns">
+      <div id="profiles_map" class="profiles_map"></div>
     </div>
     <div class="row">
       <div class="sixteen columns">
         <div id="profile-map-id" class="hidden"><?php echo $filter_map_id; ?></div>
         <div class="profile-metadata">
-          <?php  if ($profile["developer"]!="")
-                    echo '<h2 class="h2_name">'.$profile["developer"].'</h2>';
-                 else if ($profile["name"]!="")
-                    echo '<h2 class="h2_name">'.$profile["name"].'</h2>';
-                 else if ($profile["block"]!="")
-                    echo '<h2 class="h2_name">'.$profile["block"].'</h2>';
-         ?>
+
           <table id="profile" class="data-table">
             <tbody>
               <?php
               foreach ($DATASET_ATTRIBUTE as $key => $value):
-                if($key !="reference"){
-              ?>
+                if($key !="reference"){ ?>
               <tr>
               <td class="row-key"><?php _e( $DATASET_ATTRIBUTE[$key], "opendev" ); ?></td>
                 <td><?php
@@ -71,12 +73,13 @@
                 $concession_or_developer = '';
                 foreach ($ammendements as $key => $ammendement):
                   if (!empty($ammendement["reference"])){
-                    array_push($ref_docs_tracking,$ammendement["reference"]);
+                    $ammendement_references = $ref_docs_tracking = explode(";", $ammendement["reference"]);
+                    $ref_docs_tracking = array_merge($ref_docs_tracking,$ammendement_references);
                   }
                   ?>
                   <tr>
                     <?php foreach ($DATASET_ATTRIBUTE_TRACKING as $key => $value): ?>
-                      <?php if ($key == 'concession_or_developer'){
+                      <?php if (isset($ammendement[$key]) && $key == 'concession_or_developer'){
                               if ($ammendement[$key] == $concession_or_developer)
                                   echo "<td></td>";
                               else  {
@@ -86,7 +89,7 @@
                             }else{?>
                               <td>
                                 <?php
-                                if ($key == 'amendment_date'){
+                                if (isset($ammendement[$key]) && $key == 'amendment_date'){
                                     if(odm_language_manager()->get_current_language() == "km")
                                       echo convert_date_to_kh_date(date("d/m/Y", strtotime($ammendement[$key])), "/");
                                     else echo $ammendement[$key];

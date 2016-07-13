@@ -526,8 +526,8 @@ jQuery(document).ready(function($) {
 
   });
 
-  if ($('.profile-metadata h2').hasClass('h2_name')) {
-    var addto_breadcrumbs = $('.profile-metadata h2.h2_name').text();
+  if ($('.profile-metadata h2').hasClass('profile-name')) {
+    var addto_breadcrumbs = $('.profile-metadata h1.profile-name').text();
     var add_li = $('<li class="separator_by"> / </li><li class="item_map_id"><strong class="bread-current">'+addto_breadcrumbs+'</strong></li>');
     add_li.appendTo( $('#breadcrumbs'));
     $('.item-current a').text($('.item-current a strong').text());
