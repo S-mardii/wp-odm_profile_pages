@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row">
-      <div class="twelve columns">
+      <div class="sixteen columns">
         <div id="profiles_map" class="profiles_map"></div>
       </div>
     </div>
     <div class="row">
-      <div class="twelve columns">
+      <div class="sixteen columns">
         <div id="profile-map-id" class="hidden"><?php echo $filter_map_id; ?></div>
         <div class="profile-metadata">
           <?php  if ($profile["developer"]!="")
@@ -42,7 +42,7 @@
                     echo $profile_value == ""? __("Not found", "opendev"): str_replace(";", "<br/>", $profile_value);
 
                     if(in_array($key, array("data_class", "adjustment_classification", "adjustment")))
-                      data_classification_definition( $profile[$key]);
+                      odm_data_classification_definition( $profile[$key]);
                 ?>
                 </td>
               </tr>
@@ -112,7 +112,7 @@
           if ($ref_docs): ?>
           <div class="profile-metadata">
             <h2><?php _e("Reference documents", "opendev"); ?></h2>
-                <?php list_reference_documents($ref_docs)?>
+                <?php odm_list_reference_documents($ref_docs)?>
           </div>
         </div>
       <?php endif; ?>
