@@ -65,7 +65,7 @@
                 <thead>
                   <!--<tr>
                     <?php /* foreach ($DATASET_ATTRIBUTE_TRACKING as $key => $value): ?>
-                      <td class="row-key"><?php _e( $DATASET_ATTRIBUTE_TRACKING[$key], 'opendev'); ?></td>
+                      <td class="row-key"><?php _e( $DATASET_ATTRIBUTE_TRACKING[$key], 'odm'); ?></td>
                     <?php endforeach; */ ?>
                   </tr>-->
                 </thead>
@@ -83,7 +83,7 @@
                               if ($ammendement[$key] == $concession_or_developer)
                                   echo "<td></td>";
                               else  {
-                                  echo "<td><strong>".__($ammendement[$key], 'opendev')."</strong></td>";
+                                  echo "<td><strong>".__($ammendement[$key], 'odm')."</strong></td>";
                                   $concession_or_developer = $ammendement[$key];
                               }
                             }else{?>

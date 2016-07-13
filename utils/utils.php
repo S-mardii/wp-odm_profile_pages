@@ -23,48 +23,48 @@ function odm_data_classification_definition($info)
 
     $info = strtolower(str_replace(' ', '_', $info));
     echo '&nbsp; <div class="tooltip tooltip_definition ">';
-    if ($info != '' && $info != __('Not found', 'opendev')) {
+    if ($info != '' && $info != __('Not found', 'odm')) {
         echo '<i class="fa fa-question-circle info-data-classification" title=""></i>';
     }
     if ($info == 'no_evidence_of_adjustment') {
         echo '<div class="tooltip-info tooltip-no_evidence_of_adjustment">';
-        echo '<p>'.__('ODC is not aware of any adjustments to the concession since it was first granted.', 'opendev');
+        echo '<p>'.__('ODC is not aware of any adjustments to the concession since it was first granted.', 'odm');
         echo '</p>';
         echo '</div>';
     } elseif ($info == 'downsized') {
         echo '<div class="tooltip-info tooltip-downsized">';
-        echo '<p>'.__('The concession has been subjected to additional reductions in size and has not been cancelled previously. Publicly available information on land area cut from ELCs does not include maps or spatial data of excisions. Thus, ODC cannot present land area cut in shapes. As a result, ELC projects that are visualized on the interactive map represent the original contract size.', 'opendev');
+        echo '<p>'.__('The concession has been subjected to additional reductions in size and has not been cancelled previously. Publicly available information on land area cut from ELCs does not include maps or spatial data of excisions. Thus, ODC cannot present land area cut in shapes. As a result, ELC projects that are visualized on the interactive map represent the original contract size.', 'odm');
         echo '</p>';
         echo '</div>';
     } elseif ($info == 'revoked') {
         echo '<div class="tooltip-info tooltip-revoked">';
-        echo '<p>'.__('The concession has been cancelled with or without a history of reductions in size.', 'opendev');
+        echo '<p>'.__('The concession has been cancelled with or without a history of reductions in size.', 'odm');
         echo '</p>';
         echo '</div>';
     } elseif ($info == 'downsized_after_revocation') {
         echo '<div class="tooltip-info tooltip-downsized_after_revocation">';
-        echo '<p>'.__('The concession has been subjected to reduction(s) in size although it had been cancelled previously. Publicly available information on land area cut from ELCs does not include maps or spatial data of excisions. Thus, ODC cannot present land area cut in shapes. As a result, ELC projects that are visualized on the interactive map represent the original contract size.', 'opendev');
+        echo '<p>'.__('The concession has been subjected to reduction(s) in size although it had been cancelled previously. Publicly available information on land area cut from ELCs does not include maps or spatial data of excisions. Thus, ODC cannot present land area cut in shapes. As a result, ELC projects that are visualized on the interactive map represent the original contract size.', 'odm');
         echo '</p>';
         echo '</div>';
     } elseif ($info == 'government_data_complete') {
         echo '<div class="tooltip-info tooltip-government_data_complete">';
-        echo '<p>'.__('Information obtained from official Government sources, with official legal documentation, in the four identification fields: <br>a. Company name; <br>b. Location; <br>c. GPS coordinates and/or analog map; and <br>  d. Purpose (crop, ore, etc.)', 'opendev').'</p>';
+        echo '<p>'.__('Information obtained from official Government sources, with official legal documentation, in the four identification fields: <br>a. Company name; <br>b. Location; <br>c. GPS coordinates and/or analog map; and <br>  d. Purpose (crop, ore, etc.)', 'odm').'</p>';
         echo '</div>';
     } elseif ($info == 'government_data_partial') {
         echo '<div class="tooltip-info tooltip-government_data_partial">';
-        echo '<p>'.__('Information obtained from official Government sources, with legal documentation, but missing one or more of the following identification fields: <br>a. Company name; <br>b. Location; <br>c. GPS coordinates and/or analog map; and <br>d. Purpose (crop, ore, etc.)', 'opendev').'</p>';
+        echo '<p>'.__('Information obtained from official Government sources, with legal documentation, but missing one or more of the following identification fields: <br>a. Company name; <br>b. Location; <br>c. GPS coordinates and/or analog map; and <br>d. Purpose (crop, ore, etc.)', 'odm').'</p>';
         echo '</div> ';
     } elseif ($info == 'other_data') {
         echo '<div class="tooltip-info tooltip-other_data">';
-        echo '<p>'.__('Information obtained from any other source in public domain (including documentation from photographs, etc.)', 'opendev').'</p>';
+        echo '<p>'.__('Information obtained from any other source in public domain (including documentation from photographs, etc.)', 'odm').'</p>';
         echo '</div>';
     } elseif ($info == 'secondary_source_data') {
         echo '<div class="tooltip-info tooltip-secondary_source_data">';
-        echo '<p>'.__('Information obtained from the concessionaire (company/entity) or from government source(s) without legal documentation.', 'opendev').'</p>';
+        echo '<p>'.__('Information obtained from the concessionaire (company/entity) or from government source(s) without legal documentation.', 'odm').'</p>';
         echo '</div>';
     } elseif ($info == 'canceled_data') {
         echo '<div class="tooltip-info tooltip-canceled_data">';
-        echo '<p>'.__('These concessions have been cancelled by the Royal Government of Cambodia.', 'opendev').'</p>';
+        echo '<p>'.__('These concessions have been cancelled by the Royal Government of Cambodia.', 'odm').'</p>';
         echo '</div>';
     }
     echo '</div>';

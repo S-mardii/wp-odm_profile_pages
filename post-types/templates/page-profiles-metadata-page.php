@@ -9,7 +9,7 @@ if (isset($_GET['metadata'])) {
 <div class="container">
     <div class="row no-margin-top">
       <div class="sixteen columns profiles_page profile-metadata">
-        <h2 class="align-left profile-name"><?php _e('Metadata:', 'opendev'); the_title() ?></h2>
+        <h2 class="align-left profile-name"><?php _e('Metadata:', 'odm'); the_title() ?></h2>
         <div class="clear"></div>
         <?php
           $showing_fields = "";

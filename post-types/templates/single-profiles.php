@@ -145,9 +145,9 @@ $ref_docs_tracking = array();
                 <li>
                   <strong>
                     <?php if (odm_language_manager()->get_current_language() == 'km') {
-                            echo __('Total', 'opendev').get_the_title().__('Listed', 'opendev').__(':', 'opendev');
+                            echo __('Total', 'odm').get_the_title().__('Listed', 'odm').__(':', 'odm');
                           } else {
-                            echo __('Total', 'opendev').' '.get_the_title().' '.__('Listed', 'opendev').' '.__(':', 'opendev');
+                            echo __('Total', 'odm').' '.get_the_title().' '.__('Listed', 'odm').' '.__(':', 'odm');
                           } ?>
                   </strong>
                   <strong>
@@ -175,8 +175,8 @@ $ref_docs_tracking = array();
                         foreach ($specifit_value as $field_value) {
                           $field_value = trim(str_replace('"', '', $field_value)); ?>
                           <li>
-                            <?php _e($field_value, 'opendev'); ?>
-                            <?php _e(':', 'opendev');?>
+                            <?php _e($field_value, 'odm'); ?>
+                            <?php _e(':', 'odm');?>
                             <strong>
                               <?php echo $count_number_by_attr[$field_value] == '' ? convert_to_kh_number('0') : convert_to_kh_number($count_number_by_attr[$field_value]);?></strong>
                           </li>
@@ -187,9 +187,9 @@ $ref_docs_tracking = array();
                          <li>
                             <?php
                             if (odm_language_manager()->get_current_language() == 'km') {
-                              echo __('Total', 'opendev').$DATASET_ATTRIBUTE[$total_attributename].__('Listed', 'opendev').__(':', 'opendev');
+                              echo __('Total', 'odm').$DATASET_ATTRIBUTE[$total_attributename].__('Listed', 'odm').__(':', 'odm');
                             } else {
-                              echo __('Total', 'opendev').' '.$DATASET_ATTRIBUTE[$total_attributename].' '.__('Listed', 'opendev').' '.__(':', 'opendev');
+                              echo __('Total', 'odm').' '.$DATASET_ATTRIBUTE[$total_attributename].' '.__('Listed', 'odm').' '.__(':', 'odm');
                             } ?>
 
                             <strong><?php echo $total_attributename == '' ? convert_to_kh_number('0') : convert_to_kh_number(count($count_number_by_attr));?></strong>
@@ -211,10 +211,10 @@ $ref_docs_tracking = array();
             <div class="sidebar_box">
               <div class="sidebar_header">
                 <span class="big">
-                  <?php _e('Search', 'opendev');?></span>
+                  <?php _e('Search', 'odm');?></span>
               </div>
               <div class="sidebar_box_content">
-                <input type="text" id="search_all" placeholder="<?php _e('Search data in profile page', 'opendev'); ?>">
+                <input type="text" id="search_all" placeholder="<?php _e('Search data in profile page', 'odm'); ?>">
               </div>
             </div>
           </div>
@@ -222,7 +222,7 @@ $ref_docs_tracking = array();
             <div class="sidebar_box">
               <div class="sidebar_header">
                 <span class="big">
-                  <?php _e('Download', 'opendev');?></span>
+                  <?php _e('Download', 'odm');?></span>
               </div>
               <div class="sidebar_box_content download_buttons">
                 <?php
@@ -311,7 +311,7 @@ $ref_docs_tracking = array();
                     ?>
                     <div>
                       <a target="_blank" href="?metadata=<?php echo $ckan_dataset_id;
-                    ?>">» <?php _e('View metadata of dataset', 'opendev')?></a>
+                    ?>">» <?php _e('View metadata of dataset', 'odm')?></a>
                    </div>
                 <?php
 
@@ -325,7 +325,7 @@ $ref_docs_tracking = array();
             <div class="sidebar_box">
                 <div class="sidebar_header">
                   <span class="big">
-                    <?php _e('Related profile pages', 'opendev'); ?></span>
+                    <?php _e('Related profile pages', 'odm'); ?></span>
                 </div>
                 <div class="sidebar_box_content download_buttons"><ul>
                   <?php foreach ($temp_related_profile_pages as $profile_pages_url) :
@@ -346,7 +346,7 @@ $ref_docs_tracking = array();
           <div class="sixteen columns table-column-container">
             <?php if (isset($filtered_by_column_index) && $filtered_by_column_index != '') {
     ?>
-              <div id="filter_by_classification"> <?php _e('Filter by', 'opendev');
+              <div id="filter_by_classification"> <?php _e('Filter by', 'odm');
     ?></div>
             <?php
 
@@ -354,10 +354,10 @@ $ref_docs_tracking = array();
             <table id="profiles" class="data-table">
               <thead>
                 <tr>
-                  <th><div class='th-value'><?php _e('Map ID', 'opendev'); ?></div></th>
+                  <th><div class='th-value'><?php _e('Map ID', 'odm'); ?></div></th>
                   <?php if ($DATASET_ATTRIBUTE) {
     foreach ($DATASET_ATTRIBUTE as $key => $value): ?>
-                            <th><div class='th-value'><?php _e($DATASET_ATTRIBUTE[$key], 'opendev');
+                            <th><div class='th-value'><?php _e($DATASET_ATTRIBUTE[$key], 'odm');
     ?></div></th>
                     <?php endforeach;
 }
@@ -410,7 +410,7 @@ $ref_docs_tracking = array();
                             ?>
                             <td><div class="td-value"><?php
                                 $issuedate = str_replace('T00:00:00', '', $profile[$key]);
-                            echo $profile[$key] == '' ? __('Not found', 'opendev') : str_replace(';', '<br/>', trim($issuedate));
+                            echo $profile[$key] == '' ? __('Not found', 'odm') : str_replace(';', '<br/>', trim($issuedate));
                             ?></div>
                             </td>
                           <?php
@@ -423,7 +423,7 @@ $ref_docs_tracking = array();
                             }
                             ?>
                             <td><div class="td-value"><?php
-                              echo $profile_value == '' ? __('Not found', 'opendev') : str_replace(';', '<br/>', trim($profile_value));
+                              echo $profile_value == '' ? __('Not found', 'odm') : str_replace(';', '<br/>', trim($profile_value));
                             ?></div>
                             </td>
                         <?php
@@ -447,7 +447,7 @@ $ref_docs_tracking = array();
                             $profile_value = str_replace(';', '<br/>', trim($profile_value));
                             ?>
                               <td><div class="td-value"><?php
-                                echo $profile[$key] == '' ? __('Not found', 'opendev') : str_replace(';', '<br/>', trim($profile_value));
+                                echo $profile[$key] == '' ? __('Not found', 'odm') : str_replace(';', '<br/>', trim($profile_value));
                             ?></div>
                               </td>
                             <?php
@@ -676,7 +676,7 @@ jQuery(document).ready(function($) {
     ?>
                  var div_filter = $('<div class="filter_by filter_by_column_index_'+columnIndex+'"></div>');
                  div_filter.appendTo( $('#filter_by_classification'));
-                 var select = $('<select><option value="">'+column_header+'<?php _e('all', 'opendev');
+                 var select = $('<select><option value="">'+column_header+'<?php _e('all', 'odm');
     ?></option></select>');
         <?php
 
@@ -684,7 +684,7 @@ jQuery(document).ready(function($) {
     ?>
                  var div_filter = $('<div class="filter_by filter_by_column_index_'+columnIndex+'"></div>');
                  div_filter.appendTo( $('#filter_by_classification'));
-                 var select = $('<select><option value=""><?php _e('All ', 'opendev');
+                 var select = $('<select><option value=""><?php _e('All ', 'odm');
     ?>'+column_header+'</option></select>');
         <?php
 }
