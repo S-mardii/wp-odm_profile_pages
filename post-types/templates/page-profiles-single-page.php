@@ -1,15 +1,15 @@
 <div class="container">
-      <div class="sixteen columns">
-        <header class="single-post-header">
-          <?php  if ($profile["developer"]!="")
-              echo '<h1 class="profile-name">'.$profile["developer"].'</h1>';
-           else if ($profile["name"]!="")
-              echo '<h1 class="profile-name">'.$profile["name"].'</h1>';
-           else if ($profile["block"]!="")
-              echo '<h1 class="profile-name">'.$profile["block"].'</h1>';
-         ?>
-        </header>
-      </div>
+    <div class="sixteen columns">
+      <header class="single-post-header">
+        <?php  if ($profile["developer"]!="")
+            echo '<h1 class="profile-name">'.$profile["developer"].'</h1>';
+         else if ($profile["name"]!="")
+            echo '<h1 class="profile-name">'.$profile["name"].'</h1>';
+         else if ($profile["block"]!="")
+            echo '<h1 class="profile-name">'.$profile["block"].'</h1>';
+       ?>
+      </header>
+    </div>
     <div class="sixteen columns">
       <div id="profiles_map" class="profiles_map"></div>
     </div>
@@ -24,7 +24,7 @@
               foreach ($DATASET_ATTRIBUTE as $key => $value):
                 if($key !="reference"){ ?>
               <tr>
-              <td class="row-key"><?php _e( $DATASET_ATTRIBUTE[$key], "opendev" ); ?></td>
+              <td class="row-key"><?php _e( $DATASET_ATTRIBUTE[$key], 'odm' ); ?></td>
                 <td><?php
                     $profile_val = str_replace("T00:00:00", "", $profile[$key]);
                     if(odm_language_manager()->get_current_language() =="km"){
@@ -41,7 +41,7 @@
                       }
                     }
 
-                    echo $profile_value == ""? __("Not found", "opendev"): str_replace(";", "<br/>", $profile_value);
+                    echo $profile_value == ""? __("Not found", 'odm'): str_replace(";", "<br/>", $profile_value);
 
                     if(in_array($key, array("data_class", "adjustment_classification", "adjustment")))
                       odm_data_classification_definition( $profile[$key]);
@@ -59,7 +59,7 @@
       <div class="eight columns">
         <?php if (count($ammendements) > 0): ?>
           <div class="profile-metadata">
-            <h2><?php _e("Amendments", "opendev"); ?></h2>
+            <h2><?php _e("Amendments", 'odm'); ?></h2>
             <table id="tracking" class="data-table">
               <tbody>
                 <thead>
@@ -107,17 +107,21 @@
               </tbody>
             </table>
           </div>
+        <?php else: ?>
+          <p><php _e('No records found','odm') ?></p>
         <?php endif; ?>
 
         <?php
           $ref_docs_profile = explode(";", $profile["reference"]);
           $ref_docs = array_merge($ref_docs_profile,$ref_docs_tracking);
-          if ($ref_docs): ?>
+          if (count($ref_docs)> 0): ?>
           <div class="profile-metadata">
-            <h2><?php _e("Reference documents", "opendev"); ?></h2>
+            <h2><?php _e("Reference documents", 'odm'); ?></h2>
                 <?php odm_list_reference_documents($ref_docs)?>
           </div>
+          <?php else: ?>
+            <p><php _e('No records found','odm') ?></p>
+          <?php endif; ?>
         </div>
-      <?php endif; ?>
     </div>
   </div>
