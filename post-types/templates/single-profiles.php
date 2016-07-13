@@ -123,7 +123,7 @@ $ref_docs_tracking = array();
         <div class="row">
   			    <div class="twelve columns">
               <header class="single-post-header">
-                  <h1 class="align-left"><a href="<?php get_page_link(); ?>"><?php the_title(); ?></a></h1>
+                  <h1><?php the_title(); ?></h1>
           		</header>
             </div>
         </div>
