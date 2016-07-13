@@ -61,9 +61,7 @@ if (isset($ckan_dataset) && $ckan_dataset != '') {
     $ckan_dataset_id = $ckan_dataset_exploded_by_resource[0];
     $ckan_dataset_csv_id = $ckan_dataset_exploded_by_resource[1];
 
-    $dataset = wpckan_api_query_dataset_detail(array(
-      "id" => $ckan_dataset_id)
-    );
+    $dataset = wpckan_api_package_show(wpckan_get_ckan_domain(),$ckan_dataset_id);
     if (!empty($filter_map_id)) {
         $profile = wpckan_get_datastore_resources_filter(wpckan_get_ckan_domain(), $ckan_dataset_csv_id, 'map_id', $filter_map_id)[0];
     } else {
@@ -402,8 +400,8 @@ $ref_docs_tracking = array();
                             ?>
                               <td><div class="td-value"><?php
                                   $ref_docs_profile = explode(';', $profile['reference']);
-                            $ref_docs = array_merge($ref_docs_profile, $ref_docs_tracking);
-                            odm_list_reference_documents($ref_docs, 1);
+                                  $ref_docs = array_unique(array_merge($ref_docs_profile, $ref_docs_tracking));
+                                  odm_list_reference_documents($ref_docs, 1);
                             ?></div>
                               </td>
                             <?php
