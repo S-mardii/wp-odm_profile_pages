@@ -62,13 +62,13 @@
             <h2><?php _e("Amendments", 'odm'); ?></h2>
             <table id="tracking" class="data-table">
               <tbody>
-                <thead>
-                  <!--<tr>
+                <!--<thead>
+                  <tr>
                     <?php /* foreach ($DATASET_ATTRIBUTE_TRACKING as $key => $value): ?>
                       <td class="row-key"><?php _e( $DATASET_ATTRIBUTE_TRACKING[$key], 'odm'); ?></td>
                     <?php endforeach; */ ?>
-                  </tr>-->
-                </thead>
+                  </tr>
+                </thead>-->
                 <?php
                 $concession_or_developer = '';
                 foreach ($ammendements as $key => $ammendement):
@@ -79,14 +79,15 @@
                   ?>
                   <tr>
                     <?php foreach ($DATASET_ATTRIBUTE_TRACKING as $key => $value): ?>
-                      <?php if (isset($ammendement[$key]) && $key == 'concession_or_developer'){
-                              if ($ammendement[$key] == $concession_or_developer)
+                      <?php if (isset($ammendement[$key]) && $key == 'concession_or_developer'):
+
+                              if ($ammendement[$key] == $concession_or_developer):
                                   echo "<td></td>";
-                              else  {
+                              else:
                                   echo "<td><strong>".__($ammendement[$key], 'odm')."</strong></td>";
                                   $concession_or_developer = $ammendement[$key];
-                              }
-                            }else{?>
+                              endif;
+                            else: ?>
                               <td>
                                 <?php
                                 if (isset($ammendement[$key]) && $key == 'amendment_date'){
@@ -100,7 +101,7 @@
                                 }
                                 ?>
                               </td>
-                            <?php } ?>
+                          <?php endif; ?>
                     <?php endforeach; ?>
                   </tr>
                 <?php endforeach; ?>

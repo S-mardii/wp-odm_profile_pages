@@ -61,7 +61,9 @@ if (isset($ckan_dataset) && $ckan_dataset != '') {
     $ckan_dataset_id = $ckan_dataset_exploded_by_resource[0];
     $ckan_dataset_csv_id = $ckan_dataset_exploded_by_resource[1];
 
-    $dataset = wpckan_get_dataset_by_id(wpckan_get_ckan_domain(), $ckan_dataset_id);
+    $dataset = wpckan_api_query_dataset_detail(array(
+      "id" => $ckan_dataset_id)
+    );
     if (!empty($filter_map_id)) {
         $profile = wpckan_get_datastore_resources_filter(wpckan_get_ckan_domain(), $ckan_dataset_csv_id, 'map_id', $filter_map_id)[0];
     } else {
