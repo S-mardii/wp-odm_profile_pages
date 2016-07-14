@@ -61,7 +61,7 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .profiles_page .layer-toggle-info-container {
   display: inline-block;
 }
-.profiles_page .toggle-info .toggle-talbe tr:first-child {
+.profiles_page .toggle-info .toggle-table tr:first-child {
   display: none;
 }
 #profiles td {
