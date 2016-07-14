@@ -98,16 +98,17 @@ function odm_list_reference_documents($ref_docs, $only_title_url = 0)
         endif;
         if (count($ref_doc_metadata) > 0):
 
-            foreach ($ref_doc_metadata as $key => $metadata): ?>
-                    <li><a target="_blank" href="<?php echo wpckan_get_ckan_domain().'/dataset/'.$metadata['name'] ?>"><?php echo getMultilingualValueOrFallback($metadata['title_translated'], odm_language_manager()->get_current_language(), $metadata['title']) ?></a>
-                      <?php if ($metadata['type'] == 'laws_record' && !(empty($metadata['odm_promulgation_date']))): ?>
+            foreach ($ref_doc_metadata as $key => $metadata):
+              $title = isset($metadata['title_translated']) ? $metadata['title_translated'] : $metadata['title']; ?>
+                    <li><a target="_blank" href="<?php echo wpckan_get_ckan_domain().'/dataset/'.$metadata['name'] ?>"><?php echo getMultilingualValueOrFallback($title, odm_language_manager()->get_current_language(), $metadata['title']) ?></a>
+                      <?php if ($metadata['type'] == 'laws_record' && (isset($metadata['odm_promulgation_date']))): ?>
                         <?php   if (odm_language_manager()->get_current_language() == 'km') {
       echo convert_date_to_kh_date(date('d/m/Y', strtotime($metadata['odm_promulgation_date'])), '/');
   } else {
       echo '('.$metadata['odm_promulgation_date'].')';
   }
         ?>
-                      <?php elseif ($metadata['type'] == 'library_records' && !(empty($metadata['odm_publication_date']))):  ?>
+      <?php elseif ($metadata['type'] == 'library_records' && (isset($metadata['odm_publication_date']))):  ?>
                         <?php   if (odm_language_manager()->get_current_language() == 'km') {
       echo convert_date_to_kh_date(date('d/m/Y', strtotime($metadata['odm_publication_date'])), '/');
   } else {
