@@ -1,12 +1,12 @@
 <div class="container">
     <div class="sixteen columns">
-      <header class="single-post-header">
+      <header>
         <?php  if ($profile["developer"]!="")
-            echo '<h1 class="profile-name">'.$profile["developer"].'</h1>';
+            echo '<h3 class="profile-name">'.$profile["developer"].'</h3>';
          else if ($profile["name"]!="")
-            echo '<h1 class="profile-name">'.$profile["name"].'</h1>';
+            echo '<h3 class="profile-name">'.$profile["name"].'</h3>';
          else if ($profile["block"]!="")
-            echo '<h1 class="profile-name">'.$profile["block"].'</h1>';
+            echo '<h3 class="profile-name">'.$profile["block"].'</h3>';
        ?>
       </header>
     </div>
