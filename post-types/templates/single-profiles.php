@@ -113,6 +113,14 @@ $ref_docs_profile = array();
 $ref_docs_tracking = array();
 ?>
 
+  <section class="container section-title main-title">
+    <header class="row">
+      <div class="sixteen columns">
+        <h1><?php the_title(); ?></h1>
+      </div>
+    </header>
+  </section>
+
   <section id="content" class="single-post">
     <?php if (!empty($filter_map_id)):
               include 'page-profiles-single-page.php';
@@ -120,13 +128,6 @@ $ref_docs_tracking = array();
               include 'page-profiles-metadata-page.php';
           else: ?>
       <div class="container">
-        <div class="row">
-  			    <div class="sixteen columns">
-              <header class="single-post-header">
-                  <h1><?php the_title(); ?></h1>
-          		</header>
-            </div>
-        </div>
 
         <!--  Filter-->
         <div class="row">
