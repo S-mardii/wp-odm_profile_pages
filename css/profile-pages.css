@@ -184,3 +184,47 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 #profiles td .td-value ul li{
   min-width: 200px;
 }
+.fixed_top_bar{
+  display: none;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  background: #fff;
+  z-index: 9999;
+  margin-left: 20px;
+}
+.fixed_top_bar div{
+  display: inline;
+}
+.fixed_top_bar #filter_by_classification{
+  top: 11px;
+  display: inline-block;
+}
+.fixed_top_bar .dataTables_filter{
+  margin-top: 12px;
+  margin-right: 10px;
+  display: inline-block;;
+  float: right;
+}
+.fixed_top_bar .dataTables_filter input{
+    margin-left: 5px;
+}
+.show_list_format{
+  display: none;
+  padding: 2px 15px;
+  width: 150px;
+  margin-top: 3px;
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  z-index: 2002;
+  position: absolute;
+  margin-top: 2.5em;
+  -moz-column-gap: 8px;
+}
+.download_buttons div.format_button:last-child > .show_list_format,
+.download_buttons div.format_button:nth-last-child(2) > .show_list_format{
+  right: 0px;
+}
