@@ -115,8 +115,12 @@ $ref_docs_tracking = array();
 
   <section class="container section-title main-title">
     <header class="row">
-      <div class="sixteen columns">
+      <div class="eight columns">
         <h1><?php the_title(); ?></h1>
+      </div>
+      <div class="eight columns">
+        <?php echo_metadata_button($dataset) ?>
+        <?php echo_download_buttons($dataset); ?>
       </div>
     </header>
   </section>
@@ -144,16 +148,18 @@ $ref_docs_tracking = array();
                 <?php
                 $count_project = array_count_values(array_map(function ($value) {return $value['map_id'];}, $profiles));?>
                 <li>
-                  <strong>
-                    <?php if (odm_language_manager()->get_current_language() == 'km') {
-                            echo __('Total', 'odm').get_the_title().__('Listed', 'odm').__(':', 'odm');
-                          } else {
-                            echo __('Total', 'odm').' '.get_the_title().' '.__('Listed', 'odm').' '.__(':', 'odm');
-                          } ?>
-                  </strong>
-                  <strong>
-                    <?php echo $count_project == '' ? convert_to_kh_number('0') : convert_to_kh_number(count($count_project));?>
-                  </strong>
+                  <p>
+                    <strong>
+                      <?php if (odm_language_manager()->get_current_language() == 'km') {
+                              echo __('Total', 'odm').get_the_title().__('Listed', 'odm').__(':', 'odm');
+                            } else {
+                              echo __('Total', 'odm').' '.get_the_title().' '.__('Listed', 'odm').' '.__(':', 'odm');
+                            } ?>
+                    </strong>
+                    <strong>
+                      <?php echo $count_project == '' ? convert_to_kh_number('0') : convert_to_kh_number(count($count_project));?>
+                    </strong>
+                  </p>
                 </li>
                 <?php
                 $explode_total_number_by_attribute_name = explode("\r\n", $total_number_by_attribute_name);
@@ -176,16 +182,19 @@ $ref_docs_tracking = array();
                         foreach ($specifit_value as $field_value) {
                           $field_value = trim(str_replace('"', '', $field_value)); ?>
                           <li>
+                            <p>
                             <?php _e($field_value, 'odm'); ?>
                             <?php _e(':', 'odm');?>
                             <strong>
                               <?php echo $count_number_by_attr[$field_value] == '' ? convert_to_kh_number('0') : convert_to_kh_number($count_number_by_attr[$field_value]);?></strong>
+                            </p>
                           </li>
                       <?php
                         }
                       } else {
                         if (isset($total_attributename) && $total_attributename != 'map_id') {?>
                          <li>
+                           <p>
                             <?php
                             if (odm_language_manager()->get_current_language() == 'km') {
                               echo __('Total', 'odm').$DATASET_ATTRIBUTE[$total_attributename].__('Listed', 'odm').__(':', 'odm');
@@ -194,7 +203,8 @@ $ref_docs_tracking = array();
                             } ?>
 
                             <strong><?php echo $total_attributename == '' ? convert_to_kh_number('0') : convert_to_kh_number(count($count_number_by_attr));?></strong>
-                          </li>
+                          </p>
+                        </li>
                      <?php
                         }
                       }
@@ -207,273 +217,155 @@ $ref_docs_tracking = array();
           } ?>
           </div>
         </div>
-        <div class="row">
-          <div class="four columns">
-            <div class="sidebar_box">
-              <div class="sidebar_header">
-                <span class="big">
-                  <?php _e('Search', 'odm');?></span>
-              </div>
-              <div class="sidebar_box_content">
-                <input type="text" id="search_all" placeholder="<?php _e('Search data in profile page', 'odm'); ?>">
-              </div>
-            </div>
+
+        <div class="row panel">
+          <div class="six columns">
+            <p><?php _e('Textual search', 'odm');?></p>
+            <input type="text" id="search_all" placeholder="<?php _e('Search data in profile page', 'odm'); ?>">
           </div>
           <div class="six columns">
-            <div class="sidebar_box">
-              <div class="sidebar_header">
-                <span class="big">
-                  <?php _e('Download', 'odm');?></span>
+            <?php if (isset($filtered_by_column_index) && $filtered_by_column_index != ''): ?>
+              <div id="filter_by_classification">
+                <p><?php _e('Filter by', 'odm');?></p>
               </div>
-              <div class="sidebar_box_content download_buttons">
-                <?php
-                if (isset($dataset['resources']) && $dataset['resources']) {
-                    $file_format = array_count_values(array_map(function ($value) {return $value['format'];}, $dataset['resources']));
-                    foreach ($file_format as $format => $file_extention) {
-                        if ($file_format[$format] > 1 &&  $format != 'CSV') {
-                            ?>
-                        <div class="format_button" id="format_<?php echo $format;
-                            ?>"><a class="format" href="#"><?php echo $format;
-                            ?></a>
-                            <div class="show_list_format format_<?php echo $format?>">
-                                <ul class="list_format">
-                                <?php
-                                foreach ($dataset['resources'] as $key => $resource) :
-                                  if ($resource['format'] == $format) {
-                                      ?>
-                                        <li><a href="<?php echo $resource['url'];
-                                      ?>"><?php echo $resource['name'];
-                                      ?></a></li>
-                                <?php
-
-                                  }
-                            endforeach;
-                            ?>
-                                </ul>
-                            </div>
-                        </div>
-                      <?php
-
-                        } elseif (($file_format[$format] > 1) &&  ($format == 'CSV')) {
-                            foreach ($dataset['resources'] as $key => $resource) :
-                          if ($resource['format'] == $format) {
-                              $file_version[] = $resource['odm_language'][0];
-                          }
-                            endforeach; //$dataset["resources"]
-                        $count_file_version = array_count_values($file_version);
-                            if ($count_file_version[odm_language_manager()->get_current_language()] > 1) {
-                                ?>
-                          <div class="format_button" id="format_<?php echo $format;
-                                ?>"><a class="format" href="#"><?php echo $format;
-                                ?></a>
-                              <div class="show_list_format format_<?php echo $format?>">
-                                  <ul class="list_format">
-                                  <?php
-                                  foreach ($dataset['resources'] as $key => $resource) :
-                                    if (($resource['format'] == $format) && ($resource['odm_language'][0] == odm_language_manager()->get_current_language())) {
-                                        ?>
-                                          <li><a href="<?php echo $resource['url'];
-                                        ?>"><?php echo $resource['name'];
-                                        ?></a></li>
-                                  <?php
-
-                                    }
-                                endforeach;
-                                ?>
-                                  </ul>
-                              </div>
-                          </div> <?php
-
-                            } else {
-                                foreach ($dataset['resources'] as $key => $resource) :
-                              if (($resource['format'] == $format) && ($resource['odm_language'][0] == odm_language_manager()->get_current_language())) {
-                                  ?>
-                            <span><a target="_blank" href="<?php echo $resource['url'];
-                                  ?>"><?php echo $resource['format'];
-                                  ?></a></span>
-                          <?php
-
-                              }
-                                endforeach;
-                            }
-                        } else {
-                            foreach ($dataset['resources'] as $key => $resource) :
-                            if ($resource['format'] == $format) {
-                                ?>
-                          <span><a target="_blank" href="<?php echo $resource['url'];
-                                ?>"><?php echo $resource['format'];
-                                ?></a></span>
-                        <?php
-
-                            }
-                            endforeach;
-                        }
-                    }
-                    ?>
-                    <div>
-                      <a target="_blank" href="?metadata=<?php echo $ckan_dataset_id;
-                    ?>">» <?php _e('View metadata of dataset', 'odm')?></a>
-                   </div>
-                <?php
-
-                }?>
-              </div>
-            </div>
+            <?php endif; ?>
           </div>
           <?php if (isset($related_profile_pages) && $related_profile_pages != '') {
             $temp_related_profile_pages = explode("\r\n", $related_profile_pages);  ?>
-          <div class="six columns">
-            <div class="sidebar_box">
-                <div class="sidebar_header">
-                  <span class="big">
-                    <?php _e('Related profile pages', 'odm'); ?></span>
-                </div>
-                <div class="sidebar_box_content download_buttons"><ul>
-                  <?php foreach ($temp_related_profile_pages as $profile_pages_url) :
-                        $split_title_and_url = explode('|', $profile_pages_url);?>
-                        <li><a href="<?php echo $split_title_and_url[1]; ?>"><?php echo $split_title_and_url[0]; ?></a></li>
-                  <?php endforeach; ?>
-                  </ul>
-                </div>
-              </div>
+            <p><?php _e('Related profiles', 'odm');?></p>
+            <div class="three columns">
+              <ul>
+              <?php foreach ($temp_related_profile_pages as $profile_pages_url) :
+                  $split_title_and_url = explode('|', $profile_pages_url);?>
+                  <li>
+                    <a href="<?php echo $split_title_and_url[1]; ?>"><?php echo $split_title_and_url[0]; ?></a>
+                  </li>
+              <?php endforeach; ?>
+              </ul>
             </div>
-            <?php
-          } ?>
-          </div>
-
-        <!-- Table -->
-        <div class="row no-margin-buttom">
-          <div class="fixed_top_bar"></div>
-          <div class="sixteen columns table-column-container">
-            <?php if (isset($filtered_by_column_index) && $filtered_by_column_index != '') {
-    ?>
-              <div id="filter_by_classification"> <?php _e('Filter by', 'odm');
-    ?></div>
-            <?php
-
-} ?>
-            <table id="profiles" class="data-table">
-              <thead>
-                <tr>
-                  <th><div class='th-value'><?php _e('Map ID', 'odm'); ?></div></th>
-                  <?php if ($DATASET_ATTRIBUTE) {
-    foreach ($DATASET_ATTRIBUTE as $key => $value): ?>
-                            <th><div class='th-value'><?php _e($DATASET_ATTRIBUTE[$key], 'odm');
-    ?></div></th>
-                    <?php endforeach;
-}
-                    ?>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                if ($profiles) {
-                    foreach ($profiles as $profile):  ?>
-                    <tr>
-                      <td class="td-value"><?php echo $profile['map_id'];
-                    ?></td>
-                    <?php
-                      foreach ($DATASET_ATTRIBUTE as $key => $value): ?>
-                        <?php
-                        if (in_array($key, array('developer', 'name', 'block'))) {
-                            ?>
-                              <td class="entry_title"><div class="td-value">
-                                  <a href="?map_id=<?php echo $profile['map_id'];
-                            ?>"><?php echo $profile[$key];
-                            ?></a></div>
-                              </td>
-                            <?php
-
-                        } elseif (in_array($key, array('data_class', 'adjustment_classification', 'adjustment'))) {
-                            ?>
-          										<td><div class="td-value"><?php
-                                if (odm_language_manager()->get_current_language() == 'en') {
-                                    echo ucwords(trim($profile[$key]));
-                                } else {
-                                    echo trim($profile[$key]);
-                                }
-                            ?> <?php odm_data_classification_definition($profile[$key]);
-                            ?></div>
-                              </td>
-                            <?php
-
-                        } elseif ($key == 'reference') {
-                            ?>
-                              <td><div class="td-value"><?php
-                                  $ref_docs_profile = explode(';', $profile['reference']);
-                                  $ref_docs = array_unique(array_merge($ref_docs_profile, $ref_docs_tracking));
-                                  odm_list_reference_documents($ref_docs, 1);
-                            ?></div>
-                              </td>
-                            <?php
-
-                        } elseif ($key == 'issuedate') {
-                            ?>
-                            <td><div class="td-value"><?php
-                                $issuedate = str_replace('T00:00:00', '', $profile[$key]);
-                            echo $profile[$key] == '' ? __('Not found', 'odm') : str_replace(';', '<br/>', trim($issuedate));
-                            ?></div>
-                            </td>
-                          <?php
-
-                        } elseif (in_array($key, array('cdc_num', 'sub-decree', 'year'))) {
-                            if (odm_language_manager()->get_current_language() == 'km') {
-                                $profile_value = convert_to_kh_number($profile[$key]);
-                            } else {
-                                $profile_value = $profile[$key];
-                            }
-                            ?>
-                            <td><div class="td-value"><?php
-                              echo $profile_value == '' ? __('Not found', 'odm') : str_replace(';', '<br/>', trim($profile_value));
-                            ?></div>
-                            </td>
-                        <?php
-
-                        } else {
-                            $profile_val = str_replace('T00:00:00', '', $profile[$key]);
-                            if (odm_language_manager()->get_current_language() == 'km') {
-                                if (is_numeric($profile_val)) {
-                                    $profile_value = convert_to_kh_number(str_replace('.00', '', number_format($profile_val, 2, '.', ',')));
-                                } else {
-                                    $profile_value = str_replace('__', ' ', $profile_val);
-                                }
-                            } else {
-                                if (is_numeric($profile_val)) {
-                                    $profile_value = str_replace('.00', '', number_format($profile_val, 2, '.', ','));
-                                } else {
-                                    $profile_value = str_replace('__', ', ', $profile_val);
-                                }
-                            }
-
-                            $profile_value = str_replace(';', '<br/>', trim($profile_value));
-                            ?>
-                              <td><div class="td-value"><?php
-                                echo $profile[$key] == '' ? __('Not found', 'odm') : str_replace(';', '<br/>', trim($profile_value));
-                            ?></div>
-                              </td>
-                            <?php
-
-                        }
-                    ?>
-                      <?php endforeach;
-                    ?>
-                    </tr>
-        				<?php endforeach;
-                }
-                ?>
-      				</tbody>
-      			</table>
-          </div>
+            <?php } ?>
         </div>
 
-        <div class="row">
-          <div class="sixteen columns">
-            <div class="disclaimer">
-              <?php the_content(); ?>
-            </div>
+      <!-- Table -->
+      <div class="row no-margin-buttom">
+        <div class="fixed_top_bar"></div>
+        <div class="sixteen columns table-column-container">
+
+          <table id="profiles" class="data-table">
+            <thead>
+              <tr>
+                <th><div class='th-value'><?php _e('Map ID', 'odm'); ?></div></th>
+                <?php if ($DATASET_ATTRIBUTE) :
+                  foreach ($DATASET_ATTRIBUTE as $key => $value): ?>
+                    <th>
+                      <div class='th-value'>
+                        <?php _e($DATASET_ATTRIBUTE[$key], 'odm');?>
+                      </div>
+                    </th>
+                  <?php endforeach;
+                endif; ?>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              if ($profiles):
+                  foreach ($profiles as $profile):  ?>
+                  <tr>
+                    <td class="td-value">
+                      <?php echo $profile['map_id'];?>
+                    </td>
+                  <?php
+                    foreach ($DATASET_ATTRIBUTE as $key => $value): ?>
+                      <?php
+                      if (in_array($key, array('developer', 'name', 'block'))) :
+                          ?>
+                            <td class="entry_title">
+                              <div class="td-value">
+                                <a href="?map_id=<?php echo $profile['map_id'];?>"><?php echo $profile[$key];?></a>
+                              </div>
+                            </td>
+                          <?php
+                      elseif (in_array($key, array('data_class', 'adjustment_classification', 'adjustment'))): ?>
+        										<td>
+                              <div class="td-value"><?php
+                                if (odm_language_manager()->get_current_language() == 'en'):
+                                    echo ucwords(trim($profile[$key]));
+                                else:
+                                    echo trim($profile[$key]);
+                                endif;?>
+                                <?php odm_data_classification_definition($profile[$key]);?>
+                              </div>
+                            </td>
+                          <?php
+                      elseif ($key == 'reference'): ?>
+                            <td>
+                              <div class="td-value"><?php
+                                $ref_docs_profile = explode(';', $profile['reference']);
+                                $ref_docs = array_unique(array_merge($ref_docs_profile, $ref_docs_tracking));
+                                odm_list_reference_documents($ref_docs, 1);?>
+                              </div>
+                            </td>
+                          <?php
+                      elseif ($key == 'issuedate'): ?>
+                          <td><div class="td-value"><?php
+                              $issuedate = str_replace('T00:00:00', '', $profile[$key]);
+                          echo $profile[$key] == '' ? __('Not found', 'odm') : str_replace(';', '<br/>', trim($issuedate));
+                          ?></div>
+                          </td>
+                        <?php
+                      elseif (in_array($key, array('cdc_num', 'sub-decree', 'year'))):
+                          if (odm_language_manager()->get_current_language() == 'km'):
+                              $profile_value = convert_to_kh_number($profile[$key]);
+                          else:
+                              $profile_value = $profile[$key];
+                          endif; ?>
+                          <td>
+                            <div class="td-value"><?php
+                              echo $profile_value == '' ? __('Not found', 'odm') : str_replace(';', '<br/>', trim($profile_value));?>
+                            </div>
+                          </td>
+                      <?php
+                    else:
+                          $profile_val = str_replace('T00:00:00', '', $profile[$key]);
+                          if (odm_language_manager()->get_current_language() == 'km'):
+                              if (is_numeric($profile_val)):
+                                  $profile_value = convert_to_kh_number(str_replace('.00', '', number_format($profile_val, 2, '.', ',')));
+                              else:
+                                  $profile_value = str_replace('__', ' ', $profile_val);
+                              endif;
+                          else:
+                              if (is_numeric($profile_val)):
+                                  $profile_value = str_replace('.00', '', number_format($profile_val, 2, '.', ','));
+                              else:
+                                  $profile_value = str_replace('__', ', ', $profile_val);
+                              endif;
+                          endif;
+
+                          $profile_value = str_replace(';', '<br/>', trim($profile_value));?>
+                            <td>
+                              <div class="td-value"><?php
+                                echo $profile[$key] == '' ? __('Not found', 'odm') : str_replace(';', '<br/>', trim($profile_value));?>
+                              </div>
+                            </td>
+                          <?php
+                    endif; ?>
+                    <?php endforeach; ?>
+                  </tr>
+      				<?php endforeach;
+            endif; ?>
+    				</tbody>
+    			</table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="sixteen columns">
+          <div class="disclaimer">
+            <?php the_content(); ?>
           </div>
         </div>
       </div>
+    </div>
     <?php endif; ?>
 	</section>
 <?php endif; ?>
@@ -489,10 +381,8 @@ var mapIdColNumber = 0;
 
 <?php if (isset($map_visualization_url) && $map_visualization_url != '') {
     ?>
-    var cartodb_user = "<?php echo $cartodb_layer_option['user_name'];
-    ?>";
-    var cartodb_layer_table = "<?php  echo $cartodb_layer_name;
-    ?>";
+    var cartodb_user = "<?php echo $cartodb_layer_option['user_name'];?>";
+    var cartodb_layer_table = "<?php  echo $cartodb_layer_name;?>";
     var cartodbSql = new cartodb.SQL({ user: cartodb_user });
 
 
@@ -524,7 +414,6 @@ jQuery(document).ready(function($) {
   //hide show download item if click anywhere
   $(document).click(function(){
     $('.show_list_format').hide(); //hide the button
-
   });
 
   if ($('.profile-metadata h2').hasClass('profile-name')) {
@@ -541,8 +430,7 @@ jQuery(document).ready(function($) {
    }
   };
 
-<?php if ($filter_map_id == '' && $metadata_dataset == '') {
-    ?>
+<?php if ($filter_map_id == '' && $metadata_dataset == '') { ?>
   	var get_datatable = $('#profiles').position().top;
   	    get_datatable = get_datatable +230;
 
@@ -574,8 +462,7 @@ jQuery(document).ready(function($) {
            "visible": false
          }
        ]
-       <?php if (odm_language_manager()->get_current_language() == 'km') {
-    ?>
+       <?php if (odm_language_manager()->get_current_language() == 'km') { ?>
        , "oLanguage": {
            "sLengthMenu": 'បង្ហាញទិន្នន័យចំនួន <select>'+
                '<option value="10">10</option>'+
@@ -596,23 +483,19 @@ jQuery(document).ready(function($) {
            }
        }
        <?php
-}
-    ?>
-       <?php if (isset($group_data_by_column_index) && $group_data_by_column_index != '') {
-    ?>
-         , "aaSortingFixed": [[<?php echo $group_data_by_column_index;
-    ?>, 'asc' ]] //sort data in Data Classifications first before grouping
+} ?>
+       <?php
+        if (isset($group_data_by_column_index) && $group_data_by_column_index != '') { ?>
+         , "aaSortingFixed": [[<?php echo $group_data_by_column_index; ?>, 'asc' ]] //sort data in Data Classifications first before grouping
       <?php
-}
-    ?>
+} ?>
          , "drawCallback": function ( settings ) {  //Group colums
                  var api = this.api();
                  var rows = api.rows( {page:'current'} ).nodes();
                  var last=null;
-                <?php if (isset($group_data_by_column_index) && $group_data_by_column_index != '') {
-    ?>
-                   api.column(<?php echo $group_data_by_column_index;
-    ?>, {page:'current'} ).data().each( function ( group, i ) {
+                <?php
+                if (isset($group_data_by_column_index) && $group_data_by_column_index != '') { ?>
+                   api.column(<?php echo $group_data_by_column_index; ?>, {page:'current'} ).data().each( function ( group, i ) {
                        if ( last !== group ) {
                            $(rows).eq( i ).before(
                                '<tr class="group" id="cambodia-bgcolor"><td colspan="<?php echo  count($DATASET_ATTRIBUTE)?>">'+group+'</td></tr>'
@@ -621,8 +504,7 @@ jQuery(document).ready(function($) {
                        }
                    } );
                 <?php
-}
-    ?>
+} ?>
                align_width_td_and_th();
            }
     });
@@ -632,10 +514,8 @@ jQuery(document).ready(function($) {
     $number_selector = 1;
     foreach ($num_filtered_column_index as $column_index) {
         $column_index = trim($column_index);
-        if ($number_selector <= 3) {
-            ?>
-                  create_filter_by_column_index(<?php echo $column_index;
-            ?>);
+        if ($number_selector <= 3) { ?>
+          create_filter_by_column_index(<?php echo $column_index;?>);
     <?php
         }
         ++$number_selector;
@@ -669,6 +549,7 @@ jQuery(document).ready(function($) {
      }
 
      function create_filter_by_column_index(col_index){
+
        var columnIndex = col_index;
        var column_filter_oTable = oTable.api().columns( columnIndex );
        var column_headercolumnIndex = columnIndex -1;
@@ -766,8 +647,7 @@ jQuery(document).ready(function($) {
 <?php if (isset($map_visualization_url) && $map_visualization_url != '') {
     ?>
      window.onload = function() {
-       cartodb.createVis('profiles_map', '<?php echo $map_visualization_url;
-    ?>', {
+       cartodb.createVis('profiles_map', '<?php echo $map_visualization_url;?>', {
      		search: false,
      		shareable: true,
          zoom: 7,

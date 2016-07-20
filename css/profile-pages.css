@@ -224,7 +224,3 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
   margin-top: 2.5em;
   -moz-column-gap: 8px;
 }
-.download_buttons div.format_button:last-child > .show_list_format,
-.download_buttons div.format_button:nth-last-child(2) > .show_list_format{
-  right: 0px;
-}

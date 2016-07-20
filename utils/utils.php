@@ -182,4 +182,106 @@ function odm_list_reference_documents($ref_docs, $only_title_url = 0)
     }
 }
 
+function echo_download_buttons($dataset){
+  ?>
+    <div>
+      <?php
+      if (isset($dataset['resources']) && $dataset['resources']) {
+          $file_format = array_count_values(array_map(function ($value) {return $value['format'];}, $dataset['resources']));
+          foreach ($file_format as $format => $file_extention) {
+              if ($file_format[$format] > 1 &&  $format != 'CSV') { ?>
+              <div class="format_button" id="format_<?php echo $format;
+                  ?>"><a class="button download format" href="#"><?php echo $format;
+                  ?></a>
+                  <div class="show_list_format format_<?php echo $format?>">
+                      <ul class="list_format">
+                      <?php
+                      foreach ($dataset['resources'] as $key => $resource) :
+                        if ($resource['format'] == $format) {
+                            ?>
+                              <li><a href="<?php echo $resource['url'];
+                            ?>"><?php echo $resource['name'];
+                            ?></a></li>
+                      <?php
+
+                        }
+                  endforeach;
+                  ?>
+                      </ul>
+                  </div>
+              </div>
+            <?php
+
+              } elseif (($file_format[$format] > 1) &&  ($format == 'CSV')) {
+                  foreach ($dataset['resources'] as $key => $resource) :
+                if ($resource['format'] == $format) {
+                    $file_version[] = $resource['odm_language'][0];
+                }
+                  endforeach; //$dataset["resources"]
+              $count_file_version = array_count_values($file_version);
+                  if ($count_file_version[odm_language_manager()->get_current_language()] > 1) {
+                      ?>
+                <div class="format_button" id="format_<?php echo $format;
+                      ?>"><a class="button download" href="#"><?php echo $format;
+                      ?></a>
+                    <div class="show_list_format format_<?php echo $format?>">
+                        <ul class="list_format">
+                        <?php
+                        foreach ($dataset['resources'] as $key => $resource) :
+                          if (($resource['format'] == $format) && ($resource['odm_language'][0] == odm_language_manager()->get_current_language())) {
+                              ?>
+                                <li><a href="<?php echo $resource['url'];
+                              ?>"><?php echo $resource['name'];
+                              ?></a></li>
+                        <?php
+
+                          }
+                      endforeach;
+                      ?>
+                        </ul>
+                    </div>
+                </div> <?php
+
+                  } else {
+                      foreach ($dataset['resources'] as $key => $resource) :
+                    if (($resource['format'] == $format) && ($resource['odm_language'][0] == odm_language_manager()->get_current_language())) {
+                        ?>
+                  <span><a class="button download" target="_blank" href="<?php echo $resource['url'];
+                        ?>"><?php echo $resource['format'];
+                        ?></a></span>
+                <?php
+
+                    }
+                      endforeach;
+                  }
+              } else {
+                  foreach ($dataset['resources'] as $key => $resource) :
+                  if ($resource['format'] == $format) {
+                      ?>
+                <span><a target="_blank" href="<?php echo $resource['url'];
+                      ?>"><?php echo $resource['format'];
+                      ?></a></span>
+              <?php
+
+                  }
+                  endforeach;
+              }
+          }
+          ?>
+          <div>
+         </div>
+      <?php
+
+      }?>
+    </div>
+  </div>
+  <?php
+}
+
+function echo_metadata_button($dataset){
+  ?>
+  <a target="_blank" class="button download" href="?metadata=<?php echo $dataset['id'];?>"><i class="fa fa-info"></i> <?php _e('Metadata', 'odm')?></a>
+  <?php
+}
+
 ?>
