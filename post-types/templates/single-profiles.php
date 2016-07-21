@@ -118,7 +118,7 @@ $ref_docs_tracking = array();
       <div class="eight columns">
         <h1><?php the_title(); ?></h1>
       </div>
-      <div class="eight columns">
+      <div class="eight columns align-right">
         <?php echo_metadata_button($dataset) ?>
         <?php echo_download_buttons($dataset); ?>
       </div>
@@ -232,8 +232,8 @@ $ref_docs_tracking = array();
           </div>
           <?php if (isset($related_profile_pages) && $related_profile_pages != '') {
             $temp_related_profile_pages = explode("\r\n", $related_profile_pages);  ?>
-            <p><?php _e('Related profiles', 'odm');?></p>
-            <div class="three columns">
+            <div class="four columns">
+              <p><?php _e('Related profiles', 'odm');?></p>
               <ul>
               <?php foreach ($temp_related_profile_pages as $profile_pages_url) :
                   $split_title_and_url = explode('|', $profile_pages_url);?>
