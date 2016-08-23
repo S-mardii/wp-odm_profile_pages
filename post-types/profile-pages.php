@@ -54,7 +54,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
               'has_archive'        => true,
               'hierarchical'       => true,
               'menu_position'      => 5,
-              //'taxonomies'         => array('category', 'language', 'post_tag'),
+              'taxonomies'         => array('category', 'language'),//, 'post_tag'
               'supports' => array('title', 'editor', 'page-attributes', 'revisions', 'author', 'thumbnail')
             );
 
