@@ -3,14 +3,11 @@
 if (!class_exists('Odm_Profile_Pages_Post_Type')) {
     class Odm_Profile_Pages_Post_Type
     {
-
         public function __construct()
         {
-
           add_action('init', array($this, 'register_post_type'));
           add_action('add_meta_boxes', array($this, 'add_meta_box'));
           add_action('save_post', array($this, 'save_post_data'));
-
           add_filter('single_template', array($this, 'get_profile_pages_template'));
         }
 
@@ -37,7 +34,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
               'new_item' => __('New profile', 'odm'),
               'edit_item' => __('Edit profile', 'odm'),
               'view_item' => __('View profile', 'odm'),
-              'all_items' => __('All profiles', 'odm'),
+              'all_items' => __('All profile', 'odm'),
               'search_items' => __('Search profiles', 'odm'),
               'parent_item_colon' => __('Parent profiles:', 'odm'),
               'not_found' => __('No profile found.', 'odm'),
@@ -93,18 +90,18 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
           );
         }//metabox
 
-        public function template_layout_settings_box($post = false)
-        {
-            $template = get_post_meta($post->ID, '_attributes_template_layout', true);
-            ?>
-            <div id="template_layout_settings_box">
-             <h4><?php _e('Choose template layout', 'odm');?></h4>
-             <select id="_attributes_template_layout" name="_attributes_template_layout">
-                <option <?php if ($template == "default"): echo "selected" ?> value="default" >Default </option>
-                <option <?php if ($template == "with-widget"): echo "selected" ?> value="with-widget" >With widgets</option>
-              </select>
-            </div>
-        <?}
+      public function template_layout_settings_box($post = false)
+      {
+          $template = get_post_meta($post->ID, '_attributes_template_layout', true); ?>
+          <div id="template_layout_settings_box">
+           <h4><?php _e('Choose template layout', 'odm');?></h4>
+           <select id="_attributes_template_layout" name="_attributes_template_layout">
+              <option value="default" <?php if ($template == "default"): echo "selected"; ?>>Default</option>
+              <option value="with-widget" <?php if ($template == "with-widget"): echo "selected"; ?>>With widgets</option>
+            </select>
+          </div>
+      <?php
+      }
 
       public function resource_settings_box($post = false)
       {
