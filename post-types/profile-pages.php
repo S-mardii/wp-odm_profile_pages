@@ -36,7 +36,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
           global $post;
           if ($post->post_type == 'profiles') {
             $page_template = get_post_meta($post->ID, '_wp_mf_page_template', TRUE);
-            if(strpos($page_template,"page-profile-with-widget") !== false){
+            if($page_template == "single-profiles-with-widget.php"){
               return plugin_dir_path(__FILE__).'templates/single-profiles-with-widget.php';
             }
             return plugin_dir_path(__FILE__).'templates/single-profiles.php';
