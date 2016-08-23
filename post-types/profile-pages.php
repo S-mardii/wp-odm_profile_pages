@@ -66,15 +66,15 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
 
         public function add_meta_box()
         {
-            // Profile settings
-            add_meta_box(
-             'profiles_template_layout',
-             __('Template layout', 'odm'),
-             array($this, 'template_layout_settings_box'),
-             'profiles',
-             'advanced',
-             'high'
-            );
+          // Profile settings
+          add_meta_box(
+           'profiles_template_layout',
+           __('Template layout', 'odm'),
+           array($this, 'template_layout_settings_box'),
+           'profiles',
+           'advanced',
+           'high'
+          );
           add_meta_box(
            'profiles_resource',
            __('CKAN​ Dataset Resource', 'odm'),
@@ -97,11 +97,13 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
         {
             $template = get_post_meta($post->ID, '_attributes_template_layout', true);
             ?>
+            <div id="template_layout_settings_box">
              <h4><?php _e('Choose template layout', 'odm');?></h4>
              <select id="_attributes_template_layout" name="_attributes_template_layout">
                 <option <?php if ($template == "default"): echo "selected" ?> value="default" >Default </option>
                 <option <?php if ($template == "with-widget"): echo "selected" ?> value="with-widget" >With widgets</option>
               </select>
+            </div>
         <?}
 
       public function resource_settings_box($post = false)
