@@ -38,13 +38,11 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
           $template_slug = rtrim( $single_template, '.php' );
           $template = $template_slug . '.php';
           $template_slug = basename($single_template, ".php");
-          if($template_slug =="page-profile-with-widget"){
-            $profile_template = plugin_dir_path(__FILE__).'templates/page-profile-with-widget.php';
-            return $profile_template;
-          }else {
-            if ($post->post_type == 'profiles') {
-                $profile_template = plugin_dir_path(__FILE__).'templates/single-profiles.php';
-                return $profile_template;
+          if ($post->post_type == 'profiles') {
+            if($template_slug =="page-profile-with-widget"){
+              return locate_template( array( 'templates/page-profile-with-widget.php' ));
+            }else {
+              return locate_template( array( 'templates/single-profiles.php' ));
             }
           }
         }
@@ -61,7 +59,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
               'new_item' => __('New profile', 'odm'),
               'edit_item' => __('Edit profile', 'odm'),
               'view_item' => __('View profile', 'odm'),
-              'all_items' => __('All profile', 'odm'),
+              'all_items' => __('All profiles', 'odm'),
               'search_items' => __('Search profiles', 'odm'),
               'parent_item_colon' => __('Parent profiles:', 'odm'),
               'not_found' => __('No profile found.', 'odm'),
