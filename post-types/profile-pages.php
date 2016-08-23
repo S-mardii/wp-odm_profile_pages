@@ -40,10 +40,10 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
           $template_slug = basename($single_template, ".php");
           if ($post->post_type == 'profiles') {
             if($template_slug =="page-profile-with-widget"){
-              $single_template = plugin_dir_path(__FILE__).'templates/single-tabular.php';
+              $single_template = plugin_dir_path(__FILE__).'templates/page-profile-with-widget.php';
               return $single_template;
             }
-            return plugin_dir_path(__FILE__).'templates/page-profile-with-widget.php';
+            return plugin_dir_path(__FILE__).'templates/single-profiles.php';
           }
         }
 
