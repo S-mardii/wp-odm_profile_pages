@@ -2,7 +2,6 @@
   <section class="container">
       <div class="eleven columns post-title">
 	      <header class="row">
-        <h1><?php the_title(); ?></h1>
         <?php echo_post_meta(get_post()); ?>
 
 				</header>
