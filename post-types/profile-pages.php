@@ -26,7 +26,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
         }*/
 
         public function filter_inject_page_templates( $templates ) {
-             $path = 'page-profile-with-widget.php';
+             $path = 'single-profiles-with-widget.php';
              $templates[ $path ] = 'Profile page with widget';
              return $templates;
         }
@@ -35,9 +35,9 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
         {
           global $post;
           if ($post->post_type == 'profiles') {
-            $page_template = get_post_meta($post->ID, '_wp_page_template', TRUE);
+            $page_template = get_post_meta($post->ID, '_wp_mf_page_template', TRUE);
             if(strpos($page_template,"page-profile-with-widget") !== false){
-              return plugin_dir_path(__FILE__).'templates/page-profile-with-widget.php';
+              return plugin_dir_path(__FILE__).'templates/single-profiles-with-widget.php';
             }
             return plugin_dir_path(__FILE__).'templates/single-profiles.php';
           }
