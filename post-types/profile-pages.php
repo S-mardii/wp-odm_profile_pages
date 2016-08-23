@@ -3,8 +3,13 @@
 if (!class_exists('Odm_Profile_Pages_Post_Type')) {
     class Odm_Profile_Pages_Post_Type
     {
+
+        private $single_profiles_with_widget_path;
+
         public function __construct()
         {
+
+          $single_profiles_with_widget_path =  plugin_dir_path(__FILE__).'templates/single-profiles-with-widget.php';
           add_action('init', array($this, 'register_post_type'));
           add_action('add_meta_boxes', array($this, 'add_meta_box'));
           add_action('save_post', array($this, 'save_post_data'));
@@ -25,9 +30,9 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
             return $single_template;
         }*/
 
-        public function filter_inject_page_templates( $templates ) {
-             $path = '../../plugins/wp-odm_profile_pages/post_types/templates/single-profiles-with-widget.php';
-             $templates[ $path ] = 'Profile page with widget';
+        public function filter_inject_page_templates( $templates, $theme, $post ) {
+             $path = $this->$single_profiles_with_widget_path;
+             $templates[$path] = 'Profile page with widget';
              return $templates;
         }
 
@@ -36,7 +41,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
           global $post;
           if ($post->post_type == 'profiles') {
             $page_template = get_post_meta($post->ID, '_wp_mf_page_template', TRUE);
-            if($page_template == "../../plugins/wp-odm_profile_pages/post_types/templates/single-profiles-with-widget.php"){
+            if($page_template == $this->$single_profiles_with_widget_path){
               return plugin_dir_path(__FILE__).'templates/single-profiles-with-widget.php';
             }
             return plugin_dir_path(__FILE__).'templates/single-profiles.php';
