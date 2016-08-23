@@ -26,7 +26,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
         }*/
 
         public function filter_inject_page_templates( $templates ) {
-             $path = 'single-profiles-with-widget.php';
+             $path = '../../plugins/wp-odm_profile_pages/post_types/templates/single-profiles-with-widget.php';
              $templates[ $path ] = 'Profile page with widget';
              return $templates;
         }
@@ -35,10 +35,12 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
         {
           global $post;
           if ($post->post_type == 'profiles') {
-            $single_template = plugin_dir_path(__FILE__).'templates/single-profiles.php';
+            $page_template = get_post_meta($post->ID, '_wp_mf_page_template', TRUE);
+            if($page_template == "../../plugins/wp-odm_profile_pages/post_types/templates/single-profiles-with-widget.php"){
+              return plugin_dir_path(__FILE__).'templates/single-profiles-with-widget.php';
+            }
+            return plugin_dir_path(__FILE__).'templates/single-profiles.php';
           }
-
-          return $single_template;
         }
 
         public function register_post_type()
