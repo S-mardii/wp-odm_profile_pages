@@ -11,11 +11,10 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
           add_action('add_meta_boxes', array($this, 'add_meta_box'));
           add_action('save_post', array($this, 'save_post_data'));
 
-          add_filter('theme_page_templates', array($this, 'filter_inject_page_templates'));
           add_filter('single_template', array($this, 'get_profile_pages_template'));
         }
 
-        /*public function get_default_profile_pages_template($single_template)
+        public function get_profile_pages_template($single_template)
         {
             global $post;
 
@@ -24,25 +23,6 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
             }
 
             return $single_template;
-        }*/
-
-        public function filter_inject_page_templates( $templates, $theme, $post ) {
-             $path = plugin_dir_path(__FILE__).'templates/single-profiles-with-widget.php';
-             $templates[$path] = 'Profile page with widget';
-             return $templates;
-        }
-
-        public function get_profile_pages_template($single_template)
-        {
-          global $post;
-          if ($post->post_type == 'profiles') {
-            $page_template = get_post_meta($post->ID, '_wp_mf_page_template', TRUE);
-            $path = plugin_dir_path(__FILE__).'templates/single-profiles-with-widget.php';
-            if($page_template == $path){
-              return plugin_dir_path(__FILE__).'templates/single-profiles-with-widget.php';
-            }
-            return plugin_dir_path(__FILE__).'templates/single-profiles.php';
-          }
         }
 
         public function register_post_type()
@@ -87,6 +67,14 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
         public function add_meta_box()
         {
             // Profile settings
+            add_meta_box(
+             'profiles_template_layout',
+             __('Template layout', 'odm'),
+             array($this, 'template_layout_settings_box'),
+             'profiles',
+             'advanced',
+             'high'
+            );
           add_meta_box(
            'profiles_resource',
            __('CKAN​ Dataset Resource', 'odm'),
@@ -104,6 +92,17 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
            'high'
           );
         }//metabox
+
+        public function template_layout_settings_box($post = false)
+        {
+            $template = get_post_meta($post->ID, '_attributes_template_layout', true);
+            ?>
+             <h4><?php _e('Choose template layout', 'odm');?></h4>
+             <select id="_attributes_template_layout" name="_attributes_template_layout">
+                <option <?php if ($template == "default"): echo "selected" ?> value="default" >Default </option>
+                <option <?php if ($template == "with-widget"): echo "selected" ?> value="with-widget" >With widgets</option>
+              </select>
+        <?}
 
       public function resource_settings_box($post = false)
       {
