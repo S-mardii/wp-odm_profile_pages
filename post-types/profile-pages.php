@@ -11,7 +11,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
           //add_filter('single_template', array($this, 'get_default_profile_pages_template'));
 
           add_filter('theme_page_templates', array($this, 'filter_inject_page_templates'));
-          add_filter('template_include', array($this, 'get_profile_pages_template'));
+          add_filter('single_template', array($this, 'get_profile_pages_template'));
         }
 
         /*public function get_default_profile_pages_template($single_template)
