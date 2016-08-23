@@ -34,12 +34,8 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
         public function get_profile_pages_template($single_template)
         {
           global $post;
-          // Get the template slug
-          $template_slug = rtrim( $single_template, '.php' );
-          $template = $template_slug . '.php';
-          $template_slug = basename($single_template, ".php");
           if ($post->post_type == 'profiles') {
-            if($template_slug == "page-profile-with-widget"){
+            if(strpos(get_page_template(),"page-profile-with-widget") !== false){
               return plugin_dir_path(__FILE__).'templates/page-profile-with-widget.php';
             }
             return plugin_dir_path(__FILE__).'templates/single-profiles.php';
