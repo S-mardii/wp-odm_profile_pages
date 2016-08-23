@@ -411,6 +411,10 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
                     return;
                 }
 
+                if (isset($_POST['_attributes_template_layout'])) {
+                    update_post_meta($post_id, '_attributes_template_layout', $_POST['_attributes_template_layout']);
+                }
+
                 if (isset($_POST['_map_visualization_url'])) {
                     update_post_meta($post_id, '_map_visualization_url', $_POST['_map_visualization_url']);
                 }
