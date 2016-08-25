@@ -10,14 +10,10 @@
               </div>
             </section>
           <?php endif;  */?>
-          <?php
-            if (odm_language_manager()->get_current_language() == 'km') {
-              $data_visualitation = get_post_meta($post->ID, '_embedded_iframe_localization', true);
-            }else {
-              $data_visualitation = get_post_meta($post->ID, '_embedded_iframe', true);
-            }
-            echo "<div class='iframe-visualitation'>".$data_visualitation."</div>";
-            ?>
+
+  				<section id="post-content">
+						<?php the_content(); ?>
+  				</section>
         </section>
       </div>
 
@@ -29,19 +25,24 @@
         </aside>
       </div>
   </section>
+  <?php
+    if (odm_language_manager()->get_current_language() == 'km') {
+      $data_visualitation = get_post_meta($post->ID, '_full_width_middle_content_localization', true);
+    }else {
+      $data_visualitation = get_post_meta($post->ID, '_full_width_middle_content', true);
+    }
 
-	<section class="container">
-		<div class="row">
-			<div class="sixten columns">
-				<section id="post-content">
-					<div class="item-content">
-						<?php the_content(); ?>
-					</div>
-				</section>
-			</div>
-		</div>
-	</section>
-
+    if($data_visualitation):
+      ?>
+    	<section class="container">
+    		<div class="row">
+    			<div class="sixten columns">
+            <?php echo "<div class='iframe-visualitation'>".$data_visualitation."</div>"; ?>
+    			</div>
+    		</div>
+    	</section>
+  <?php endif; ?>
+  
 	<section id="profile-area-bottom" class="page-section">
     <div class="container">
       <div class="row">

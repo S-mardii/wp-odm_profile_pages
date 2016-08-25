@@ -224,7 +224,7 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
   margin-top: 2.5em;
   -moz-column-gap: 8px;
 }
-.iframe-visualitation iframe{
+.single-profiles iframe{
   max-width:100%;
   width: 100%;
 }

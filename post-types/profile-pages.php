@@ -107,8 +107,8 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
 
       public function resource_settings_box($post = false)
       {
-          $embedded_iframe = get_post_meta($post->ID, '_embedded_iframe', true);
-          $embedded_iframe_localization = get_post_meta($post->ID, '_embedded_iframe_localization', true);
+          $full_width_middle_content = get_post_meta($post->ID, '_full_width_middle_content', true);
+          $full_width_middle_content_localization = get_post_meta($post->ID, '_full_width_middle_content_localization', true);
           $map_visualization_url = get_post_meta($post->ID, '_map_visualization_url', true);
           $map_visualization_url_localization = get_post_meta($post->ID, '_map_visualization_url_localization', true);
           $csv_resource_url = get_post_meta($post->ID, '_csv_resource_url', true);
@@ -132,10 +132,10 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   				<table class="form-table resource_settings_box">
   					<tbody>
               <tr>
-              <th><label for="_embedded_iframe"><?php _e('Embedded Data/Map Visualization using iframe (English)', 'odm');
+              <th><label for="_full_width_middle_content"><?php _e('Embedded Data/Map Visualization using iframe (English)', 'odm');
               ?></label></th>
               <td>
-              <textarea name="_embedded_iframe" style="width:100%;height: 50px;" placeholder=""><?php echo $embedded_iframe; ?></textarea>
+              <textarea name="_full_width_middle_content" style="width:100%;height: 50px;" placeholder=""><?php echo $full_width_middle_content; ?></textarea>
               <p class="description"><?php _e('Data visualization can embed by using iframe E.g.: &lt;iframe src="http://site_url/embed/?map_id=94088&width=600&height=480" frameborder="0"/ &gt; <br/>Note: The map from CartoDB JSON URL will not show if embedded value available.', 'odm');
               ?></p>
               </td>
@@ -181,10 +181,10 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   			 	<table class="form-table form-table-localization resource_settings_box">
   		 			<tbody>
               <tr>
-              <th><label for="_embedded_iframe_localization"><?php _e('Embedded Data/Map Visualization using iframe (('.get_the_language_by_website_name().')', 'odm');
+              <th><label for="_full_width_middle_content_localization"><?php _e('Embedded Data/Map Visualization using iframe (('.get_the_language_by_website_name().')', 'odm');
               ?></label></th>
               <td>
-              <textarea name="_embedded_iframe_localization" style="width:100%;height: 50px;" placeholder=""><?php echo $embedded_iframe_localization; ?></textarea>
+              <textarea name="_full_width_middle_content_localization" style="width:100%;height: 50px;" placeholder=""><?php echo $full_width_middle_content_localization; ?></textarea>
               <p class="description"><?php _e('Data visualization can embed by using iframe E.g.: &lt;iframe src="http://site_url/embed/?map_id=94088&width=600&height=480" frameborder="0"/ &gt; <br/>Note: The map from CartoDB JSON URL will not show if embedded value available.', 'odm');
               ?></p>
               </td>
@@ -437,12 +437,12 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
                     update_post_meta($post_id, '_attributes_template_layout', $_POST['_attributes_template_layout']);
                 }
 
-                if (isset($_POST['_embedded_iframe'])) {
-                    update_post_meta($post_id, '_embedded_iframe', $_POST['_embedded_iframe']);
+                if (isset($_POST['_full_width_middle_content'])) {
+                    update_post_meta($post_id, '_full_width_middle_content', $_POST['_full_width_middle_content']);
                 }
 
-                if (isset($_POST['_embedded_iframe_localization'])) {
-                    update_post_meta($post_id, '_embedded_iframe_localization', $_POST['_embedded_iframe_localization']);
+                if (isset($_POST['_full_width_middle_content_localization'])) {
+                    update_post_meta($post_id, '_full_width_middle_content_localization', $_POST['_full_width_middle_content_localization']);
                 }
 
                 if (isset($_POST['_map_visualization_url'])) {
