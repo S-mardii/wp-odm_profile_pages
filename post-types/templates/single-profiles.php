@@ -30,6 +30,12 @@
   $filtered_by_column_index_localization = get_post_meta($post->ID, '_filtered_by_column_index_localization', true);
 
 if (isset($map_visualization_url) && $map_visualization_url !== '') {
+      $cartodb_url = $map_visualization_url;
+      $cartodb_json = file_get_contents($cartodb_url);
+      $cartodb_json_data = json_decode($cartodb_json, true);
+      $cartodb_layer_option = $cartodb_json_data['layers'][1]['options'];
+      $cartodb_layer_name = $cartodb_layer_option['layer_definition']['layers'][0]['options']['layer_name'];
+
     if ((odm_language_manager()->get_current_language() != 'en')) {
         $map_visualization_url = str_replace('?type=dataset', '', get_post_meta($post->ID, '_map_visualization_url_localization', true));
         $ckan_dataset = str_replace('?type=dataset', '', get_post_meta($post->ID, '_csv_resource_url_localization', true));
@@ -48,20 +54,14 @@ if (isset($map_visualization_url) && $map_visualization_url !== '') {
         $related_profile_pages = str_replace('?type=dataset', '', get_post_meta($post->ID, '_related_profile_pages', true));
     }
 }
-if (isset($map_visualization_url)) {
-    $cartodb_url = $map_visualization_url;
-    $cartodb_json = file_get_contents($cartodb_url);
-    $cartodb_json_data = json_decode($cartodb_json, true);
-    $cartodb_layer_option = $cartodb_json_data['layers'][1]['options'];
-    $cartodb_layer_name = $cartodb_layer_option['layer_definition']['layers'][0]['options']['layer_name'];
-}
+
 if (isset($ckan_dataset) && $ckan_dataset != '') {
     $ckan_dataset_exploded_by_dataset = explode('/dataset/', $ckan_dataset);
     $ckan_dataset_exploded_by_resource = explode('/resource/', $ckan_dataset_exploded_by_dataset[1]);
     $ckan_dataset_id = $ckan_dataset_exploded_by_resource[0];
     $ckan_dataset_csv_id = $ckan_dataset_exploded_by_resource[1];
-
     $dataset = wpckan_api_package_show(wpckan_get_ckan_domain(),$ckan_dataset_id);
+
     if (!empty($filter_map_id)) {
         $profile = wpckan_get_datastore_resources_filter(wpckan_get_ckan_domain(), $ckan_dataset_csv_id, 'map_id', $filter_map_id)[0];
     } else {
@@ -115,13 +115,26 @@ $ref_docs_tracking = array();
 
   <section class="container section-title main-title">
     <header class="row">
-      <div class="eight columns">
+      <div class="twelve columns">
         <h1><?php the_title(); ?></h1>
+        <?php echo_post_meta(get_post()); ?>
       </div>
-      <div class="eight columns align-right">
-        <?php echo_metadata_button($dataset) ?>
-        <?php echo_download_buttons($dataset); ?>
-      </div>
+      <?php
+      if(!empty($dataset)) { ?>
+        <div class="four columns align-right">
+          <?php echo_metadata_button($dataset) ?>
+          <?php echo_download_buttons($dataset); ?>
+        </div>
+      <?php
+      }else { ?>
+        <div class="four columns">
+          <div class="widget share-widget">
+            <?php odm_get_template('social-share',array(),true); ?>
+          </div>
+        </div>
+      <?php
+      }
+      ?>
     </header>
   </section>
 
@@ -133,7 +146,7 @@ $ref_docs_tracking = array();
           else:
             $template = get_post_meta($post->ID, '_attributes_template_layout', true);
             if ($template == 'with-widget'):
-              include 'page-profiles-list-page-with-widget.php';
+              include 'page-profiles-page-with-widget.php';
             else:
               include 'page-profiles-list-page.php';
             endif;

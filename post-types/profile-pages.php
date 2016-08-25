@@ -88,7 +88,9 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
            'advanced',
            'high'
           );
+
         }//metabox
+
 
       public function template_layout_settings_box($post = false)
       {
@@ -105,6 +107,8 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
 
       public function resource_settings_box($post = false)
       {
+          $embedded_iframe = get_post_meta($post->ID, '_embedded_iframe', true);
+          $embedded_iframe_localization = get_post_meta($post->ID, '_embedded_iframe_localization', true);
           $map_visualization_url = get_post_meta($post->ID, '_map_visualization_url', true);
           $map_visualization_url_localization = get_post_meta($post->ID, '_map_visualization_url_localization', true);
           $csv_resource_url = get_post_meta($post->ID, '_csv_resource_url', true);
@@ -127,6 +131,15 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   		  <div class="resource_settings resource-en">
   				<table class="form-table resource_settings_box">
   					<tbody>
+              <tr>
+              <th><label for="_embedded_iframe"><?php _e('Embedded Data/Map Visualization using iframe (English)', 'odm');
+              ?></label></th>
+              <td>
+              <textarea name="_embedded_iframe" style="width:100%;height: 50px;" placeholder=""><?php echo $embedded_iframe; ?></textarea>
+              <p class="description"><?php _e('Data visualization can embed by using iframe E.g.: &lt;iframe src="http://site_url/embed/?map_id=94088&width=600&height=480" frameborder="0"/ &gt; <br/>Note: The map from CartoDB JSON URL will not show if embedded value available.', 'odm');
+              ?></p>
+              </td>
+              </tr>
   						<tr>
    					  <th><label for="_map_visualization_url"><?php _e('CartoDB JSON URL (English)', 'odm');
           ?></label></th>
@@ -167,6 +180,15 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   		 <div class="resource_settings resource-localization">
   			 	<table class="form-table form-table-localization resource_settings_box">
   		 			<tbody>
+              <tr>
+              <th><label for="_embedded_iframe_localization"><?php _e('Embedded Data/Map Visualization using iframe (('.get_the_language_by_website_name().')', 'odm');
+              ?></label></th>
+              <td>
+              <textarea name="_embedded_iframe_localization" style="width:100%;height: 50px;" placeholder=""><?php echo $embedded_iframe_localization; ?></textarea>
+              <p class="description"><?php _e('Data visualization can embed by using iframe E.g.: &lt;iframe src="http://site_url/embed/?map_id=94088&width=600&height=480" frameborder="0"/ &gt; <br/>Note: The map from CartoDB JSON URL will not show if embedded value available.', 'odm');
+              ?></p>
+              </td>
+              </tr>
   						<tr>
   						 <th><label for="_map_visualization_url_localization"><?php _e('CartoDB JSON URL ('.get_the_language_by_website_name().')', 'odm');
     ?></label></th>
@@ -413,6 +435,14 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
 
                 if (isset($_POST['_attributes_template_layout'])) {
                     update_post_meta($post_id, '_attributes_template_layout', $_POST['_attributes_template_layout']);
+                }
+
+                if (isset($_POST['_embedded_iframe'])) {
+                    update_post_meta($post_id, '_embedded_iframe', $_POST['_embedded_iframe']);
+                }
+
+                if (isset($_POST['_embedded_iframe_localization'])) {
+                    update_post_meta($post_id, '_embedded_iframe_localization', $_POST['_embedded_iframe_localization']);
                 }
 
                 if (isset($_POST['_map_visualization_url'])) {
