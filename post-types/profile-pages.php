@@ -63,7 +63,15 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
 
         public function add_meta_box()
         {
-            // Profile settings
+          // Profile settings
+          add_meta_box(
+           'profiles_template_layout',
+           __('Template layout', 'odm'),
+           array($this, 'template_layout_settings_box'),
+           'profiles',
+           'advanced',
+           'high'
+          );
           add_meta_box(
            'profiles_resource',
            __('CKAN​ Dataset Resource', 'odm'),
@@ -80,10 +88,27 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
            'advanced',
            'high'
           );
+
         }//metabox
+
+
+      public function template_layout_settings_box($post = false)
+      {
+          $template = get_post_meta($post->ID, '_attributes_template_layout', true); ?>
+          <div id="template_layout_settings_box">
+           <h4><?php _e('Choose template layout', 'odm');?></h4>
+           <select id="_attributes_template_layout" name="_attributes_template_layout">
+              <option value="default" <?php if ($template == "default"): echo "selected"; endif; ?>>Default</option>
+              <option value="with-widget" <?php if ($template == "with-widget"): echo "selected"; endif; ?>>With widgets</option>
+            </select>
+          </div>
+      <?php
+      }
 
       public function resource_settings_box($post = false)
       {
+          $full_width_middle_content = get_post_meta($post->ID, '_full_width_middle_content', true);
+          $full_width_middle_content_localization = get_post_meta($post->ID, '_full_width_middle_content_localization', true);
           $map_visualization_url = get_post_meta($post->ID, '_map_visualization_url', true);
           $map_visualization_url_localization = get_post_meta($post->ID, '_map_visualization_url_localization', true);
           $csv_resource_url = get_post_meta($post->ID, '_csv_resource_url', true);
@@ -99,13 +124,22 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   			<label for="csv_en"><?php _e('ENGLISH', 'jeo');
           ?></label> &nbsp;
   			<input type="radio" id="csv_localization" class="localization" name="language_site" value="localization" />
-  			<label for="csv_localization"><?php _e(get_the_localization_language_by_website(), 'odm');
+  			<label for="csv_localization"><?php _e(get_the_language_by_website_name(), 'odm');
           ?></label>
   		</div>
   		<div id="resource_settings_box">
   		  <div class="resource_settings resource-en">
   				<table class="form-table resource_settings_box">
   					<tbody>
+              <tr>
+              <th><label for="_full_width_middle_content"><?php _e('Embedded Data/Map Visualization using iframe (English)', 'odm');
+              ?></label></th>
+              <td>
+              <textarea name="_full_width_middle_content" style="width:100%;height: 50px;" placeholder=""><?php echo $full_width_middle_content; ?></textarea>
+              <p class="description"><?php _e('Data visualization can embed by using iframe E.g.: &lt;iframe src="http://site_url/embed/?map_id=94088&width=600&height=480" frameborder="0"/ &gt; <br/>Note: The map from CartoDB JSON URL will not show if embedded value available.', 'odm');
+              ?></p>
+              </td>
+              </tr>
   						<tr>
    					  <th><label for="_map_visualization_url"><?php _e('CartoDB JSON URL (English)', 'odm');
           ?></label></th>
@@ -141,13 +175,22 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   				<?php $this->attributes_settings_box('English', $post);
           ?>
   			</div>
-  <?php if (get_the_localization_language_by_website()) {
+  <?php if (get_the_language_by_website_name()) {
     ?>
   		 <div class="resource_settings resource-localization">
   			 	<table class="form-table form-table-localization resource_settings_box">
   		 			<tbody>
+              <tr>
+              <th><label for="_full_width_middle_content_localization"><?php _e('Embedded Data/Map Visualization using iframe (('.get_the_language_by_website_name().')', 'odm');
+              ?></label></th>
+              <td>
+              <textarea name="_full_width_middle_content_localization" style="width:100%;height: 50px;" placeholder=""><?php echo $full_width_middle_content_localization; ?></textarea>
+              <p class="description"><?php _e('Data visualization can embed by using iframe E.g.: &lt;iframe src="http://site_url/embed/?map_id=94088&width=600&height=480" frameborder="0"/ &gt; <br/>Note: The map from CartoDB JSON URL will not show if embedded value available.', 'odm');
+              ?></p>
+              </td>
+              </tr>
   						<tr>
-  						 <th><label for="_map_visualization_url_localization"><?php _e('CartoDB JSON URL ('.get_the_localization_language_by_website().')', 'odm');
+  						 <th><label for="_map_visualization_url_localization"><?php _e('CartoDB JSON URL ('.get_the_language_by_website_name().')', 'odm');
     ?></label></th>
   						 <td>
   							<input id="_map_visualization_url_localization" type="text" placeholder="https://" size="40" name="_map_visualization_url_localization" value="<?php echo $map_visualization_url_localization;
@@ -157,7 +200,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   						 </td>
   						</tr>
   		 			 <tr>
-  		 				<th><label for="_csv_resource_url_localization"><?php _e('CSV Resource URL ('.get_the_localization_language_by_website().')', 'odm');
+  		 				<th><label for="_csv_resource_url_localization"><?php _e('CSV Resource URL ('.get_the_language_by_website_name().')', 'odm');
     ?></label></th>
   		 				<td>
   		 				 <input id="_csv_resource_url_localization" type="text" placeholder="https://" size="40" name="_csv_resource_url_localization" value="<?php echo $csv_resource_url_localization;
@@ -167,7 +210,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   		 				</td>
   		 			 </tr>
   					 <tr>
-  		 				<th><label for="_tracking_csv_resource_url_localization"><?php _e('CSV Tracking URL ('.get_the_localization_language_by_website().')', 'odm');
+  		 				<th><label for="_tracking_csv_resource_url_localization"><?php _e('CSV Tracking URL ('.get_the_language_by_website_name().')', 'odm');
     ?></label></th>
   		 				<td>
   		 				 <input id="_tracking_csv_resource_url_localization" type="text" placeholder="https://" size="40" name="_tracking_csv_resource_url_localization" value="<?php echo $tracking_csv_resource_url_localization;
@@ -178,7 +221,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   		 			 </tr>
   					</tbody>
   		 		</table>
-  				<?php $this->attributes_settings_box(get_the_localization_language_by_website(), $post);
+  				<?php $this->attributes_settings_box(get_the_language_by_website_name(), $post);
     ?>
   		 </div>
    <?php
@@ -261,7 +304,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   	    <label for="en"><?php _e('ENGLISH', 'jeo');
             ?></label> &nbsp;
   	    <input type="radio" id="localization" class="localization" name="p_language_site" value="localization" />
-  	    <label for="localization"><?php _e(get_the_localization_language_by_website(), 'odm');
+  	    <label for="localization"><?php _e(get_the_language_by_website_name(), 'odm');
             ?></label>
   	  </div>
   	  <div id="profiles_page_settings_box">
@@ -312,13 +355,13 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   	        </tbody>
   	      </table>
   	    </div>
-  	<?php if (get_the_localization_language_by_website()) {
+  	<?php if (get_the_language_by_website_name()) {
     ?>
   	   <div class="resource_settings resource-localization">
   	      <table class="form-table form-table-localization profiles_page_settings_box">
   	        <tbody>
   	         <tr>
-  	          <th><label for="_total_number_by_attribute_name_localization"><?php _e('Show Total Numbers of Columns, separated by line breaks ('.get_the_localization_language_by_website().')', 'odm');
+  	          <th><label for="_total_number_by_attribute_name_localization"><?php _e('Show Total Numbers of Columns, separated by line breaks ('.get_the_language_by_website_name().')', 'odm');
     ?></label></th>
   	          <td>
   						<textarea name="_total_number_by_attribute_name_localization" style="width:100%;height: 80px;"placeholder="column_1"><?php echo $total_number_by_attribute_name_localization;
@@ -328,7 +371,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   	          </td>
   	         </tr>
   	         <tr>
-  	          <th><label for="_filtered_by_column_index_localization"><?php _e('Create Select Filter by Column Index ('.get_the_localization_language_by_website().')', 'odm');
+  	          <th><label for="_filtered_by_column_index_localization"><?php _e('Create Select Filter by Column Index ('.get_the_language_by_website_name().')', 'odm');
     ?></label></th>
   	          <td>
   	           <input id="_filtered_by_column_index_localization" type="text" placeholder="2, 5" size="40" name="_filtered_by_column_index_localization" value="<?php echo $filtered_by_column_index_localization;
@@ -338,7 +381,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   	          </td>
   	         </tr>
   	         <tr>
-  	          <th><label for="_group_data_by_column_index_localization"><?php _e('Group Data in Column ('.get_the_localization_language_by_website().')', 'odm');
+  	          <th><label for="_group_data_by_column_index_localization"><?php _e('Group Data in Column ('.get_the_language_by_website_name().')', 'odm');
     ?></label></th>
   	          <td>
   	            <input id="_group_data_by_column_index_localization" type="text" placeholder="5" size="40" name="_group_data_by_column_index_localization" value="<?php echo $group_data_by_column_index_localization;
@@ -348,7 +391,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   	          </td>
   	         </tr>
   					 <tr>
-  					  <th><label for="_related_profile_pages_localization"><?php _e('Related Profile Pages ('.get_the_localization_language_by_website().')', 'odm');
+  					  <th><label for="_related_profile_pages_localization"><?php _e('Related Profile Pages ('.get_the_language_by_website_name().')', 'odm');
     ?></label></th>
   					  <td>
   							<textarea name="_related_profile_pages_localization" style="width:100%;height: 50px;"placeholder="Lable of Link|URL"><?php echo $related_profile_pages_localization;
@@ -388,6 +431,18 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
 
                 if (!current_user_can('edit_post')) {
                     return;
+                }
+
+                if (isset($_POST['_attributes_template_layout'])) {
+                    update_post_meta($post_id, '_attributes_template_layout', $_POST['_attributes_template_layout']);
+                }
+
+                if (isset($_POST['_full_width_middle_content'])) {
+                    update_post_meta($post_id, '_full_width_middle_content', $_POST['_full_width_middle_content']);
+                }
+
+                if (isset($_POST['_full_width_middle_content_localization'])) {
+                    update_post_meta($post_id, '_full_width_middle_content_localization', $_POST['_full_width_middle_content_localization']);
                 }
 
                 if (isset($_POST['_map_visualization_url'])) {
