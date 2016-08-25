@@ -3,7 +3,7 @@
 <?php if (have_posts()) : the_post(); ?>
 
 <?php
-  // End of hack
+// End of hack
 $ammendements = null;
 $profile = null;
 $profiles = null;
@@ -33,7 +33,7 @@ $filtered_by_column_index = get_post_meta($post->ID, '_filtered_by_column_index'
 $filtered_by_column_index_localization = get_post_meta($post->ID, '_filtered_by_column_index_localization', true);
 
 if (isset($map_visualization_url) && $map_visualization_url !== '') {
-    if ((odm_language_manager()->get_current_language() != 'en')) {
+    if ( (odm_language_manager()->get_current_language() != 'en') ) {
         $map_visualization_url = str_replace('?type=dataset', '', get_post_meta($post->ID, '_map_visualization_url_localization', true));
         $ckan_dataset = str_replace('?type=dataset', '', get_post_meta($post->ID, '_csv_resource_url_localization', true));
         $ckan_dataset_tracking = str_replace('?type=dataset', '', get_post_meta($post->ID, '_tracking_csv_resource_url_localization', true));
@@ -144,9 +144,9 @@ $ref_docs_tracking = array();
           <div class="sixteen columns">
             <div id="profiles_map" class="profiles_map"></div>
           </div>
-        </div>
+      </div>
 
-        <!--  Statistics-->
+      <!--  Statistics -->
       <div class="row">
           <div class="sixteen columns">
             <?php if ($profiles) { ?>
@@ -168,6 +168,7 @@ $ref_docs_tracking = array();
                     </strong>
                   </p>
                 </li>
+
                 <?php
                 $explode_total_number_by_attribute_name = explode("\r\n", $total_number_by_attribute_name);
                 if (isset($total_number_by_attribute_name) && $total_number_by_attribute_name != '') {
@@ -193,7 +194,8 @@ $ref_docs_tracking = array();
                             <?php _e($field_value, 'odm'); ?>
                             <?php _e(':', 'odm');?>
                             <strong>
-                              <?php echo $count_number_by_attr[$field_value] == '' ? convert_to_kh_number('0') : convert_to_kh_number($count_number_by_attr[$field_value]);?></strong>
+                              <?php echo $count_number_by_attr[$field_value] == '' ? convert_to_kh_number('0') : convert_to_kh_number($count_number_by_attr[$field_value]);?>
+                            </strong>
 
                           </li>
                       <?php
@@ -227,6 +229,7 @@ $ref_docs_tracking = array();
 
       <div class="row panel">
 
+          <div class="fixed_top_bar"></div>
           <div class="six columns">
             <div> <?php _e('Textual search', 'odm');?></div>
             <input type="text" id="search_all" placeholder="<?php _e('Search data in profile page', 'odm'); ?>">
@@ -234,7 +237,7 @@ $ref_docs_tracking = array();
           <div class="six columns">
             <?php if (isset($filtered_by_column_index) && $filtered_by_column_index != ''): ?>
               <div id="filter_by_classification">
-                <p><?php _e('Filter by', 'odm');?></p>
+                <div><?php _e('Filter by', 'odm');?></div>
               </div>
             <?php endif; ?>
           </div>
@@ -256,7 +259,6 @@ $ref_docs_tracking = array();
 
       <!-- Table -->
       <div class="row no-margin-buttom">
-        <!-- <div class="fixed_top_bar"></div> -->
           <div class="sixteen columns table-column-container">
 
             <table id="profiles" class="data-table">
@@ -386,7 +388,7 @@ var mapViz;
 var oTable;
 var mapIdColNumber = 0;
 
-<?php if($map_visualization_url !=""){ ?>
+<?php if(isset($map_visualization_url) && $map_visualization_url !='') { ?>
     var cartodb_user = "<?php echo $cartodb_layer_option['user_name']; ?>";
     var cartodb_layer_table = "<?php  echo $cartodb_layer_name; ?>";
     var cartodbSql = new cartodb.SQL({ user: cartodb_user });
@@ -440,28 +442,35 @@ jQuery(document).ready(function($) {
 <?php if ($filter_map_id == "" && $metadata_dataset == "") {  ?>
     /***** Fixed Header */
   	var get_datatable = $('#profiles').position().top;
-  	get_datatable = get_datatable + 240;
-
+    console.log($('#profiles').position().top);
+  	get_datatable = get_datatable + 323;
     $(window).scroll(function() {
         //console.log($("body").scrollTop());
   	    if ($("body").scrollTop() >= get_datatable) {
         //console.log($(".content_wrapper").scrollTop()  + " > = " + get_datatable);
-  		      $('.dataTables_scrollHead').css('position','fixed').css('top','113px');
-  			    $('.dataTables_scrollHead').css('background','white');
-  			    $('.dataTables_scrollHead').css('z-index',9999);
+            $('.fixed_top_bar').width($('.dataTables_scrollBody').width());
+            $('.fixed_top_bar').css('position', 'fixed');
+            $('.fixed_top_bar').css('top', get_datatable - 323 - 485).css('margin-left', '0px');
+            $('.fixed_top_bar').show();
+
+  		      $('.dataTables_scrollHead').css('position', 'fixed').css('top', get_datatable - 323 - 435);
+  			    $('.dataTables_scrollHead').css('z-index', 9999);
   			    $('.dataTables_scrollHead').width($('.dataTables_scrollBody').width());
-  			    $('div.row.panel').width($('.dataTables_scrollBody').width());
-            $("div.row.panel").css('position', 'fixed').css('background', 'white');
-            $("div.row.panel").css('top', '27px');
-  			    $('.dataTables_scrollBody').css('top','60px');
-            $('.div.row.panel').show();
+
+            $('.dataTables_scrollBody').css('top', get_datatable - 323 - 452);
+
+            $('.dataTables_info').css('padding-top', get_datatable - 323 - 452);
+            $('.dataTables_info').css('display', 'inline-block');
+
+            $('.dataTables_paginate').css('padding-top', get_datatable - 323 - 452);
         } else {
+            $('.fixed_top_bar').hide();
   			    $('.dataTables_scrollHead').css('position','static');
-            $('div.row.panel').css('position','static');
   		      $('.dataTables_scrollBody').css('top','0');
   		  }
     });
     /***** end Fixed Header */
+
     // var group_column = <?php //echo $group_data_by_column_index ; ?>;
     oTable = $("#profiles").dataTable({
         scrollX: true,
@@ -472,7 +481,7 @@ jQuery(document).ready(function($) {
         processing: true,
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
         //order: [[ 0, 'asc' ]],
-        displayLength: -1 //0
+        displayLength: 10 //0
         , columnDefs: [ //Hide collumns
           {
             "targets": [ 0 ],//map_id
@@ -551,9 +560,11 @@ jQuery(document).ready(function($) {
         $tableBodyCell.each(
             function(i, val) {
                 // console.log("TD: "+$(this).width() +" =? "+ $headerCell.eq(i).width());
+
                 if ( $(this).width() >= $headerCell.eq(i).width() ) {
                     $max_width = widths[i];
-                    console.log($max)
+                    // console.log($max_width, 'hello')
+                    // console.log($max_width, 'sorry')
                     $headerCell.eq(i).children('.th-value').css('width', $max_width);
                     if (!$(this).hasClass('group'))
                         $tableBodyCell.eq(i).children('.td-value').css('width', $max_width);
@@ -561,6 +572,8 @@ jQuery(document).ready(function($) {
                     $max_width = $headerCell.eq(i).width();
                     $tableBodyCell.eq(i).children('.td-value').css('width', $max_width);
                     $headerCell.eq(i).children('.th-value').css('width', $max_width);
+                    console.log($tableBodyCell.eq(1).children('.td-value').width(), 'x');
+                    console.log($headerCell.eq(1).children('.th-value').width(),'y');
                 }
             }
         );
@@ -612,12 +625,12 @@ jQuery(document).ready(function($) {
     var $filter_data = $("#filter_by_classification").clone(true); // Filter Data type
     var $fg_search_filter_bar = $(".dataTables_filter").clone(true);  // search entry
     var $fg_show_entry_bar = $(".dataTables_length").clone(true);  // show entry
-    //var $fg_show_row_panel = $(".row panel").clone(true);
 
-    //$(".fixed_top_bar").prepend($filter_data);
-    //$(".fixed_top_bar").appen($fg_show_row_panel);
+    $(".fixed_top_bar").prepend($filter_data);
     $(".fixed_top_bar").append($fg_show_entry_bar);
-    //$(".fixed_top_bar").append($fg_search_filter_bar);
+    $(".fixed_top_bar").append($fg_search_filter_bar);
+
+
 
     //$('.fixed_top_bar .dataTables_length select').val($('.table-column-container .dataTables_length select').val());
     $('.fixed_top_bar .dataTables_length select').on( 'change', function () {

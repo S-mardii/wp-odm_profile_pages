@@ -55,7 +55,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
               'hierarchical'       => true,
               'menu_position'      => 5,
               //'taxonomies'         => array('category', 'language', 'post_tag'),
-              'supports' => array('title', 'editor', 'page-attributes', 'revisions', 'author', 'thumbnail')
+              'supports' => array('title', 'editor', 'page-attributes', 'revisions', 'author', 'thumbnail', 'custom-fields')
             );
 
             register_post_type('profiles', $args);
