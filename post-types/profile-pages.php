@@ -132,11 +132,11 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   				<table class="form-table resource_settings_box">
   					<tbody>
               <tr>
-              <th><label for="_full_width_middle_content"><?php _e('Embedded Data/Map Visualization using iframe (English)', 'odm');
+              <th><label for="_full_width_middle_content"><?php _e('Full width content (English)', 'odm');
               ?></label></th>
               <td>
               <textarea name="_full_width_middle_content" style="width:100%;height: 50px;" placeholder=""><?php echo $full_width_middle_content; ?></textarea>
-              <p class="description"><?php _e('Data visualization can embed by using iframe E.g.: &lt;iframe src="http://site_url/embed/?map_id=94088&width=600&height=480" frameborder="0"/ &gt; <br/>Note: The map from CartoDB JSON URL will not show if embedded value available.', 'odm');
+              <p class="description"><?php _e('Any content can add to under the Editor content and sidebar and  full width of website even the iframe.', 'odm');
               ?></p>
               </td>
               </tr>
@@ -181,11 +181,11 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   			 	<table class="form-table form-table-localization resource_settings_box">
   		 			<tbody>
               <tr>
-              <th><label for="_full_width_middle_content_localization"><?php _e('Embedded Data/Map Visualization using iframe (('.get_the_language_by_website_name().')', 'odm');
+              <th><label for="_full_width_middle_content_localization"><?php _e('Full width content (('.get_the_language_by_website_name().')', 'odm');
               ?></label></th>
               <td>
               <textarea name="_full_width_middle_content_localization" style="width:100%;height: 50px;" placeholder=""><?php echo $full_width_middle_content_localization; ?></textarea>
-              <p class="description"><?php _e('Data visualization can embed by using iframe E.g.: &lt;iframe src="http://site_url/embed/?map_id=94088&width=600&height=480" frameborder="0"/ &gt; <br/>Note: The map from CartoDB JSON URL will not show if embedded value available.', 'odm');
+              <p class="description"><?php _e('Any content can add to under the Editor content and sidebar and  full width of website even the iframe.', 'odm');
               ?></p>
               </td>
               </tr>
