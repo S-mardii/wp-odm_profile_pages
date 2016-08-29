@@ -146,7 +146,6 @@ table.dataTable thead .sorting_desc_disabled {
 }
 
 #profiles_map {
-  width: 101%;
   height: 400px;
 }
 
@@ -204,43 +203,59 @@ table.dataTable thead .sorting_desc_disabled {
 #profiles tbody {
   width: 100%;
 }
-
-.fixed_top_bar {
-  display: none;
-  height: 50px;
+.total_listed {
+  padding: 5px 10px !important;
+  margin-bottom: 0 !important;
+}
+.filter-container {
+  margin-left: 11px !important;
+  background: #fff;
+}
+.filter-container .panel{
+    width: 100%;
+    padding: 10px 0 !important;
+    float: left;
+}
+.filter-container p {
+  margin-bottom: 5px;
+}
+.fixed-filter-container {
   position: fixed;
   top: 37px;
-  background: #fff;
   z-index: 9999;
+}
+.fixed_datatable_tool_bar {
+  display: none;
+  float: right;
+  display: inline-block;
   margin-left: 0;
-  padding-top : 10px;
 }
 
-.fixed_top_bar div {
+.fixed_datatable_tool_bar div {
   display: inline;
   font-size: 13px;
   margin: 0;
 }
 
-.fixed_top_bar #filter_by_classification {
+.fixed_datatable_tool_bar #filter_by_classification {
   top: 0 !important;
   display: inline-block;
   width: 40% !important;
   padding-right: 5px;
 }
 
-.fixed_top_bar #profiles_length {
+.fixed_datatable_tool_bar #profiles_length {
   display: block;
   padding-left: 5px;
 }
 
-.fixed_top_bar #profiles_filter {
+.fixed_datatable_tool_bar #profiles_filter {
   margin: auto;
   display: inline-block;
   padding-right: 4%;
 }
 
-.fixed_top_bar .dataTables_filter input {
+.fixed_datatable_tool_bar .dataTables_filter input {
   margin-left: 5px;
 }
 
@@ -384,4 +399,4 @@ table.dataTable thead .sorting_desc_disabled {
 .smallest-size{
   width: 50px;
   height: 50px;
-  margin: auto; 
+  margin: auto;
