@@ -36,7 +36,7 @@
       ?>
     	<section class="container">
     		<div class="row">
-    			<div class="sixten columns">
+    			<div class="sixteen columns">
             <?php echo "<div class='iframe-visualitation'>".$data_visualitation."</div>"; ?>
     			</div>
     		</div>
