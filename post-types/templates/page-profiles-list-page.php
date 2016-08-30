@@ -1,6 +1,5 @@
+<?php require_once PLUGIN_DIR.'/utils/profile-spreadsheet-post-meta.php'; ?>
 <div class="container">
-
-  <!--  Filter-->
   <div class="row">
     <div class="sixteen columns">
       <div id="profiles_map" class="profiles_map"></div>
@@ -232,34 +231,8 @@
 </div>
 
 <script type="text/javascript">
-var singleProfile = false;
-var singleProfileMapId;
-var mapViz;
 var oTable;
 var mapIdColNumber = 0;
-
-<?php if(isset($map_visualization_url) && $map_visualization_url !='') { ?>
-    var cartodb_user = "<?php echo $cartodb_layer_option['user_name']; ?>";
-    var cartodb_layer_table = "<?php  echo $cartodb_layer_name; ?>";
-    var cartodbSql = new cartodb.SQL({ user: cartodb_user });
-
-
-    var filterEntriesMap = function(mapIds){
-      var layers = mapViz.getLayers();
-    	var mapIdsString = "('" + mapIds.join('\',\'') + "')";
-    	var sql = "SELECT * FROM " + cartodb_layer_table + " WHERE map_id in " + mapIdsString;
-    	var bounds = cartodbSql.getBounds(sql).done(function(bounds) {
-    		mapViz.getNativeMap().fitBounds(bounds);
-    	});
-      if (mapIds.length==1){
-        mapViz.map.set({
-          maxZoom: 10
-        });
-      }
-    	layers[1].getSubLayer(0).setSQL(sql);
-    }
-
-<?php } ?>
 
 jQuery(document).ready(function($) {
   //click file format show the list item for downloading
@@ -291,26 +264,24 @@ jQuery(document).ready(function($) {
   <?php if ($filter_map_id == '' && $metadata_dataset == '') { ?>
     	var get_od_selector_height = $('#od-selector').height();
       var get_filter_container_height = $('.filter-container').height();
-      var get_position_profile_table =  $('#profiles').offset().top;
-      var table_fixed_position = get_od_selector_height +get_filter_container_height +55;
+      var get_position_profile_table =  $('.filter-container').offset().top;
+      var table_fixed_position = get_od_selector_height +get_filter_container_height +40;
       $(window).scroll(function() {
     			if ($(document).scrollTop() >= get_position_profile_table) {
-            /*console.log($(document).scrollTop()); console.log(" => ");
-            console.log(get_position_profile_table);*/
     				$('.dataTables_scrollHead').css('position','fixed').css('top', table_fixed_position+'px');
     				$('.dataTables_scrollHead').css('z-index',9999);
     				$('.dataTables_scrollHead').width($('.dataTables_scrollBody').width());
      				$('.filter-container').css('position','fixed');
             $('.filter-container').addClass("fixed-filter-container");
     				$('.fixed-filter-container').width($('.dataTables_scrollBody').width());
-    				$('.dataTables_scrollBody').css('top', table_fixed_position+170+'px');
+    				$('.dataTables_scrollBody').css('margin-top', 10+'em');
             $('.fixed_datatable_tool_bar').css('display','inline-block');
     		   }
     		   else {
     				$('.dataTables_scrollHead').css('position','static');
      				$('.fixed-filter-container').css('position','static');
             $('.fixed_datatable_tool_bar').hide();
-    				$('.dataTables_scrollBody').css('top','0');
+    				$('.dataTables_scrollBody').css('margin-top', 0);
     		   }
          });
        oTable = $("#profiles").dataTable({
@@ -328,7 +299,7 @@ jQuery(document).ready(function($) {
          ]
          <?php if (odm_language_manager()->get_current_language() == 'km') { ?>
          , "oLanguage": {
-             "sLengthMenu": 'បង្ហាញទិន្នន័យចំនួន <select>'+
+             "sLengthMenu": 'បង្ហាញចំនួន <select>'+
                  '<option value="10">10</option>'+
                  '<option value="25">20</option>'+
                  '<option value="50">50</option>'+
@@ -413,45 +384,37 @@ jQuery(document).ready(function($) {
        }
 
        function create_filter_by_column_index(col_index){
+        var columnIndex = col_index;
+        var column_filter_oTable = oTable.api().columns( columnIndex );
+        var column_headercolumnIndex = columnIndex -1;
+        var column_header = $("#profiles").find("th:eq( "+column_headercolumnIndex+" )" ).text();
+        <?php
+        if (odm_language_manager()->get_current_language() == 'km') { ?>
+           var div_filter = $('<div class="filter_by filter_by_column_index_'+columnIndex+'"></div>');
+           div_filter.appendTo( $('#filter_by_classification'));
+           var select = $('<select><option value="">'+column_header+'<?php _e('all', 'odm');
+           ?></option></select>');
+        <?php
+        } else { ?>
+           var div_filter = $('<div class="filter_by filter_by_column_index_'+columnIndex+'"></div>');
+           div_filter.appendTo( $('#filter_by_classification'));
+           var select = $('<select><option value=""><?php _e('All ', 'odm'); ?>'+column_header+'</option></select>');
+        <?php
+        } ?>
+           select.appendTo( $('.filter_by_column_index_'+columnIndex) )
+           .on( 'change', function () {
+               var val = $.fn.dataTable.util.escapeRegex(
+                   $(this).val()
+               );
+               column_filter_oTable
+                   .search( val ? '^'+val : '', true, false )
+                   .draw();
 
-         var columnIndex = col_index;
-         var column_filter_oTable = oTable.api().columns( columnIndex );
-         var column_headercolumnIndex = columnIndex -1;
-         var column_header = $("#profiles").find("th:eq( "+column_headercolumnIndex+" )" ).text();
-          <?php if (odm_language_manager()->get_current_language() == 'km') {
-      ?>
-                   var div_filter = $('<div class="filter_by filter_by_column_index_'+columnIndex+'"></div>');
-                   div_filter.appendTo( $('#filter_by_classification'));
-                   var select = $('<select><option value="">'+column_header+'<?php _e('all', 'odm');
-      ?></option></select>');
-          <?php
-
-  } else {
-      ?>
-                   var div_filter = $('<div class="filter_by filter_by_column_index_'+columnIndex+'"></div>');
-                   div_filter.appendTo( $('#filter_by_classification'));
-                   var select = $('<select><option value=""><?php _e('All ', 'odm');
-      ?>'+column_header+'</option></select>');
-          <?php
-  }
-      ?>
-             select.appendTo( $('.filter_by_column_index_'+columnIndex) )
-             .on( 'change', function () {
-                 var val = $.fn.dataTable.util.escapeRegex(
-                     $(this).val()
-                 );
-                 column_filter_oTable
-                     .search( val ? '^'+val : '', true, false )
-                     .draw();
-
-                      var filtered = oTable._('tr', {"filter":"applied"});
-                      <?php if (isset($map_visualization_url) &&  $map_visualization_url != '') {
-      ?>
-                      filterEntriesMap(_.pluck(filtered,mapIdColNumber));
-                      <?php
-  }
-      ?>
-             } );
+                  var filtered = oTable._('tr', {"filter":"applied"});
+                  <?php if (isset($map_visualization_url) &&  $map_visualization_url != '') { ?>
+                          filterEntriesMap(_.pluck(filtered,mapIdColNumber));
+                  <?php } ?>
+           } );
              var i = 1;
              column_filter_oTable.data().eq( 0 ).unique().sort().each( function ( d, j ) {
                  d = d.replace(/[<]br[^>]*[>]/gi,"");
@@ -463,14 +426,9 @@ jQuery(document).ready(function($) {
              } );
        }
 
-      var $filter_data = $("#filter_by_classification").clone(true);
-      var $fg_search_filter_bar = $(".dataTables_filter").clone(true);
       var $fg_show_entry_bar = $(".dataTables_length").clone(true);
 
-      $(".fixed_datatable_tool_bar").prepend($filter_data);
       $(".fixed_datatable_tool_bar").append($fg_show_entry_bar);
-    //  $(".fixed_datatable_tool_bar").append($fg_search_filter_bar);
-
       $('.fixed_datatable_tool_bar .dataTables_length select').val($('.table-column-container .dataTables_length select').val());
       $('.fixed_datatable_tool_bar .dataTables_length select').on( 'change', function () {
          $('.table-column-container .dataTables_length select').val($(this).val());
@@ -507,27 +465,6 @@ jQuery(document).ready(function($) {
   <?php
   }
   ?>
-   });
-  <?php if (isset($map_visualization_url) && $map_visualization_url != '') {
-      ?>
-       window.onload = function() {
-         cartodb.createVis('profiles_map', '<?php echo $map_visualization_url;?>', {
-       		search: false,
-       		shareable: true,
-           zoom: 7,
-           center_lat: 12.54384,
-           center_long: 105.60059,
-       		https: true
-       	}).done(function(vis, layers) {
-           singleProfile = $('#profiles').length <= 0;
-       		mapViz = vis;
-           if (singleProfile){
-             singleProfileMapId  = $("#profile-map-id").text();
-             filterEntriesMap([singleProfileMapId]);
-           }
-       	});
-
-      }
-  <?php
-  } ?>
+  }); //jQuery
 </script>
+<?php require_once PLUGIN_DIR.'/utils/profile-mapping-script.php'; ?>

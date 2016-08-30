@@ -76,7 +76,7 @@ function check_requirements_profile_pages()
 
 function odm_list_reference_documents($ref_docs, $only_title_url = 0) {
     if ($only_title_url == 1) { ?>
-    <ul>
+    <ul style="width:300px">
         <?php
         foreach ($ref_docs as $key => $ref_doc):
 
@@ -269,4 +269,8 @@ function echo_metadata_button($dataset){
   <?php
 }
 
+function datatable_js_script(){
+
+
+}
 ?>

@@ -144,6 +144,9 @@ table.dataTable thead .sorting_desc_disabled {
 .page-template-page-profiles .single-post .row {
   margin-top: 0;
 }
+.single-profiles .post-meta {
+  margin-top: 0 !important;
+}
 
 #profiles_map {
   height: 400px;
@@ -179,6 +182,10 @@ table.dataTable thead .sorting_desc_disabled {
   float: left;
 }
 
+#profiles_wrapper th {
+  padding: 8px !important;
+}
+
 #profiles td {
   line-height: 22px;
 }
@@ -189,11 +196,19 @@ table.dataTable thead .sorting_desc_disabled {
 
 #profiles td .td-value ul {
   display: inline-block;
-  margin-bottom: 0
+  margin-bottom: 0;
+  max-height: 100px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-y: auto;
 }
 
 #profiles td .td-value ul li {
   min-width: 200px;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
 }
 
 #profiles td ul {
@@ -203,12 +218,30 @@ table.dataTable thead .sorting_desc_disabled {
 #profiles tbody {
   width: 100%;
 }
+
 .total_listed {
+  font-size: 13px;
+  background: #eee;
+  border: 1px solid #c8c8c8;
   padding: 5px 10px !important;
   margin-bottom: 0 !important;
 }
+.total_listed ul{
+  margin: 0
+}
+.total_listed li{
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.total_listed li{
+  margin-right: 1em
+}
+
 .filter-container {
-  margin-left: 11px !important;
+  margin-left: 12px !important;
+  padding-bottom: 5px !important;
   background: #fff;
 }
 .filter-container .panel{
@@ -216,8 +249,11 @@ table.dataTable thead .sorting_desc_disabled {
     padding: 10px 0 !important;
     float: left;
 }
-.filter-container p {
+.filter-container p, .filter-container ul, .filter-container li {
   margin-bottom: 5px;
+}
+.filter-container #search_all{
+  margin: 0
 }
 .fixed-filter-container {
   position: fixed;
@@ -237,13 +273,6 @@ table.dataTable thead .sorting_desc_disabled {
   margin: 0;
 }
 
-.fixed_datatable_tool_bar #filter_by_classification {
-  top: 0 !important;
-  display: inline-block;
-  width: 40% !important;
-  padding-right: 5px;
-}
-
 .fixed_datatable_tool_bar #profiles_length {
   display: block;
   padding-left: 5px;
@@ -259,6 +288,43 @@ table.dataTable thead .sorting_desc_disabled {
   margin-left: 5px;
 }
 
+#filter_by_classification{
+  width: 100%;
+  display: inline-block;
+}
+#filter_by_classification .filter_by{
+  display: inline-block;
+  margin-right: 1em;
+}
+#filter_by_classification .label {
+  display: inline;
+}
+#filter_by_classification select {
+  display: inline;
+  margin: 0;
+  padding: 2px 2px;
+}
+.fixed_top_bar{
+  display: none;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  background: #fff;
+  z-index: 9999;
+  margin-left: 20px;
+}
+.fixed_top_bar div{
+  display: inline;
+}
+.fixed_top_bar .dataTables_filter{
+  margin-top: 12px;
+  margin-right: 10px;
+  display: inline-block;;
+  float: right;
+}
+.fixed_top_bar .dataTables_filter input{
+    margin-left: 5px;
+}
 .show_list_format {
   display: none;
   padding: 2px 15px;
