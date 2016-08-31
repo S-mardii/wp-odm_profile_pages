@@ -38,14 +38,15 @@ $template = get_post_meta($post->ID, '_attributes_template_layout', true);
 
 <section class="container section-title main-title">
     <header class="row">
-      <div class="twelve columns">
+      <div class="ten columns">
         <h1><?php the_title(); ?></h1>
         <?php echo_post_meta(get_post()); ?>
       </div>
       <?php
       if(!empty($dataset)) { ?>
-        <div class="four columns align-right">
-          <?php echo_metadata_button($dataset) ?>
+        <div class="six columns align-right">
+          <?php echo_download_button_link_to_datapage($ckan_dataset_id) ?>
+          <?php //echo_metadata_button($dataset) ?>
           <?php //echo_download_buttons($dataset); ?>
         </div>
       <?php
