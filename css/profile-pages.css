@@ -147,7 +147,10 @@ table.dataTable thead .sorting_desc_disabled {
 .single-profiles .post-meta {
   margin-top: 0 !important;
 }
-
+.metadata_button {
+  padding: 3px 10px !important;
+  border-radius: 6px;
+}
 #profiles_map {
   height: 400px;
 }

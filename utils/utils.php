@@ -188,7 +188,7 @@ function echo_download_buttons($dataset){
           foreach ($file_format as $format => $file_extention):
               if ($file_format[$format] > 1 &&  $format != 'CSV'): ?>
               <div class="format_button" id="format_<?php echo $format;?>">
-                <a class="button download format" href="#"><i class="fa fa-download"></i> <?php echo $format;?></a>
+                <a class="button download format" href="#"><?php echo $format;?></a>
                   <div class="show_list_format format_<?php echo $format?>">
                       <ul class="list_format">
                         <?php
@@ -213,7 +213,7 @@ function echo_download_buttons($dataset){
                   $count_file_version = array_count_values($file_version);
                   if ($count_file_version[odm_language_manager()->get_current_language()] > 1):?>
                     <div class="format_button" id="format_<?php echo $format;?>">
-                      <a class="button download format" href="#"><i class="fa fa-download"></i> <?php echo $format;?></a>
+                      <a class="button download format" href="#"><?php echo $format;?></a>
                       <div class="show_list_format format_<?php echo $format?>">
                         <ul class="list_format">
                           <?php
@@ -265,12 +265,14 @@ function echo_download_buttons($dataset){
 
 function echo_metadata_button($dataset){
   ?>
-  <a target="_blank" class="button download format" href="?metadata=<?php echo $dataset['id'];?>"><i class="fa fa-info"></i> <?php _e('Metadata', 'odm')?></a>
+  <a target="_blank" class="button download format metadata_button" href="?metadata=<?php echo $dataset['id'];?>"><i class="fa fa-info"></i> <?php _e('Metadata', 'odm')?></a>
   <?php
 }
 
-function datatable_js_script(){
-
-
+function echo_download_button_link_to_datapage($dataset_id){
+  ?>
+  <a target="_blank" class="button download format" href="<?php echo get_bloginfo("url"); ?>/dataset/?id=<?php echo $dataset_id;?>"><i class="fa fa-download"></i><?php _e('Donwload and  Metadata', 'odm')?></a>
+  <?php
 }
+
 ?>
