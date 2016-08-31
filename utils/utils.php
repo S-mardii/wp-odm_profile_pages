@@ -1,7 +1,6 @@
 <?php
 
-function odm_data_classification_definition($info)
-{
+function odm_data_classification_definition($info) {
     $info = trim($info);
     if ($info == 'កាត់បន្ថយ') {
         $info = 'Downsized';
@@ -75,99 +74,94 @@ function check_requirements_profile_pages()
     return function_exists('wpckan_get_ckan_domain') && function_exists('wpckan_validate_settings_read') && wpckan_validate_settings_read();
 }
 
-function odm_list_reference_documents($ref_docs, $only_title_url = 0)
-{
+function odm_list_reference_documents($ref_docs, $only_title_url = 0) {
     if ($only_title_url == 1) { ?>
-    <ul>
-      <?php
-      foreach ($ref_docs as $key => $ref_doc):
+    <ul style="width:300px">
+        <?php
+        foreach ($ref_docs as $key => $ref_doc):
 
-        $split_old_address_and_filename = explode('?pdf=references/', $ref_doc);
-        if (count($split_old_address_and_filename) > 1) {
-            $ref_doc_name = $split_old_address_and_filename[1];
-        } else {
-            $ref_doc_name = $ref_doc;
-        }
+            $split_old_address_and_filename = explode('?pdf=references/', $ref_doc);
+            if (count($split_old_address_and_filename) > 1) {
+                $ref_doc_name = $split_old_address_and_filename[1];
+            } else {
+                $ref_doc_name = $ref_doc;
+            }
 
-        $ref_doc_metadata = array();
+            $ref_doc_metadata = array();
 
-        if (isset($ref_doc_name) && !empty($ref_doc_name)):
-          $attrs = array('filter_fields' => '{"extras_odm_reference_document":"'.$ref_doc_name.'"}');
-          $ref_doc_metadata = wpckan_api_package_search(wpckan_get_ckan_domain(), $attrs);
-        endif;
-        if (count($ref_doc_metadata['results']) > 0):
-
-            foreach ($ref_doc_metadata['results'] as $key => $metadata):
+            if (isset($ref_doc_name) && !empty($ref_doc_name)):
+                $attrs = array('filter_fields' => '{"extras_odm_reference_document":"'.$ref_doc_name.'"}');
+                $ref_doc_metadata = wpckan_api_package_search(wpckan_get_ckan_domain(), $attrs);
+            endif;
+            if (count($ref_doc_metadata['results']) > 0):
+                foreach ($ref_doc_metadata['results'] as $key => $metadata):
                     $title = isset($metadata['title_translated']) ? $metadata['title_translated'] : $metadata['title']; ?>
                     <li><a target="_blank" href="<?php echo wpckan_get_link_to_dataset($metadata['name']); ?>"><?php echo getMultilingualValueOrFallback($title, odm_language_manager()->get_current_language(), $metadata['title']) ?></a>
-                      <?php if ($metadata['type'] == 'laws_record' && (isset($metadata['odm_promulgation_date']))): ?>
+                    <?php if ($metadata['type'] == 'laws_record' && (isset($metadata['odm_promulgation_date']))): ?>
                         <?php   if (odm_language_manager()->get_current_language() == 'km') {
-      echo convert_date_to_kh_date(date('d/m/Y', strtotime($metadata['odm_promulgation_date'])), '/');
-  } else {
-      echo '('.$metadata['odm_promulgation_date'].')';
-  }
-        ?>
-      <?php elseif ($metadata['type'] == 'library_records' && (isset($metadata['odm_publication_date']))):  ?>
-                        <?php   if (odm_language_manager()->get_current_language() == 'km') {
-      echo convert_date_to_kh_date(date('d/m/Y', strtotime($metadata['odm_publication_date'])), '/');
-  } else {
-      echo '('.$metadata['odm_publication_date'].')';
-  }
-        ?>
-                      <?php endif;
-        ?>
-                    </li>
-            <?php
-            endforeach;
-        endif;
-        endforeach;
-        ?>
-    </ul>
-  <?php
-
-    } else {
-        ?>
-    <table id="reference" class="data-table">
-      <tbody>
-       <?php
-       foreach ($ref_docs as $key => $ref_doc):
-         $split_old_address_and_filename = explode('?pdf=references/', $ref_doc);
-        if (count($split_old_address_and_filename) > 1) {
-            $ref_doc_name = $split_old_address_and_filename[1];
-        } else {
-            $ref_doc_name = $ref_doc;
-        }
-
-        $ref_doc_metadata = array();
-        if (isset($ref_doc_name) && !empty($ref_doc_name)):
-          $attrs = array('filter_fields' => '{"extras_odm_reference_document":"'.$ref_doc_name.'"}');
-          $ref_doc_metadata = wpckan_api_package_search(wpckan_get_ckan_domain(), $attrs);
-        endif;
-        if (count($ref_doc_metadata['results']) > 0):
-           foreach ($ref_doc_metadata['results'] as $key => $metadata): ?>
-               <tr>
-                 <td class="row-key">
-                   <a target="_blank" href="<?php echo wpckan_get_link_to_dataset($metadata['name']); ?>"><?php echo getMultilingualValueOrFallback($metadata['title_translated'], odm_language_manager()->get_current_language(), $metadata['title']) ?></a></br>
-                   <div class="ref_date">
-                     <?php if ($metadata['type'] == 'laws_record' && !(empty($metadata['odm_promulgation_date']))): ?>
-                         <?php
-                         if (odm_language_manager()->get_current_language() == 'km') {
-                             echo convert_date_to_kh_date(date('d/m/Y', strtotime($metadata['odm_promulgation_date'])), '/');
-                         } else {
-                             echo '('.$metadata['odm_promulgation_date'].')';
-                         } ?>
-                     <?php elseif ($metadata['type'] == 'library_records' && !(empty($metadata['odm_publication_date']))):  ?>
-                        <?php
-                        if (odm_language_manager()->get_current_language() == 'km') {
+                            echo convert_date_to_kh_date(date('d/m/Y', strtotime($metadata['odm_promulgation_date'])), '/');
+                        } else {
+                            echo '('.$metadata['odm_promulgation_date'].')';
+                        } ?>
+                    <?php elseif ($metadata['type'] == 'library_records' && (isset($metadata['odm_publication_date']))):  ?>
+                        <?php if (odm_language_manager()->get_current_language() == 'km') {
                             echo convert_date_to_kh_date(date('d/m/Y', strtotime($metadata['odm_publication_date'])), '/');
                         } else {
                             echo '('.$metadata['odm_publication_date'].')';
                         } ?>
-                     <?php endif; ?>
-                   </div>
-                 </td>
-                 <td>
-                   <?php $notes = isset($metadata['notes_translated']) ? $metadata['notes_translated'] : $metadata['notes'];
+                    <?php endif; ?>
+                    </li>
+            <?php
+                endforeach;
+            endif;
+        endforeach;
+        ?>
+    </ul>
+    <?php
+
+    } else {
+        ?>
+        <table id="reference" class="data-table">
+            <tbody>
+            <?php
+                foreach ($ref_docs as $key => $ref_doc):
+                    $split_old_address_and_filename = explode('?pdf=references/', $ref_doc);
+                    if (count($split_old_address_and_filename) > 1) {
+                        $ref_doc_name = $split_old_address_and_filename[1];
+                    } else {
+                        $ref_doc_name = $ref_doc;
+                    }
+
+                    $ref_doc_metadata = array();
+                    if (isset($ref_doc_name) && !empty($ref_doc_name)):
+                        $attrs = array('filter_fields' => '{"extras_odm_reference_document":"'.$ref_doc_name.'"}');
+                        $ref_doc_metadata = wpckan_api_package_search(wpckan_get_ckan_domain(), $attrs);
+                    endif;
+                    if (count($ref_doc_metadata['results']) > 0):
+                        foreach ($ref_doc_metadata['results'] as $key => $metadata): ?>
+                        <tr>
+                            <td class="row-key">
+                                <a target="_blank" href="<?php echo wpckan_get_link_to_dataset($metadata['name']); ?>"><?php echo getMultilingualValueOrFallback($metadata['title_translated'], odm_language_manager()->get_current_language(), $metadata['title']) ?></a></br>
+                                    <div class="ref_date">
+                                        <?php if ($metadata['type'] == 'laws_record' && !(empty($metadata['odm_promulgation_date']))): ?>
+                                        <?php
+                                            if (odm_language_manager()->get_current_language() == 'km') {
+                                                echo convert_date_to_kh_date(date('d/m/Y', strtotime($metadata['odm_promulgation_date'])), '/');
+                                            } else {
+                                                echo '('.$metadata['odm_promulgation_date'].')';
+                                            } ?>
+                                        <?php elseif ($metadata['type'] == 'library_records' && !(empty($metadata['odm_publication_date']))):  ?>
+                                        <?php
+                                            if (odm_language_manager()->get_current_language() == 'km') {
+                                                echo convert_date_to_kh_date(date('d/m/Y', strtotime($metadata['odm_publication_date'])), '/');
+                                            } else {
+                                                echo '('.$metadata['odm_publication_date'].')';
+                                            } ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </td>
+                            <td>
+                            <?php $notes = isset($metadata['notes_translated']) ? $metadata['notes_translated'] : $metadata['notes'];
                     echo getMultilingualValueOrFallback($notes, odm_language_manager()->get_current_language(), $metadata['notes']);?></td>
                </tr>
            <?php
@@ -275,4 +269,8 @@ function echo_metadata_button($dataset){
   <?php
 }
 
+function datatable_js_script(){
+
+
+}
 ?>

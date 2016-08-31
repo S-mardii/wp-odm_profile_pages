@@ -1,3 +1,4 @@
+<?php require_once PLUGIN_DIR.'/utils/profile-spreadsheet-post-meta.php'; ?>
 <div class="container">
     <div class="sixteen columns">
       <header>
@@ -56,7 +57,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="eight columns">
+      <div class="sixteen columns">
         <?php if (count($ammendements) > 0): ?>
           <div class="profile-metadata">
             <h2><?php _e("Amendments", 'odm'); ?></h2>
@@ -126,3 +127,5 @@
         </div>
     </div>
   </div>
+
+<?php require_once PLUGIN_DIR.'/utils/profile-mapping-script.php'; ?>
