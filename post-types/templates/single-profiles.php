@@ -46,8 +46,6 @@ $template = get_post_meta($post->ID, '_attributes_template_layout', true);
       if(!empty($dataset)) { ?>
         <div class="six columns align-right">
           <?php echo_download_button_link_to_datapage($ckan_dataset_id) ?>
-          <?php //echo_metadata_button($dataset) ?>
-          <?php //echo_download_buttons($dataset); ?>
         </div>
       <?php
       }else { ?>

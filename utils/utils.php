@@ -269,15 +269,10 @@ function echo_metadata_button($dataset){
   <?php
 }
 
-https://cambodia.opendevelopmentmekong.net/km/dataset/?id=map_fish_consumption
 function echo_download_button_link_to_datapage($dataset_id){
   ?>
   <a target="_blank" class="button download format" href="<?php echo get_bloginfo("url"); ?>/dataset/?id=<?php echo $dataset_id;?>"><i class="fa fa-download"></i><?php _e('Donwload and  Metadata', 'odm')?></a>
   <?php
 }
 
-function datatable_js_script(){
-
-
-}
 ?>
