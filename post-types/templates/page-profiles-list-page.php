@@ -266,6 +266,7 @@ jQuery(document).ready(function($) {
       var get_filter_container_height = $('.filter-container').height();
       var get_position_profile_table =  $('.filter-container').offset().top;
       var table_fixed_position = get_od_selector_height +get_filter_container_height +40;
+ 
       $(window).scroll(function() {
     			if ($(document).scrollTop() >= get_position_profile_table) {
     				$('.dataTables_scrollHead').css('position','fixed').css('top', table_fixed_position+'px');
@@ -273,7 +274,6 @@ jQuery(document).ready(function($) {
     				$('.dataTables_scrollHead').width($('.dataTables_scrollBody').width());
      				$('.filter-container').css('position','fixed');
             $('.filter-container').addClass("fixed-filter-container");
-    				$('.fixed-filter-container').width($('.dataTables_scrollBody').width());
     				$('.dataTables_scrollBody').css('margin-top', 10+'em');
             $('.fixed_datatable_tool_bar').css('display','inline-block');
     		   }
@@ -339,22 +339,22 @@ jQuery(document).ready(function($) {
                          }
                      } );
                   <?php
-        } ?>
+                  } ?>
                  align_width_td_and_th();
              }
       });
 
        <?php if (isset($filtered_by_column_index) &&  $filtered_by_column_index != '') {
-      $num_filtered_column_index = explode(',', $filtered_by_column_index);
-      $number_selector = 1;
-      foreach ($num_filtered_column_index as $column_index) {
-          $column_index = trim($column_index);
-          if ($number_selector <= 3) { ?>
-            create_filter_by_column_index(<?php echo $column_index;?>);
-      <?php
-          }
-          ++$number_selector;
-      }
+        $num_filtered_column_index = explode(',', $filtered_by_column_index);
+        $number_selector = 1;
+        foreach ($num_filtered_column_index as $column_index) {
+            $column_index = trim($column_index);
+            if ($number_selector <= 3) { ?>
+              create_filter_by_column_index(<?php echo $column_index;?>);
+        <?php
+            }
+            ++$number_selector;
+        }
   }
       ?>
 
