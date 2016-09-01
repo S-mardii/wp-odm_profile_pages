@@ -55,7 +55,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
               'hierarchical'       => true,
               'menu_position'      => 5,
               'taxonomies'         => array('category', 'language'),//, 'post_tag'
-              'supports' => array('title', 'editor', 'page-attributes', 'revisions', 'author', 'thumbnail', 'custom-fields') 
+              'supports' => array('title', 'editor', 'page-attributes', 'revisions', 'author', 'thumbnail', 'custom-fields')
             );
 
             register_post_type('profiles', $args);
@@ -124,7 +124,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   			<label for="csv_en"><?php _e('ENGLISH', 'jeo');
           ?></label> &nbsp;
   			<input type="radio" id="csv_localization" class="localization" name="language_site" value="localization" />
-  			<label for="csv_localization"><?php _e(get_the_language_by_website_name(), 'odm');
+  			<label for="csv_localization"><?php _e(odm_language_manager()->get_current_language(), 'odm');
           ?></label>
   		</div>
   		<div id="resource_settings_box">
@@ -175,13 +175,13 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   				<?php $this->attributes_settings_box('English', $post);
           ?>
   			</div>
-  <?php if (get_the_language_by_website_name()) {
+  <?php if (odm_language_manager()->get_current_language()) {
     ?>
   		 <div class="resource_settings resource-localization">
   			 	<table class="form-table form-table-localization resource_settings_box">
   		 			<tbody>
               <tr>
-              <th><label for="_full_width_middle_content_localization"><?php _e('Full width content (('.get_the_language_by_website_name().')', 'odm');
+              <th><label for="_full_width_middle_content_localization"><?php _e('Full width content (('.odm_language_manager()->get_current_language().')', 'odm');
               ?></label></th>
               <td>
               <textarea name="_full_width_middle_content_localization" style="width:100%;height: 50px;" placeholder=""><?php echo $full_width_middle_content_localization; ?></textarea>
@@ -190,7 +190,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
               </td>
               </tr>
   						<tr>
-  						 <th><label for="_map_visualization_url_localization"><?php _e('CartoDB JSON URL ('.get_the_language_by_website_name().')', 'odm');
+  						 <th><label for="_map_visualization_url_localization"><?php _e('CartoDB JSON URL ('.odm_language_manager()->get_current_language().')', 'odm');
     ?></label></th>
   						 <td>
   							<input id="_map_visualization_url_localization" type="text" placeholder="https://" size="40" name="_map_visualization_url_localization" value="<?php echo $map_visualization_url_localization;
@@ -200,7 +200,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   						 </td>
   						</tr>
   		 			 <tr>
-  		 				<th><label for="_csv_resource_url_localization"><?php _e('CSV Resource URL ('.get_the_language_by_website_name().')', 'odm');
+  		 				<th><label for="_csv_resource_url_localization"><?php _e('CSV Resource URL ('.odm_language_manager()->get_current_language().')', 'odm');
     ?></label></th>
   		 				<td>
   		 				 <input id="_csv_resource_url_localization" type="text" placeholder="https://" size="40" name="_csv_resource_url_localization" value="<?php echo $csv_resource_url_localization;
@@ -210,7 +210,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   		 				</td>
   		 			 </tr>
   					 <tr>
-  		 				<th><label for="_tracking_csv_resource_url_localization"><?php _e('CSV Tracking URL ('.get_the_language_by_website_name().')', 'odm');
+  		 				<th><label for="_tracking_csv_resource_url_localization"><?php _e('CSV Tracking URL ('.odm_language_manager()->get_current_language().')', 'odm');
     ?></label></th>
   		 				<td>
   		 				 <input id="_tracking_csv_resource_url_localization" type="text" placeholder="https://" size="40" name="_tracking_csv_resource_url_localization" value="<?php echo $tracking_csv_resource_url_localization;
@@ -221,7 +221,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   		 			 </tr>
   					</tbody>
   		 		</table>
-  				<?php $this->attributes_settings_box(get_the_language_by_website_name(), $post);
+  				<?php $this->attributes_settings_box(odm_language_manager()->get_current_language(), $post);
     ?>
   		 </div>
    <?php
@@ -304,7 +304,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   	    <label for="en"><?php _e('ENGLISH', 'jeo');
             ?></label> &nbsp;
   	    <input type="radio" id="localization" class="localization" name="p_language_site" value="localization" />
-  	    <label for="localization"><?php _e(get_the_language_by_website_name(), 'odm');
+  	    <label for="localization"><?php _e(odm_language_manager()->get_current_language(), 'odm');
             ?></label>
   	  </div>
   	  <div id="profiles_page_settings_box">
@@ -355,13 +355,13 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   	        </tbody>
   	      </table>
   	    </div>
-  	<?php if (get_the_language_by_website_name()) {
+  	<?php if (odm_language_manager()->get_current_language()) {
     ?>
   	   <div class="resource_settings resource-localization">
   	      <table class="form-table form-table-localization profiles_page_settings_box">
   	        <tbody>
   	         <tr>
-  	          <th><label for="_total_number_by_attribute_name_localization"><?php _e('Show Total Numbers of Columns, separated by line breaks ('.get_the_language_by_website_name().')', 'odm');
+  	          <th><label for="_total_number_by_attribute_name_localization"><?php _e('Show Total Numbers of Columns, separated by line breaks ('.odm_language_manager()->get_current_language().')', 'odm');
     ?></label></th>
   	          <td>
   						<textarea name="_total_number_by_attribute_name_localization" style="width:100%;height: 80px;"placeholder="column_1"><?php echo $total_number_by_attribute_name_localization;
@@ -371,7 +371,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   	          </td>
   	         </tr>
   	         <tr>
-  	          <th><label for="_filtered_by_column_index_localization"><?php _e('Create Select Filter by Column Index ('.get_the_language_by_website_name().')', 'odm');
+  	          <th><label for="_filtered_by_column_index_localization"><?php _e('Create Select Filter by Column Index ('.odm_language_manager()->get_current_language().')', 'odm');
     ?></label></th>
   	          <td>
   	           <input id="_filtered_by_column_index_localization" type="text" placeholder="2, 5" size="40" name="_filtered_by_column_index_localization" value="<?php echo $filtered_by_column_index_localization;
@@ -381,7 +381,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   	          </td>
   	         </tr>
   	         <tr>
-  	          <th><label for="_group_data_by_column_index_localization"><?php _e('Group Data in Column ('.get_the_language_by_website_name().')', 'odm');
+  	          <th><label for="_group_data_by_column_index_localization"><?php _e('Group Data in Column ('.odm_language_manager()->get_current_language().')', 'odm');
     ?></label></th>
   	          <td>
   	            <input id="_group_data_by_column_index_localization" type="text" placeholder="5" size="40" name="_group_data_by_column_index_localization" value="<?php echo $group_data_by_column_index_localization;
@@ -391,7 +391,7 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
   	          </td>
   	         </tr>
   					 <tr>
-  					  <th><label for="_related_profile_pages_localization"><?php _e('Related Profile Pages ('.get_the_language_by_website_name().')', 'odm');
+  					  <th><label for="_related_profile_pages_localization"><?php _e('Related Profile Pages ('.odm_language_manager()->get_current_language().')', 'odm');
     ?></label></th>
   					  <td>
   							<textarea name="_related_profile_pages_localization" style="width:100%;height: 50px;"placeholder="Lable of Link|URL"><?php echo $related_profile_pages_localization;
