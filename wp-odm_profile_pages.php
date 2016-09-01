@@ -47,6 +47,7 @@ if (!class_exists('Odm_Profile_Pages_Plugin')) {
         public function register_styles()
         {
             wp_enqueue_style('style-profiles',  plugin_dir_url(__FILE__).'css/profile-pages.css');
+		        wp_enqueue_style('responsive-profiles',  plugin_dir_url(__FILE__).'css/responsive.css');
         }
 
         function check_requirements(){

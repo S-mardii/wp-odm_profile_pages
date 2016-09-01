@@ -1,0 +1,13 @@
+@media
+only screen and (max-width: 800px),
+(min-device-width: 320px) and (max-device-width: 800px)  {
+  .filter-container .panel{
+      padding: 0 0 10px 0 !important;
+  }
+  .filter-container .panel .four{
+      padding-left: 3%;
+  }
+  #profiles_wrapper, .dataTables_scrollHead, .dataTables_scrollBody {
+    width: 97vw !important;
+  }
+}
