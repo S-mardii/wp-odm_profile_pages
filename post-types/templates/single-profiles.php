@@ -68,11 +68,14 @@ $template = get_post_meta($post->ID, '_attributes_template_layout', true);
         else:
           if ($template == 'with-widget'):
             include 'page-profiles-page-with-widget.php';
+          elseif ($template == 'sub-profile-page'):
+            include 'page-profiles-with-right-sidebar.php';
           else:
             include 'page-profiles-list-page.php';
           endif;
 
-        endif; ?>
+        endif;
+        ?>
 	</section>
 <?php endif; ?>
 

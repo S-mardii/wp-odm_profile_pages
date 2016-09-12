@@ -16,7 +16,7 @@
         <!-- List total of dataset by map_id as default-->
 				<?php if (count($count_project) > 1) {
                 $show_total_value .= "<li><strong>";
-                if($lang == "kh" || $lang == "km"):
+                if(odm_language_manager()->get_current_language() == "km"):
                   $show_total_value .= __("Total", "opendev").get_the_title(). __("Listed", "opendev"). __(":", "opendev");
                   $show_total_value .= $count_project==""? convert_to_kh_number("0"):convert_to_kh_number(count($count_project));
                 else:
@@ -52,7 +52,7 @@
                   }else { //count number by field name/attribute name: eg. map_id/developer
                     if ($total_attributename !="map_id") {
                       $show_total_value .= "<li>";
-                      if($lang == "kh" || $lang == "km"):
+                      if(odm_language_manager()->get_current_language() == "km"):
                         $show_total_value .= __("Total", "opendev").$DATASET_ATTRIBUTE[$total_attributename].__("Listed", "opendev").__(":", "opendev");
                         $show_total_value .= '<strong>'.$total_attributename==""? convert_to_kh_number("0"):convert_to_kh_number(count($count_number_by_attr)).'</strong>';
                       else:
@@ -266,7 +266,7 @@ jQuery(document).ready(function($) {
       var get_filter_container_height = $('.filter-container').height();
       var get_position_profile_table =  $('.filter-container').offset().top;
       var table_fixed_position = get_od_selector_height +get_filter_container_height +40;
- 
+
       $(window).scroll(function() {
     			if ($(document).scrollTop() >= get_position_profile_table) {
     				$('.dataTables_scrollHead').css('position','fixed').css('top', table_fixed_position+'px');
