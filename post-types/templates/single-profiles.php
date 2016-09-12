@@ -69,7 +69,7 @@ $template = get_post_meta($post->ID, '_attributes_template_layout', true);
           if ($template == 'with-widget'):
             include 'page-profiles-page-with-widget.php';
           elseif ($template == 'sub-profile-page'):
-            include 'page-profiles-subpage-with-widget.php';
+            include 'page-profiles-with-right-sidebar.php';
           else:
             include 'page-profiles-list-page.php';
           endif;
