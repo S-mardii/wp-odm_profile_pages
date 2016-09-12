@@ -8,17 +8,27 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
           add_action('init', array($this, 'register_post_type'));
           add_action('add_meta_boxes', array($this, 'add_meta_box'));
           add_action('save_post', array($this, 'save_post_data'));
-          add_filter('single_template', array($this, 'get_profile_pages_template'));
+          add_filter( 'template_include', array($this, 'get_custom_page_template'));
+          //add_filter('single_template', array($this, 'get_profile_pages_template'));
+        }
+        public function get_custom_page_template($template){
+              $template_slug = basename($template);
+            if ( is_archive() && $template_slug == "archive-profiles.php") {
+                return $template;
+            }else if(is_single() && $template_slug =="single.php") {
+                $single_template = $this->get_profile_pages_template($template);
+                return $single_template;
+            }else if (!is_archive()) {
+                return $template;
+            }
         }
 
         public function get_profile_pages_template($single_template)
         {
-            global $post;
-
-            if ($post->post_type == 'profiles') {
+          global $post;
+          if ($post->post_type == 'profiles') {
                 $single_template = plugin_dir_path(__FILE__).'templates/single-profiles.php';
-            }
-
+          }
             return $single_template;
         }
 
