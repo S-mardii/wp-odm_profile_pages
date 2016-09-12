@@ -9,7 +9,6 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
           add_action('add_meta_boxes', array($this, 'add_meta_box'));
           add_action('save_post', array($this, 'save_post_data'));
           add_filter( 'template_include', array($this, 'get_custom_page_template'));
-          //add_filter('single_template', array($this, 'get_profile_pages_template'));
         }
         public function get_custom_page_template($template){
               $template_slug = basename($template);
