@@ -20,6 +20,10 @@ if (!class_exists('Odm_Profile_Pages_Post_Type')) {
                 return $single_template;
             }else if (!is_archive()) {
                 return $template;
+            }else {
+              if (!is_post_type_archive("profiles")):
+                return $template;
+              endif;
             }
         }
 
