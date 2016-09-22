@@ -17,7 +17,7 @@ table.data-table {
   margin: 0px;
 }
 
-table.dataTable thead th.th-value {
+table.dataTable thead th .th-value {
   min-width: 100px;
 }
 
