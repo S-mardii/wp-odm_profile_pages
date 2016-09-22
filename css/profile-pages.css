@@ -17,6 +17,10 @@ table.data-table {
   margin: 0px;
 }
 
+table.data-table.th-value {
+  min-width: 100px;
+}
+
 .dataTables_info,
 .dataTables_length > label,
 .paginate_button,
@@ -180,7 +184,7 @@ table.dataTable thead .sorting_desc_disabled {
   margin-top: 3px;
 }
 
-#profiles { 
+#profiles {
   float: left;
 }
 
