@@ -70,42 +70,44 @@
                     <?php endforeach; */ ?>
                   </tr>
                 </thead>-->
+
                 <?php
+                //Sort by amendment_date
+          			foreach ($ammendements as $key => $sort_by) {
+          				$tmp_arr[$key] = $sort_by['amendment_date'];
+          			}
+          			array_multisort($tmp_arr, SORT_ASC, $ammendements);
+
                 $concession_or_developer = '';
                 foreach ($ammendements as $key => $ammendement):
-                  if (!empty($ammendement["reference"])){
+                  if (!empty($ammendement["reference"])) {
                     $ammendement_references = $ref_docs_tracking = explode(";", $ammendement["reference"]);
                     $ref_docs_tracking = array_merge($ref_docs_tracking,$ammendement_references);
                   }
-                  ?>
-                  <tr>
-                    <?php foreach ($DATASET_ATTRIBUTE_TRACKING as $key => $value): ?>
-                      <?php if (isset($ammendement[$key]) && $key == 'concession_or_developer'):
+                  $first_attr_key = array_shift(array_keys($DATASET_ATTRIBUTE_TRACKING));
+                  $ammendement_title[] = $ammendement[$first_attr_key];
+                  $concession_or_developer = $ammendement[$first_attr_key];
+                  $ammendement_infomation = "";
 
-                              if ($ammendement[$key] == $concession_or_developer):
-                                  echo "<td></td>";
-                              else:
-                                  echo "<td><strong>".__($ammendement[$key], 'odm')."</strong></td>";
-                                  $concession_or_developer = $ammendement[$key];
-                              endif;
-                            else: ?>
-                              <td>
-                                <?php
-                                if (isset($ammendement[$key]) && $key == 'amendment_date'){
-                                    if(odm_language_manager()->get_current_language() == "km")
-                                      echo convert_date_to_kh_date(date("d/m/Y", strtotime($ammendement[$key])), "/");
-                                    else echo $ammendement[$key];
-                                }else {
-                                  if (isset($ammendement[$key])){
-                                      echo $ammendement[$key];
-                                    }
-                                }
-                                ?>
-                              </td>
-                          <?php endif; ?>
-                    <?php endforeach; ?>
-                  </tr>
-                <?php endforeach; ?>
+                  foreach ($DATASET_ATTRIBUTE_TRACKING as $key => $value) {
+                    if (isset($ammendement[$key])):
+                      if($key != $first_attr_key):
+                        $ammendement_infomation .= "<td>".$ammendement[$key]."</td>";
+                      endif;
+                    endif;
+                  }
+                  $ammendement_info[$concession_or_developer][] = '<tr>'.$ammendement_infomation.'</tr>';
+                endforeach;
+
+                if (!empty($ammendement_title)):
+                  foreach (array_unique($ammendement_title) as $group_value) {
+                    echo "<tr><td colspan='".count($DATASET_ATTRIBUTE_TRACKING)."'><strong>".__($group_value, 'odm')."</strong></td></tr>";
+                    foreach ($ammendement_info[$group_value] as $info_value) {
+                      echo $info_value;
+                    }
+                  }
+                endif;
+                ?>
               </tbody>
             </table>
           </div>
