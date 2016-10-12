@@ -78,6 +78,9 @@
           			}
           			array_multisort($tmp_arr, SORT_ASC, $ammendements);
 
+
+
+
                 $concession_or_developer = '';
                 foreach ($ammendements as $key => $ammendement):
                   if (!empty($ammendement["reference"])) {
@@ -87,16 +90,21 @@
                   $first_attr_key = array_shift(array_keys($DATASET_ATTRIBUTE_TRACKING));
                   $ammendement_title[] = $ammendement[$first_attr_key];
                   $concession_or_developer = $ammendement[$first_attr_key];
-                  $ammendement_infomation = "";
+                  $ammendement_information = "";
 
                   foreach ($DATASET_ATTRIBUTE_TRACKING as $key => $value) {
-                    if (isset($ammendement[$key])):
-                      if($key != $first_attr_key):
-                        $ammendement_infomation .= "<td>".$ammendement[$key]."</td>";
+                    if (isset($ammendement[$key])) {
+
+
+                      if ($key != $first_attr_key):
+                        if ($key == 'amendment_date' && odm_language_manager()->get_current_language() == 'km') {
+                          $ammendement[$key] = convert_date_to_kh_date(date('d/m/Y', strtotime($ammendement[$key])), '/');
+                        }
+                        $ammendement_information .= "<td>".$ammendement[$key]."</td>";
                       endif;
-                    endif;
+                    }
                   }
-                  $ammendement_info[$concession_or_developer][] = '<tr>'.$ammendement_infomation.'</tr>';
+                  $ammendement_info[$concession_or_developer][] = '<tr>'.$ammendement_information.'</tr>';
                 endforeach;
 
                 if (!empty($ammendement_title)):
